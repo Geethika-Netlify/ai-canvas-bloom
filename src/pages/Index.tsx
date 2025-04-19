@@ -8,6 +8,7 @@ import { EducationSection } from "@/components/EducationSection";
 import { ContactSection } from "@/components/ContactSection";
 import { ProfessionalExperienceSection } from "@/components/ProfessionalExperienceSection";
 import { ParticleBackground } from "@/components/ParticleBackground";
+import { Footer } from "@/components/Footer";
 
 const Index = () => {
   return (
@@ -20,9 +21,10 @@ const Index = () => {
         <ExpertiseSection />
         <CertificatesSection />
         <EducationSection />
-        <ContactSection />
         <ProfessionalExperienceSection />
+        <ContactSection />
       </main>
+      <Footer />
     </div>
   );
 };
