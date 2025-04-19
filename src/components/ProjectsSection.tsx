@@ -7,25 +7,36 @@ const projects = [
     title: "Mahasen AI",
     description: "Intelligent Customer Support & Order Management System for Social Media Platforms. B2B Product. Fully Integrated into whatsapp. Facebook, instagram on the way.",
     link: "https://mahasen47.azynctra.com",
-    technologies: "TypeScript, Supabase, Vite, React"
+    technologies: "TypeScript, Supabase, Vite, React",
+    image: "/lovable-uploads/73dc8931-7f0c-4216-a3bb-3c6eba7ad90f.png"
   },
   {
     title: "GYMA App",
     description: "A gym workout tracker app that let's users save upto 40% of their gym time by managing rest intervals between exercises.",
     link: "https://gyma.azynctra.com",
-    technologies: "TypeScript, Supabase, Vite, React"
+    technologies: "TypeScript, Supabase, Vite, React",
+    image: "/lovable-uploads/d0a2114b-b6fd-44aa-b6f5-f40edc649ca5.png"
   },
   {
-    title: "Max-Lab AI",
-    description: "Created a system for Advanced Enterprise Knowledge Management with capabilities including ingestion, understanding, and information retrieval.",
-    link: "#",
-    technologies: "Python, Fast API, OpenAI, Huggingface, Supabase, Pinecone, Airbyte, Nextjs"
+    title: "Cognita AI",
+    description: "Generates model exam papers based on past papers",
+    link: "https://github.com/geethikaisuru/cognita-ai",
+    technologies: "Python, TypeScript, Jupyter, ollama",
+    image: "/photo-1461749280684-dccba630e2f6.jpg"
   },
   {
-    title: "Domain Checker Pro",
-    description: "Tool to check availability of thousands of .com domains simultaneously",
-    link: "https://github.com/geethikaisuru/Domain-Checker",
-    technologies: "Python, Streamlit, whois, threading"
+    title: "LSTM Styled Poem Generator",
+    description: "LSTM model trained to generate poems in a specific style",
+    link: "https://colab.research.google.com/drive/1siK2orsRrgVhRkPNGk0Di-UvZBGQaizv",
+    technologies: "Python, TensorFlow, Keras, Numpy",
+    image: "/photo-1470813740244-df37b8c1edcb.jpg"
+  },
+  {
+    title: "Brain Tumor Detection Model (CNN)",
+    description: "Identifies brain tumors using MRI scan images. Classifies into 4 classes (3 tumor stages + 1 negative). Fully hand-built algorithm.",
+    link: "https://colab.research.google.com/drive/1j59xSq8r9duRLLMH6hgnrjiLBEvSM6TT",
+    technologies: "Python, TensorFlow, Matplotlib, Numpy, sklearn",
+    image: "/photo-1518770660439-4636190af475.jpg"
   }
 ];
 
@@ -61,6 +72,13 @@ export function ProjectsSection() {
               >
                 <a href={project.link} target="_blank" rel="noopener noreferrer">
                   <div className="h-full relative overflow-hidden rounded-2xl transition duration-200 group bg-white dark:bg-gray-800 hover:shadow-xl border border-zinc-100 dark:border-zinc-800">
+                    <div className="relative w-full h-48 overflow-hidden">
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
+                      />
+                    </div>
                     <div className="p-6">
                       <h3 className="font-bold text-xl mb-2 text-zinc-700 dark:text-zinc-200">
                         {project.title}
