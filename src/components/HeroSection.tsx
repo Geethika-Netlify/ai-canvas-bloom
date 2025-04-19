@@ -2,8 +2,6 @@ import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { ArrowDown, Code, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { TextRotate } from "@/components/ui/text-rotate";
-
 export function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -50,6 +48,7 @@ export function HeroSection() {
       </div>
       
       <div className="container mx-auto px-6 py-12 flex flex-col lg:flex-row items-center justify-between gap-12 mt-10">
+        {/* Text content */}
         <motion.div className="lg:w-1/2 text-center lg:text-left z-10" initial={{
         opacity: 0,
         y: 20
@@ -59,32 +58,31 @@ export function HeroSection() {
       }} transition={{
         duration: 0.8
       }}>
-          <motion.h1 
-            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" 
-            initial={{ opacity: 0, y: 20 }} 
-            animate={{ opacity: 1, y: 0 }} 
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            Hey, I'm{" "}
-            <TextRotate
-              texts={[
-                "Geethika Isuru",
-                "an AI Engineer",
-                "a Developer",
-                "a Leader",
-                "a Problem Solver"
-              ]}
-              mainClassName="gradient-text"
-              staggerFrom="first"
-              initial={{ y: "100%" }}
-              animate={{ y: 0 }}
-              exit={{ y: "-120%" }}
-              staggerDuration={0.025}
-              splitLevelClassName="overflow-hidden"
-              transition={{ type: "spring", damping: 30, stiffness: 400 }}
-              rotationInterval={3000}
-            />
+          <motion.h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" initial={{
+          opacity: 0,
+          y: 20
+        }} animate={{
+          opacity: 1,
+          y: 0
+        }} transition={{
+          duration: 0.8,
+          delay: 0.2
+        }}>
+            Hey, I'm <span className="gradient-text">Geethika Isuru</span>
           </motion.h1>
+          
+          <motion.h2 className="text-xl md:text-2xl font-medium text-foreground/80 mb-6" initial={{
+          opacity: 0,
+          y: 20
+        }} animate={{
+          opacity: 1,
+          y: 0
+        }} transition={{
+          duration: 0.8,
+          delay: 0.4
+        }}>
+            Full on AI Guy
+          </motion.h2>
           
           <motion.div className="text-lg text-foreground/70 max-w-lg mx-auto lg:mx-0 space-y-4" initial={{
           opacity: 0,
@@ -121,6 +119,7 @@ export function HeroSection() {
           </motion.div>
         </motion.div>
         
+        {/* Image content with creative treatment */}
         <motion.div className="lg:w-1/2 relative" initial={{
         opacity: 0,
         scale: 0.9
@@ -132,8 +131,10 @@ export function HeroSection() {
         delay: 0.4
       }}>
           <div className="relative w-full max-w-md mx-auto">
+            {/* Decorative circle backdrop */}
             <div className="absolute inset-0 -z-10 bg-gradient-radial from-portfolio-blue/20 to-transparent rounded-full transform scale-150"></div>
             
+            {/* Floating code snippets */}
             <div className="absolute -left-12 top-10 glass-card p-3 text-xs font-mono parallax-item animate-float" data-speed-x="8" data-speed-y="-5">
               <pre className="text-portfolio-blue dark:text-portfolio-blue">
                 def ai_solve(problem):
@@ -149,6 +150,7 @@ export function HeroSection() {
               </pre>
             </div>
             
+            {/* Main image container without border */}
             <div className="relative aspect-square overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-b from-portfolio-blue/10 to-transparent mix-blend-overlay"></div>
               
@@ -164,6 +166,7 @@ export function HeroSection() {
         </motion.div>
       </div>
       
+      {/* Scroll indicator */}
       <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center animate-bounce">
         <span className="text-sm mb-2 text-foreground/70">Scroll Down</span>
         <ArrowDown className="w-5 h-5 text-portfolio-blue" />
