@@ -1,3 +1,4 @@
+
 import { FollowerPointerCard } from "@/components/ui/following-pointer";
 import { motion } from "framer-motion";
 
@@ -101,7 +102,7 @@ export function ProjectsSection() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
               <FollowerPointerCard
-                title={index === projects.length - 1 ? "Group Project" : "Solo Project"}
+                title={project.title === "Intelligent Knowledge Management System Max-Lab AI" ? "Group Project" : "Solo Project"}
                 className="h-full"
               >
                 <a href={project.link} target="_blank" rel="noopener noreferrer">
@@ -122,7 +123,7 @@ export function ProjectsSection() {
                       </p>
                       <div className="mb-4">
                         <span className="text-sm font-medium text-zinc-600 dark:text-zinc-300">
-                          Technologies: {project.technologies}
+                          {project.technologies}
                         </span>
                       </div>
                       <div className="flex justify-end">
