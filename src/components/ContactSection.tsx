@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/components/ui/sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { ShineBorder } from "@/components/ui/shine-border";
 import {
   Form,
   FormControl,
@@ -111,11 +112,17 @@ export function ContactSection() {
                   <FormItem>
                     <FormLabel>Message</FormLabel>
                     <FormControl>
-                      <Textarea
-                        placeholder="Your message"
-                        className="min-h-[150px] resize-none"
-                        {...field}
-                      />
+                      <ShineBorder
+                        className="w-full !min-w-0 !min-h-0 !p-0 bg-transparent"
+                        color={["#9b87f5", "#D946EF", "#F97316"]}
+                        duration={8}
+                      >
+                        <Textarea
+                          placeholder="Your message"
+                          className="min-h-[150px] resize-none border-none focus-visible:ring-0 rounded-[7px]"
+                          {...field}
+                        />
+                      </ShineBorder>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
