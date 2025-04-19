@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -109,10 +110,6 @@ export default {
 					'0%, 100%': { opacity: '1' },
 					'50%': { opacity: '0.7' },
 				},
-				shine: {
-					"0%": { backgroundPosition: "200% 50%" },
-					"100%": { backgroundPosition: "0% 50%" },
-				},
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
@@ -122,14 +119,10 @@ export default {
 				'fade-in': 'fade-in 0.6s ease-out forwards',
 				'rotate-slow': 'rotate-slow 15s linear infinite',
 				'pulse-slow': 'pulse-slow 4s ease-in-out infinite',
-				shine: "shine 8s linear infinite",
 			},
 			backgroundImage: {
 				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-			},
-			backgroundSize: {
-				"shine-size": "200% 100%",
-			},
+			}
 		}
 	},
 	plugins: [require("tailwindcss-animate")],
