@@ -10,10 +10,7 @@ import {
 } from "react"
 import {
   AnimatePresence,
-  AnimatePresenceProps,
   motion,
-  MotionProps,
-  Transition,
 } from "framer-motion"
 
 import { cn } from "@/lib/utils"
@@ -21,16 +18,16 @@ import { cn } from "@/lib/utils"
 interface TextRotateProps {
   texts: string[]
   rotationInterval?: number
-  initial?: MotionProps["initial"]
-  animate?: MotionProps["animate"]
-  exit?: MotionProps["exit"]
-  animatePresenceMode?: AnimatePresenceProps["mode"]
+  initial?: any
+  animate?: any
+  exit?: any
+  animatePresenceMode?: "sync" | "wait" | "popLayout"
   animatePresenceInitial?: boolean
   staggerDuration?: number
   staggerFrom?: "first" | "last" | "center" | number | "random"
-  transition?: Transition
-  loop?: boolean // Whether to start from the first text when the last one is reached
-  auto?: boolean // Whether to start the animation automatically
+  transition?: any
+  loop?: boolean
+  auto?: boolean
   splitBy?: "words" | "characters" | "lines" | string
   onNext?: (index: number) => void
   mainClassName?: string
@@ -50,23 +47,6 @@ interface WordObject {
   needsSpace: boolean
 }
 
-// Add this declaration to fix the TypeScript error
-declare global {
-  interface Intl {
-    Segmenter?: {
-      new (locale: string, options?: { granularity?: string }): {
-        segment: (text: string) => {
-          [Symbol.iterator](): Iterator<{
-            segment: string;
-            index: number;
-            input: string;
-          }>;
-        };
-      };
-    };
-  }
-}
-
 const TextRotate = forwardRef<TextRotateRef, TextRotateProps>(
   (
     {
@@ -77,8 +57,8 @@ const TextRotate = forwardRef<TextRotateRef, TextRotateProps>(
       exit = { y: "-120%", opacity: 0 },
       animatePresenceMode = "wait",
       animatePresenceInitial = false,
-      rotationInterval = 500, // Reduced from 1000 to 500
-      staggerDuration = 0.008, // Reduced from 0.0125 to 0.008
+      rotationInterval = 2000,
+      staggerDuration = 0,
       staggerFrom = "first",
       loop = true,
       auto = true,
@@ -93,18 +73,7 @@ const TextRotate = forwardRef<TextRotateRef, TextRotateProps>(
   ) => {
     const [currentTextIndex, setCurrentTextIndex] = useState(0)
 
-    // Modified function to safely handle Segmenter API
     const splitIntoCharacters = (text: string): string[] => {
-      if (typeof Intl !== "undefined" && Intl.Segmenter) {
-        try {
-          const segmenter = new Intl.Segmenter("en", { granularity: "grapheme" })
-          return Array.from(segmenter.segment(text), ({ segment }) => segment)
-        } catch (e) {
-          // Fallback if Segmenter throws an error
-          return Array.from(text)
-        }
-      }
-      // Fallback for browsers that don't support Intl.Segmenter
       return Array.from(text)
     }
 
@@ -137,12 +106,11 @@ const TextRotate = forwardRef<TextRotateRef, TextRotateProps>(
           const randomIndex = Math.floor(Math.random() * total)
           return Math.abs(randomIndex - index) * staggerDuration
         }
-        return Math.abs(staggerFrom - index) * staggerDuration
+        return Math.abs(Number(staggerFrom) - index) * staggerDuration
       },
       [staggerFrom, staggerDuration]
     )
 
-    // Helper function to handle index changes and trigger callback
     const handleIndexChange = useCallback((newIndex: number) => {
       setCurrentTextIndex(newIndex)
       onNext?.(newIndex)
@@ -181,14 +149,12 @@ const TextRotate = forwardRef<TextRotateRef, TextRotateProps>(
       }
     }, [currentTextIndex, handleIndexChange])
 
-    // Expose all navigation functions via ref
     useImperativeHandle(ref, () => ({
       next,
       previous,
       jumpTo,
       reset,
     }), [next, previous, jumpTo, reset])
-
 
     useEffect(() => {
       if (!auto) return
