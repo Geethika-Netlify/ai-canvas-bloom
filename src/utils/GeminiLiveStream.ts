@@ -1,4 +1,4 @@
-import { GoogleGenerativeAI } from "@google/genai";
+import { genai } from "@google/genai";
 
 // Audio configuration constants
 const FORMAT = 'audio/pcm';
@@ -29,7 +29,7 @@ interface StreamOptions {
 }
 
 export class GeminiLiveStream {
-  private genAI: GoogleGenerativeAI | null = null;
+  private genAIClient: any = null;
   private audioContext: AudioContext | null = null;
   private mediaStream: MediaStream | null = null;
   private audioProcessor: ScriptProcessorNode | null = null;
@@ -54,7 +54,11 @@ export class GeminiLiveStream {
 
   async initialize(apiKey: string): Promise<boolean> {
     try {
-      this.genAI = new GoogleGenerativeAI(apiKey);
+      const genaiInstance = new genai.GenerativeModel({
+        apiKey: apiKey,
+        model: MODEL
+      });
+      this.genAIClient = genaiInstance;
       return true;
     } catch (error) {
       console.error("Failed to initialize Gemini API:", error);
@@ -63,7 +67,7 @@ export class GeminiLiveStream {
   }
 
   isInitialized(): boolean {
-    return !!this.genAI;
+    return !!this.genAIClient;
   }
 
   async startMicrophone(): Promise<boolean> {
@@ -101,7 +105,54 @@ export class GeminiLiveStream {
     }
   }
 
-  private processAudioChunk(audioData: Float32Array) {
+  async startStream(options: StreamOptions = {}): Promise<boolean> {
+    if (!this.genAIClient) {
+      console.error("Gemini API not initialized");
+      return false;
+    }
+
+    try {
+      // This is a placeholder for the actual Gemini API call to start a live session
+      // We'll need to update this with the correct API once available in the JS SDK
+      this.session = await this.genAIClient.initializeChatSession({
+        generationConfig: {
+          responseStreamingEnabled: true,
+          maxOutputTokens: 8192,
+        }
+      });
+
+      // Process any queued audio data
+      while (this.audioQueue.length > 0) {
+        const chunk = this.audioQueue.shift();
+        if (chunk) {
+          await this.sendAudioChunkToGemini(chunk);
+        }
+      }
+
+      // Set up event listeners for receiving audio and text from Gemini
+      if (this.session) {
+        this.session.onAudio = (audioData: Uint8Array) => {
+          if (options.onAudioReceived) {
+            options.onAudioReceived(audioData);
+          }
+        };
+
+        this.session.onText = (text: string) => {
+          if (options.onTextReceived) {
+            options.onTextReceived(text);
+          }
+        };
+      }
+
+      this.isStreaming = true;
+      return true;
+    } catch (error) {
+      console.error("Failed to start Gemini stream:", error);
+      return false;
+    }
+  }
+
+  private async processAudioChunk(audioData: Float32Array) {
     if (!this.isStreaming) return;
 
     // Convert Float32Array to Int16Array for PCM
@@ -135,50 +186,6 @@ export class GeminiLiveStream {
       console.error("Error sending audio to Gemini:", error);
     } finally {
       this.isProcessingAudio = false;
-    }
-  }
-
-  async startStream(options: StreamOptions = {}): Promise<boolean> {
-    if (!this.genAI) {
-      console.error("Gemini API not initialized");
-      return false;
-    }
-
-    try {
-      // This is a placeholder for the actual Gemini API call to start a live session
-      // We'll need to update this with the correct API once available in the JS SDK
-      this.session = await this.genAI.initializeSession({
-        model: MODEL,
-        responseModalities: ["audio"],
-        // Other configuration options as needed
-      });
-
-      // Process any queued audio data
-      while (this.audioQueue.length > 0) {
-        const chunk = this.audioQueue.shift();
-        if (chunk) {
-          await this.sendAudioChunkToGemini(chunk);
-        }
-      }
-
-      // Set up event listeners for receiving audio and text from Gemini
-      this.session.on('audio', (audioData: Uint8Array) => {
-        if (options.onAudioReceived) {
-          options.onAudioReceived(audioData);
-        }
-      });
-
-      this.session.on('text', (text: string) => {
-        if (options.onTextReceived) {
-          options.onTextReceived(text);
-        }
-      });
-
-      this.isStreaming = true;
-      return true;
-    } catch (error) {
-      console.error("Failed to start Gemini stream:", error);
-      return false;
     }
   }
 
