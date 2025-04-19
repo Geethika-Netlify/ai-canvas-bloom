@@ -84,7 +84,7 @@ export function Navbar() {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4",
         isScrolled 
-          ? "bg-background/80 backdrop-blur-md shadow-md" 
+          ? "bg-background shadow-md" 
           : "bg-transparent"
       )}
     >
@@ -102,3 +102,4 @@ export function Navbar() {
     </header>
   );
 }
+
