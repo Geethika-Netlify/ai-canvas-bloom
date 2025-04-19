@@ -21,7 +21,6 @@ import { ChatMessageList } from "@/components/ui/chat-message-list";
 export const GlossyChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
   const [messages, setMessages] = useState([
     {
       id: 1,
@@ -34,31 +33,9 @@ export const GlossyChatWidget = () => {
   const [isLoading, setIsLoading] = useState(false);
   
   const containerRef = useRef<HTMLDivElement>(null);
-  const chatRef = useRef<HTMLDivElement>(null);
-  const glossyCircleRef = useRef<HTMLDivElement>(null);
-  
-  // Calculate initial position
-  useEffect(() => {
-    if (containerRef.current) {
-      const rect = containerRef.current.getBoundingClientRect();
-      setPosition({
-        x: rect.left,
-        y: rect.top
-      });
-    }
-  }, []);
+  const glossyContainerRef = useRef<HTMLDivElement>(null);
   
   const toggleChat = () => {
-    if (!isOpen) {
-      // Save current position before opening
-      if (containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect();
-        setPosition({
-          x: rect.left,
-          y: rect.top
-        });
-      }
-    }
     setIsOpen(!isOpen);
   };
   
@@ -91,7 +68,7 @@ export const GlossyChatWidget = () => {
   };
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    if (!glossyContainerRef.current) return;
 
     // Setup scene
     const scene = new THREE.Scene();
@@ -106,9 +83,12 @@ export const GlossyChatWidget = () => {
       alpha: true,
       preserveDrawingBuffer: true 
     });
-    renderer.setSize(120, 120);
+    
+    // Set size based on whether the chat is open or not
+    const size = isOpen ? 50 : 120;
+    renderer.setSize(size, size);
     renderer.setPixelRatio(window.devicePixelRatio);
-    containerRef.current.appendChild(renderer.domElement);
+    glossyContainerRef.current.appendChild(renderer.domElement);
     
     // Create circle geometry
     const geometry = new THREE.CircleGeometry(1, 64);
@@ -117,7 +97,7 @@ export const GlossyChatWidget = () => {
     const material = new THREE.ShaderMaterial({
       uniforms: {
         iTime: { value: 0 },
-        iResolution: { value: new THREE.Vector2(120, 120) }
+        iResolution: { value: new THREE.Vector2(size, size) }
       },
       vertexShader: `
         varying vec2 vUv;
@@ -174,170 +154,160 @@ export const GlossyChatWidget = () => {
     
     // Handle window resize
     const handleResize = () => {
-      const { current } = containerRef;
+      const { current } = glossyContainerRef;
       if (!current) return;
-      renderer.setSize(120, 120);
-      material.uniforms.iResolution.value = new THREE.Vector2(120, 120);
+      
+      const newSize = isOpen ? 50 : 120;
+      renderer.setSize(newSize, newSize);
+      material.uniforms.iResolution.value = new THREE.Vector2(newSize, newSize);
     };
     
     window.addEventListener('resize', handleResize);
     
     // Clean up
     return () => {
-      if (containerRef.current && containerRef.current.contains(renderer.domElement)) {
-        containerRef.current.removeChild(renderer.domElement);
+      if (glossyContainerRef.current && glossyContainerRef.current.contains(renderer.domElement)) {
+        glossyContainerRef.current.removeChild(renderer.domElement);
       }
       window.removeEventListener('resize', handleResize);
       geometry.dispose();
       material.dispose();
     };
-  }, []);
+  }, [isOpen]); // Added isOpen as a dependency to recreate the circle when the chat state changes
 
-  if (isOpen) {
-    return (
-      <>
-        <AnimatePresence>
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed bottom-8 right-8 z-[9999]"
+  return (
+    <div className="fixed bottom-8 right-8 z-[9999]">
+      {isOpen ? (
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          <ExpandableChat
+            size="lg"
+            position="bottom-right"
+            className="glossy-chat-window"
           >
-            <ExpandableChat
-              size="lg"
-              position="bottom-right"
-              className="glossy-chat-window"
-            >
-              <ExpandableChatHeader className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <motion.div
-                    initial={{ scale: 0.6, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    className="w-10 h-10 overflow-hidden rounded-full"
-                    ref={glossyCircleRef}
-                  >
-                    <div 
-                      ref={containerRef} 
-                      className="w-full h-full rounded-full overflow-hidden"
-                    />
-                  </motion.div>
-                  <div>
-                    <h3 className="font-montserrat font-bold text-lg">GAIA</h3>
-                    <p className="text-xs text-muted-foreground">AI Assistant</p>
-                  </div>
-                </div>
-                <Button 
-                  variant="ghost" 
-                  size="icon" 
-                  onClick={toggleChat}
-                  className="rounded-full hover:bg-muted"
+            <ExpandableChatHeader className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <motion.div
+                  initial={{ scale: 0.6, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  className="w-10 h-10 overflow-hidden rounded-full"
                 >
-                  <motion.div
-                    initial={{ rotate: 0 }}
-                    animate={{ rotate: 180 }}
-                    exit={{ rotate: 0 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    ×
-                  </motion.div>
-                </Button>
-              </ExpandableChatHeader>
+                  <div 
+                    ref={glossyContainerRef} 
+                    className="w-full h-full rounded-full overflow-hidden"
+                  />
+                </motion.div>
+                <div>
+                  <h3 className="font-montserrat font-bold text-lg">GAIA</h3>
+                  <p className="text-xs text-muted-foreground">AI Assistant</p>
+                </div>
+              </div>
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                onClick={toggleChat}
+                className="rounded-full hover:bg-muted"
+              >
+                <motion.div
+                  initial={{ rotate: 0 }}
+                  animate={{ rotate: 180 }}
+                  exit={{ rotate: 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  ×
+                </motion.div>
+              </Button>
+            </ExpandableChatHeader>
 
-              <ExpandableChatBody className="backdrop-blur-sm bg-background/80">
-                <ChatMessageList>
-                  {messages.map((message) => (
-                    <ChatBubble
-                      key={message.id}
+            <ExpandableChatBody className="backdrop-blur-sm bg-background/80">
+              <ChatMessageList>
+                {messages.map((message) => (
+                  <ChatBubble
+                    key={message.id}
+                    variant={message.sender === "user" ? "sent" : "received"}
+                  >
+                    <ChatBubbleAvatar
+                      fallback={message.sender === "user" ? "You" : "AI"}
+                    />
+                    <ChatBubbleMessage
                       variant={message.sender === "user" ? "sent" : "received"}
                     >
-                      <ChatBubbleAvatar
-                        fallback={message.sender === "user" ? "You" : "AI"}
-                      />
-                      <ChatBubbleMessage
-                        variant={message.sender === "user" ? "sent" : "received"}
-                      >
-                        {message.content}
-                      </ChatBubbleMessage>
-                    </ChatBubble>
-                  ))}
+                      {message.content}
+                    </ChatBubbleMessage>
+                  </ChatBubble>
+                ))}
 
-                  {isLoading && (
-                    <ChatBubble variant="received">
-                      <ChatBubbleAvatar fallback="AI" />
-                      <ChatBubbleMessage isLoading />
-                    </ChatBubble>
-                  )}
-                </ChatMessageList>
-              </ExpandableChatBody>
+                {isLoading && (
+                  <ChatBubble variant="received">
+                    <ChatBubbleAvatar fallback="AI" />
+                    <ChatBubbleMessage isLoading />
+                  </ChatBubble>
+                )}
+              </ChatMessageList>
+            </ExpandableChatBody>
 
-              <ExpandableChatFooter>
-                <form
-                  onSubmit={handleSubmit}
-                  className="relative rounded-lg border bg-background/80 backdrop-blur-sm focus-within:ring-1 focus-within:ring-ring p-1"
-                >
-                  <ChatInput
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    placeholder="Ask GAIA anything..."
-                    className="min-h-12 resize-none rounded-lg bg-background/0 border-0 p-3 shadow-none focus-visible:ring-0 font-montserrat"
-                  />
-                  <div className="flex items-center p-3 pt-0 justify-between">
-                    <div className="flex">
-                      <Button variant="ghost" size="icon" type="button">
-                        <Paperclip className="size-4" />
-                      </Button>
-                      <Button variant="ghost" size="icon" type="button">
-                        <Mic className="size-4" />
-                      </Button>
-                    </div>
-                    <Button type="submit" size="sm" className="ml-auto gap-1.5">
-                      Send
-                      <Send className="size-3.5" />
+            <ExpandableChatFooter>
+              <form
+                onSubmit={handleSubmit}
+                className="relative rounded-lg border bg-background/80 backdrop-blur-sm focus-within:ring-1 focus-within:ring-ring p-1"
+              >
+                <ChatInput
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  placeholder="Ask GAIA anything..."
+                  className="min-h-12 resize-none rounded-lg bg-background/0 border-0 p-3 shadow-none focus-visible:ring-0 font-montserrat"
+                />
+                <div className="flex items-center p-3 pt-0 justify-between">
+                  <div className="flex">
+                    <Button variant="ghost" size="icon" type="button">
+                      <Paperclip className="size-4" />
+                    </Button>
+                    <Button variant="ghost" size="icon" type="button">
+                      <Mic className="size-4" />
                     </Button>
                   </div>
-                </form>
-              </ExpandableChatFooter>
-            </ExpandableChat>
-          </motion.div>
-        </AnimatePresence>
-      </>
-    );
-  }
-
-  // Closed state - show just the circle
-  return (
-    <motion.div 
-      className="group fixed bottom-8 right-8 flex flex-col items-center cursor-pointer z-[9999]"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      onClick={toggleChat}
-      initial={{ x: isOpen ? position.x : 0, y: isOpen ? position.y : 0 }}
-      animate={{ x: 0, y: 0 }}
-      transition={{ 
-        type: "spring",
-        stiffness: 260,
-        damping: 20
-      }}
-    >
-      <div 
-        ref={containerRef}
-        className={`w-[120px] h-[120px] rounded-full overflow-hidden transition-transform duration-300 ease-out ${
-          isHovered ? 'transform -translate-y-2' : ''
-        }`}
-        style={{
-          filter: 'drop-shadow(0 0 20px rgba(100, 200, 255, 0.3))',
-          willChange: 'transform'
-        }}
-      />
-      <div 
-        className={`mt-2 font-montserrat font-bold text-xl bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent transition-all duration-300 ease-out ${
-          isHovered 
-            ? 'opacity-100 transform translate-y-0' 
-            : 'opacity-0 transform -translate-y-4'
-        }`}
-      >
-        <strong>Talk to GAIA</strong>
-      </div>
-    </motion.div>
+                  <Button type="submit" size="sm" className="ml-auto gap-1.5">
+                    Send
+                    <Send className="size-3.5" />
+                  </Button>
+                </div>
+              </form>
+            </ExpandableChatFooter>
+          </ExpandableChat>
+        </motion.div>
+      ) : (
+        <motion.div 
+          className="cursor-pointer"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          onClick={toggleChat}
+        >
+          <div className="flex flex-col items-center">
+            <motion.div 
+              className={`rounded-full overflow-hidden transition-transform duration-300 ease-out ${
+                isHovered ? 'transform -translate-y-2' : ''
+              }`}
+              style={{
+                filter: 'drop-shadow(0 0 20px rgba(100, 200, 255, 0.3))',
+                willChange: 'transform'
+              }}
+              ref={glossyContainerRef}
+            />
+            <div 
+              className={`mt-2 font-montserrat font-bold text-xl bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent transition-all duration-300 ease-out ${
+                isHovered 
+                  ? 'opacity-100 transform translate-y-0' 
+                  : 'opacity-0 transform -translate-y-4'
+              }`}
+            >
+              <strong>Talk to GAIA</strong>
+            </div>
+          </div>
+        </motion.div>
+      )}
+    </div>
   );
 };
