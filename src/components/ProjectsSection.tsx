@@ -50,6 +50,13 @@ const projects = [
     link: "https://colab.research.google.com/drive/1j59xSq8r9duRLLMH6hgnrjiLBEvSM6TT",
     technologies: "Python, TensorFlow, Matplotlib, Numpy, sklearn",
     image: "/lovable-uploads/b74ef9fb-f9de-4e2a-ade9-c0b5bf175f69.png"
+  },
+  {
+    title: "To Do list app in Streamlit",
+    description: "Built this todo list app in streamlit as a learning project.",
+    link: "https://geethika-todo.streamlit.app",
+    technologies: "Python, Streamlit",
+    image: "/lovable-uploads/eaecb821-692d-4546-8450-9d8d24bf03eb.png"
   }
 ];
 
