@@ -207,7 +207,6 @@ export const GlossyChatWidget = () => {
               size="lg"
               position="bottom-right"
               className="glossy-chat-window"
-              ref={chatRef}
             >
               <ExpandableChatHeader className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
