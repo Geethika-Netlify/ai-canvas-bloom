@@ -1,4 +1,3 @@
-
 import { FollowerPointerCard } from "@/components/ui/following-pointer";
 import { motion } from "framer-motion";
 
@@ -72,6 +71,13 @@ const projects = [
     link: "https://geethika-todo.streamlit.app",
     technologies: "Python, Streamlit",
     image: "/lovable-uploads/eaecb821-692d-4546-8450-9d8d24bf03eb.png"
+  },
+  {
+    title: "Dinum Lottery Scanner",
+    description: "100% Vibe Coded project: NLB & DLB Lottery Scanner with the QR code. NLB Scanning is completed. DLB is not completed because of a policy issue restricting the use of scrapers.",
+    link: "https://dinum-lottery-scanster.lovable.app/",
+    technologies: "React, TypeScript, Supabase, Vite",
+    image: "/lovable-uploads/4b8b8c0f-ea08-4cce-b878-f04322e6f19a.png"
   }
 ];
 
