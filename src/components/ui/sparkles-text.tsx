@@ -28,7 +28,7 @@ interface SparklesTextProps {
 
 const SparklesText: React.FC<SparklesTextProps> = ({
   text,
-  colors = { first: "#2196F3", second: "#1976D2" },
+  colors = { first: "#FFD700", second: "#4CAF50" }, // Default to gold and green
   className,
   sparklesCount = 10,
   ...props
@@ -39,7 +39,15 @@ const SparklesText: React.FC<SparklesTextProps> = ({
     const generateStar = (): Sparkle => {
       const starX = `${Math.random() * 100}%`;
       const starY = `${Math.random() * 100}%`;
-      const color = Math.random() > 0.5 ? colors.first : colors.second;
+      // Add more color variations
+      const colorOptions = [
+        colors.first,  // Gold
+        colors.second, // Green
+        "#2196F3",    // Blue
+        "#1E88E5",    // Darker Blue
+        "#FFD700",    // Gold
+      ];
+      const color = colorOptions[Math.floor(Math.random() * colorOptions.length)];
       const delay = Math.random() * 2;
       const scale = Math.random() * 1 + 0.3;
       const lifespan = Math.random() * 10 + 5;

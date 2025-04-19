@@ -1,7 +1,9 @@
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Linkedin, Github, Smartphone, MapPin } from 'lucide-react';
 import { SparklesText } from '@/components/ui/sparkles-text';
+import { Separator } from "@/components/ui/separator";
 
 export const Footer = () => {
   const socials = [
@@ -24,6 +26,7 @@ export const Footer = () => {
 
   return (
     <footer className="w-full bg-background py-12 mt-20">
+      <Separator className="mb-12 bg-portfolio-blue/20" />
       <div className="container px-4 mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -35,7 +38,11 @@ export const Footer = () => {
           <SparklesText 
             text="Stay Magical & Never Give Up"
             className="text-2xl md:text-3xl font-montserrat font-medium italic text-center"
-            colors={{ first: "#2196F3", second: "#1976D2" }}
+            colors={{ 
+              first: "#FFD700",  // Gold
+              second: "#4CAF50"  // Green
+            }}
+            sparklesCount={15}
           />
           
           <div className="flex items-center space-x-2 text-muted-foreground">
