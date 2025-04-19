@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { ArrowDown, Code, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { TextRotate } from "@/components/ui/text-rotate";
-
 export function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -59,31 +58,28 @@ export function HeroSection() {
       }} transition={{
         duration: 0.8
       }}>
-          <motion.h1 
-            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" 
-            initial={{ opacity: 0, y: 20 }} 
-            animate={{ opacity: 1, y: 0 }} 
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
+          <motion.h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" initial={{
+          opacity: 0,
+          y: 20
+        }} animate={{
+          opacity: 1,
+          y: 0
+        }} transition={{
+          duration: 0.8,
+          delay: 0.2
+        }}>
             Hey, I'm{" "}
-            <TextRotate
-              texts={[
-                "Geethika Isuru",
-                "an AI Engineer",
-                "a Developer",
-                "a Leader",
-                "a Problem Solver"
-              ]}
-              mainClassName="gradient-text"
-              staggerFrom="first"
-              initial={{ y: "100%" }}
-              animate={{ y: 0 }}
-              exit={{ y: "-120%" }}
-              staggerDuration={0.025}
-              splitLevelClassName="overflow-hidden"
-              transition={{ type: "spring", damping: 30, stiffness: 400 }}
-              rotationInterval={3000}
-            />
+            <TextRotate texts={["Geethika Isuru", "an AI Engineer", "a Developer", "a Leader", "a Problem Solver"]} mainClassName="gradient-text" staggerFrom="first" initial={{
+            y: "100%"
+          }} animate={{
+            y: 0
+          }} exit={{
+            y: "-120%"
+          }} staggerDuration={0.025} splitLevelClassName="overflow-hidden" transition={{
+            type: "spring",
+            damping: 30,
+            stiffness: 400
+          }} rotationInterval={3000} />
           </motion.h1>
           
           <motion.div className="text-lg text-foreground/70 max-w-lg mx-auto lg:mx-0 space-y-4" initial={{
@@ -152,21 +148,12 @@ export function HeroSection() {
             <div className="relative aspect-square overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-b from-portfolio-blue/10 to-transparent mix-blend-overlay"></div>
               
-              <img 
-                alt="Geethika Isuru" 
-                data-speed-x="5" 
-                data-speed-y="-3" 
-                src="/lovable-uploads/73dc8931-7f0c-4216-a3bb-3c6eba7ad90f.png" 
-                className="w-full h-full object-cover object-center transform" 
-              />
+              <img alt="Geethika Isuru" data-speed-x="5" data-speed-y="-3" src="/lovable-uploads/73dc8931-7f0c-4216-a3bb-3c6eba7ad90f.png" className="w-full h-full object-cover object-center transform" />
             </div>
           </div>
         </motion.div>
       </div>
       
-      <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center animate-bounce">
-        <span className="text-sm mb-2 text-foreground/70">Scroll Down</span>
-        <ArrowDown className="w-5 h-5 text-portfolio-blue" />
-      </div>
+      
     </section>;
 }
