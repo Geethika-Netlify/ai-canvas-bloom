@@ -15,7 +15,7 @@ export const FloatingScrollButton = () => {
   return (
     <Button
       onClick={handleScroll}
-      className="fixed left-1/2 bottom-10 transform -translate-x-1/2 rounded-full p-4 bg-transparent hover:bg-transparent border border-portfolio-blue/30 text-portfolio-blue"
+      className="fixed left-1/2 bottom-10 transform -translate-x-1/2 rounded-full p-4 bg-transparent hover:bg-transparent border border-portfolio-blue/30 text-portfolio-blue z-[9999]"
       size="icon"
     >
       <ArrowDown className="h-6 w-6" />
