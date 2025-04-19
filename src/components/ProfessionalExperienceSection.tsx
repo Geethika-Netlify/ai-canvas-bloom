@@ -23,7 +23,7 @@ export function ProfessionalExperienceSection() {
       y: 0
     }
   };
-  return <section id="experience" className="py-24 bg-slate-900">
+  return <section id="experience" className="py-24 bg-gray-50/50 dark:bg-gray-900/50">
       <div className="container max-w-6xl mx-auto px-6">
         <motion.div initial={{
         opacity: 0,
