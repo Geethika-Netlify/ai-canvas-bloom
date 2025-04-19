@@ -2,6 +2,8 @@ import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { ArrowDown, Code, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { TextRotate } from "@/components/ui/text-rotate";
+
 export function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -58,17 +60,31 @@ export function HeroSection() {
       }} transition={{
         duration: 0.8
       }}>
-          <motion.h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" initial={{
-          opacity: 0,
-          y: 20
-        }} animate={{
-          opacity: 1,
-          y: 0
-        }} transition={{
-          duration: 0.8,
-          delay: 0.2
-        }}>
-            Hey, I'm <span className="gradient-text">Geethika Isuru</span>
+          <motion.h1 
+            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" 
+            initial={{ opacity: 0, y: 20 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            Hey, I'm{" "}
+            <TextRotate
+              texts={[
+                "Geethika Isuru",
+                "an AI Engineer",
+                "a Developer",
+                "a Leader",
+                "a Problem Solver"
+              ]}
+              mainClassName="gradient-text"
+              staggerFrom="first"
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "-120%" }}
+              staggerDuration={0.025}
+              splitLevelClassName="overflow-hidden"
+              transition={{ type: "spring", damping: 30, stiffness: 400 }}
+              rotationInterval={3000}
+            />
           </motion.h1>
           
           <motion.h2 className="text-xl md:text-2xl font-medium text-foreground/80 mb-6" initial={{
