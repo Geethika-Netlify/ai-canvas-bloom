@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "./ThemeToggle";
@@ -84,7 +83,7 @@ export function Navbar() {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4",
         isScrolled 
-          ? "bg-background shadow-md" 
+          ? "bg-transparent/100" 
           : "bg-transparent"
       )}
     >
@@ -102,4 +101,3 @@ export function Navbar() {
     </header>
   );
 }
-
