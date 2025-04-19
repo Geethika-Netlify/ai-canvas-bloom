@@ -87,19 +87,6 @@ export function HeroSection() {
             />
           </motion.h1>
           
-          <motion.h2 className="text-xl md:text-2xl font-medium text-foreground/80 mb-6" initial={{
-          opacity: 0,
-          y: 20
-        }} animate={{
-          opacity: 1,
-          y: 0
-        }} transition={{
-          duration: 0.8,
-          delay: 0.4
-        }}>
-            Full on AI Guy
-          </motion.h2>
-          
           <motion.div className="text-lg text-foreground/70 max-w-lg mx-auto lg:mx-0 space-y-4" initial={{
           opacity: 0,
           y: 20
