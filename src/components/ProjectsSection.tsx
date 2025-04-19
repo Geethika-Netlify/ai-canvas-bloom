@@ -24,7 +24,7 @@ const projects = [
     link: "#",
     technologies: "Python, Fast API, OpenAI, Huggingface, Supabase, Pinecone, Airbyte, Nextjs",
     image: "/lovable-uploads/3d6e5a96-248b-4c53-a9e8-9c41405d3a29.png",
-    date: "January 2024"
+    date: "Jan 2024"
   },
   {
     title: "Voice & Text Research Data Collection Portal",
@@ -48,7 +48,7 @@ const projects = [
     link: "https://github.com/geethikaisuru/cognita-voice-cloning",
     technologies: "Python, Torch, speechbrain, pydub",
     image: "/lovable-uploads/ece059f0-2d68-4fdc-bae0-2fc179464e40.png",
-    date: "2024 Jul"
+    date: "Jul 2024"
   },
   {
     title: "Cognita AI",
@@ -56,7 +56,7 @@ const projects = [
     link: "https://github.com/geethikaisuru/cognita-ai",
     technologies: "Python, TypeScript, Jupyter, ollama",
     image: "/lovable-uploads/0fc59d45-bf5d-4497-bbe0-85e9fdf91125.png",
-    date: "June 2024"
+    date: "Jun 2024"
   },
   {
     title: "LSTM Styled Poem Generator",
@@ -72,7 +72,7 @@ const projects = [
     link: "https://colab.research.google.com/drive/1j59xSq8r9duRLLMH6hgnrjiLBEvSM6TT",
     technologies: "Python, TensorFlow, Matplotlib, Numpy, sklearn",
     image: "/lovable-uploads/b74ef9fb-f9de-4e2a-ade9-c0b5bf175f69.png",
-    date: "August 2023"
+    date: "Aug 2023"
   },
   {
     title: "To Do list app in Streamlit",
@@ -80,7 +80,7 @@ const projects = [
     link: "https://geethika-todo.streamlit.app",
     technologies: "Python, Streamlit",
     image: "/lovable-uploads/eaecb821-692d-4546-8450-9d8d24bf03eb.png",
-    date: "No date provided"
+    date: "2024"
   },
   {
     title: "Dinum Lottery Scanner",
@@ -88,7 +88,7 @@ const projects = [
     link: "https://dinum-lottery-scanster.lovable.app/",
     technologies: "React, TypeScript, Supabase, Vite",
     image: "/lovable-uploads/4b8b8c0f-ea08-4cce-b878-f04322e6f19a.png",
-    date: "2024 Dec"
+    date: "Dec 2024"
   },
   {
     title: "VFX Agency Website",
@@ -104,7 +104,7 @@ const projects = [
     link: "https://github.com/geethikaisuru/Domain-Checker",
     technologies: "Python, Streamlit, whois, threading",
     image: "/lovable-uploads/73dc8931-7f0c-4216-a3bb-3c6eba7ad90f.png",
-    date: "January 2025"
+    date: "Jan 2025"
   },
 ];
 
