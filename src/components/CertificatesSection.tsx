@@ -108,11 +108,11 @@ export function CertificatesSection() {
               <a href={cert.url} target="_blank" rel="noopener noreferrer">
                 <Card className="h-full hover:shadow-lg transition-shadow duration-300 dark:hover:shadow-primary/5">
                   <CardHeader className="flex flex-row items-center gap-4 pb-2">
-                    <div className="h-12 w-12 rounded-lg overflow-hidden bg-white flex items-center justify-center p-1.5">
+                    <div className="h-12 w-12 rounded-lg overflow-hidden bg-white flex items-center justify-center p-2">
                       <img 
                         src={cert.logo} 
                         alt={`${cert.issuer} logo`} 
-                        className="h-full w-full object-contain max-h-[40px] max-w-[40px]"
+                        className="h-full w-full object-contain"
                       />
                     </div>
                     <div className="flex flex-col">
