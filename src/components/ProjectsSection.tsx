@@ -8,35 +8,35 @@ const projects = [
     description: "Intelligent Customer Support & Order Management System for Social Media Platforms. B2B Product. Fully Integrated into whatsapp. Facebook, instagram on the way.",
     link: "https://mahasen47.azynctra.com",
     technologies: "TypeScript, Supabase, Vite, React",
-    image: "/lovable-uploads/73dc8931-7f0c-4216-a3bb-3c6eba7ad90f.png"
+    image: "/lovable-uploads/bbf48067-6ae8-49d4-ba2c-e702a68f4ad7.png"
   },
   {
     title: "GYMA App",
     description: "A gym workout tracker app that let's users save upto 40% of their gym time by managing rest intervals between exercises.",
     link: "https://gyma.azynctra.com",
     technologies: "TypeScript, Supabase, Vite, React",
-    image: "/lovable-uploads/d0a2114b-b6fd-44aa-b6f5-f40edc649ca5.png"
+    image: "/lovable-uploads/e28aa767-adf0-4275-ac84-583406ea4a7c.png"
   },
   {
     title: "Cognita AI",
     description: "Generates model exam papers based on past papers",
     link: "https://github.com/geethikaisuru/cognita-ai",
     technologies: "Python, TypeScript, Jupyter, ollama",
-    image: "/photo-1461749280684-dccba630e2f6.jpg"
+    image: "/lovable-uploads/0fc59d45-bf5d-4497-bbe0-85e9fdf91125.png"
   },
   {
     title: "LSTM Styled Poem Generator",
     description: "LSTM model trained to generate poems in a specific style",
     link: "https://colab.research.google.com/drive/1siK2orsRrgVhRkPNGk0Di-UvZBGQaizv",
     technologies: "Python, TensorFlow, Keras, Numpy",
-    image: "/photo-1470813740244-df37b8c1edcb.jpg"
+    image: "/lovable-uploads/f090beb8-02c3-4ee6-b293-d1a7423eb33c.png"
   },
   {
     title: "Brain Tumor Detection Model (CNN)",
     description: "Identifies brain tumors using MRI scan images. Classifies into 4 classes (3 tumor stages + 1 negative). Fully hand-built algorithm.",
     link: "https://colab.research.google.com/drive/1j59xSq8r9duRLLMH6hgnrjiLBEvSM6TT",
     technologies: "Python, TensorFlow, Matplotlib, Numpy, sklearn",
-    image: "/photo-1518770660439-4636190af475.jpg"
+    image: "/lovable-uploads/b74ef9fb-f9de-4e2a-ade9-c0b5bf175f69.png"
   }
 ];
 
