@@ -1,12 +1,12 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { LinkedIn, Github, WhatsApp, MapPin } from 'lucide-react';
+import { Linkedin, Github, Whatsapp, MapPin } from 'lucide-react';
 
 export const Footer = () => {
   const socials = [
     {
-      icon: <LinkedIn className="h-5 w-5" />,
+      icon: <Linkedin className="h-5 w-5" />,
       href: "https://linkedin.com/in/geethikaisuru",
       label: "LinkedIn",
     },
@@ -16,7 +16,7 @@ export const Footer = () => {
       label: "GitHub",
     },
     {
-      icon: <WhatsApp className="h-5 w-5" />,
+      icon: <Whatsapp className="h-5 w-5" />,
       href: "http://wa.me/94771442131",
       label: "WhatsApp",
     },
