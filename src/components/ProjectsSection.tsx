@@ -1,4 +1,3 @@
-
 import { FollowerPointerCard } from "@/components/ui/following-pointer";
 import { motion } from "framer-motion";
 
@@ -37,6 +36,13 @@ const projects = [
     link: "https://colab.research.google.com/drive/1j59xSq8r9duRLLMH6hgnrjiLBEvSM6TT",
     technologies: "Python, TensorFlow, Matplotlib, Numpy, sklearn",
     image: "/lovable-uploads/b74ef9fb-f9de-4e2a-ade9-c0b5bf175f69.png"
+  },
+  {
+    title: "Intelligent Knowledge Management System Max-Lab AI",
+    description: "Created a system for Advanced Enterprise Knowledge Management. System capabilities include ingestion, understanding, and information retrieval from databases of documents and URLs. Provides accurate insights using Advanced LLM methods.",
+    link: "#",
+    technologies: "Python, Fast API, OpenAI, Huggingface, Supabase, Pinecone, Airbyte, Nextjs",
+    image: "/lovable-uploads/3d6e5a96-248b-4c53-a9e8-9c41405d3a29.png"
   }
 ];
 
@@ -67,7 +73,7 @@ export function ProjectsSection() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
               <FollowerPointerCard
-                title="Solo Project"
+                title={index === projects.length - 1 ? "Group Project" : "Solo Project"}
                 className="h-full"
               >
                 <a href={project.link} target="_blank" rel="noopener noreferrer">
