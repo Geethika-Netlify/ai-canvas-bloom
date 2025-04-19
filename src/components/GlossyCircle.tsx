@@ -1,8 +1,11 @@
-
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 
-export const GlossyCircle = () => {
+interface GlossyCircleProps {
+  className?: string;
+}
+
+export const GlossyCircle: React.FC<GlossyCircleProps> = ({ className = '' }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   
@@ -111,7 +114,7 @@ export const GlossyCircle = () => {
   
   return (
     <div 
-      className="group fixed bottom-8 right-8 flex flex-col items-center cursor-pointer z-[9999]"
+      className={`group flex flex-col items-center ${className}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >

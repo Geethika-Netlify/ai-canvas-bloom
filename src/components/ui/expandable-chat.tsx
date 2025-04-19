@@ -1,10 +1,11 @@
-
 "use client";
 
 import React, { useRef, useState, forwardRef } from "react";
 import { X, MessageCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
+import { GlossyCircle } from "@/components/GlossyCircle";
 
 export type ChatPosition = "bottom-right" | "bottom-left";
 export type ChatSize = "sm" | "md" | "lg" | "xl" | "full";
@@ -71,11 +72,20 @@ const ExpandableChat = forwardRef<HTMLDivElement, ExpandableChatProps>(
             <X className="h-4 w-4" />
           </Button>
         </div>
-        <ExpandableChatToggle
-          icon={icon}
-          isOpen={isOpen}
-          toggleChat={toggleChat}
-        />
+        <motion.div
+          className={`cursor-pointer ${isOpen ? 'scale-50' : 'scale-100'}`}
+          animate={{
+            scale: isOpen ? 0.4 : 1,
+            transition: {
+              type: "spring",
+              stiffness: 260,
+              damping: 20
+            }
+          }}
+          onClick={toggleChat}
+        >
+          <GlossyCircle />
+        </motion.div>
       </div>
     );
   }
