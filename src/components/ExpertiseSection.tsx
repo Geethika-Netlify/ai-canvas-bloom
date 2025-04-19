@@ -1,5 +1,6 @@
+
 import { motion } from "framer-motion";
-import { Settings, Code2, Database, BrainCircuit } from "lucide-react";
+import { Settings, Code2, Database, BrainCircuit, Users, Video } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
 const expertise = [
@@ -22,6 +23,16 @@ const expertise = [
     icon: Settings,
     title: "DevOps & Tools",
     skills: ["MLOps", "Git", "Cloud Platforms", "Docker"]
+  },
+  {
+    icon: Users,
+    title: "Leadership",
+    skills: ["Project Management", "Team Leadership", "Strategic Planning", "Communication"]
+  },
+  {
+    icon: Video,
+    title: "Video Production",
+    skills: ["Adobe After Effects", "Adobe Premiere Pro", "Motion Graphics", "Video Editing"]
   }
 ];
 
