@@ -31,6 +31,20 @@ const projects = [
     image: "/lovable-uploads/59569372-634b-465a-bb9b-b9d5f724f1ac.png"
   },
   {
+    title: "IT LEGACY Website",
+    description: "Built the HTML5 website for the IT Legacy undergraduate student organization.",
+    link: "http://geethikaisuru.me/itlegacy/",
+    technologies: "HTML, CSS, JavaScript, Github Pages",
+    image: "/lovable-uploads/df2d194e-4a5d-4d5a-a7ce-3bfcaee0244b.png"
+  },
+  {
+    title: "Local Voice Cloning Model",
+    description: "A Python script that uses a preTrained TTS Model to generate voice. Users can fine tune the voice by training on their voice. Locally.",
+    link: "https://github.com/geethikaisuru/cognita-voice-cloning",
+    technologies: "Python, Torch, speechbrain, pydub",
+    image: "/lovable-uploads/ece059f0-2d68-4fdc-bae0-2fc179464e40.png"
+  },
+  {
     title: "Cognita AI",
     description: "Generates model exam papers based on past papers",
     link: "https://github.com/geethikaisuru/cognita-ai",
