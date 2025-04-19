@@ -88,7 +88,7 @@ export function Navbar() {
           : "bg-transparent"
       )}
     >
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-center gap-4">
+      <div className="max-w-7xl mx-auto px-6 flex items-center justify-center">
         <div className="flex items-center justify-center gap-4">
           <MenuBar
             items={menuItems}
