@@ -131,8 +131,7 @@ export function HeroSection() {
         delay: 0.4
       }}>
           <div className="relative w-full max-w-md mx-auto">
-            {/* Decorative circle backdrop */}
-            <div className="absolute inset-0 -z-10 bg-gradient-radial from-portfolio-blue/20 to-transparent rounded-full transform scale-150"></div>
+            
             
             {/* Floating code snippets */}
             <div className="absolute -left-12 top-10 glass-card p-3 text-xs font-mono parallax-item animate-float" data-speed-x="8" data-speed-y="-5">
@@ -150,12 +149,14 @@ export function HeroSection() {
               </pre>
             </div>
             
-            {/* Main image container with creative cropping */}
-            <div className="relative aspect-square overflow-hidden rounded-3xl border-4 border-portfolio-blue/20 backdrop-blur-sm shadow-2xl">
-              <div className="absolute inset-0 bg-gradient-to-b from-portfolio-blue/10 to-transparent mix-blend-overlay"></div>
-              
-              <img alt="Geethika Isuru" className="w-full h-full object-cover object-center transform parallax-item" data-speed-x="5" data-speed-y="-3" src="/lovable-uploads/73dc8931-7f0c-4216-a3bb-3c6eba7ad90f.png" />
-            </div>
+            {/* Main image container */}
+            <img 
+              alt="Geethika Isuru" 
+              className="w-full h-full object-cover object-center transform parallax-item" 
+              data-speed-x="5" 
+              data-speed-y="-3" 
+              src="/lovable-uploads/67f37a25-5158-479a-88db-7eaaabb6d8a9.png" 
+            />
           </div>
         </motion.div>
       </div>
