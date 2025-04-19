@@ -2,41 +2,34 @@ import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { ArrowDown, Code, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
 export function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     if (!containerRef.current) return;
-
     const handleMouseMove = (e: MouseEvent) => {
-      const { clientX, clientY } = e;
+      const {
+        clientX,
+        clientY
+      } = e;
       const containerWidth = window.innerWidth;
       const containerHeight = window.innerHeight;
-
       const moveX = (clientX - containerWidth / 2) / containerWidth;
       const moveY = (clientY - containerHeight / 2) / containerHeight;
-
       const elements = containerRef.current?.querySelectorAll('.parallax-item');
       elements?.forEach(el => {
         const htmlEl = el as HTMLElement;
         const speedX = Number(htmlEl.getAttribute('data-speed-x')) || 0;
         const speedY = Number(htmlEl.getAttribute('data-speed-y')) || 0;
-
         const translateX = moveX * speedX;
         const translateY = moveY * speedY;
-
         htmlEl.style.transform = `translate(${translateX}px, ${translateY}px)`;
       });
     };
-
     window.addEventListener('mousemove', handleMouseMove);
-
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
-
   return <section id="home" className="relative min-h-screen overflow-hidden flex flex-col items-center justify-center pt-16" ref={containerRef}>
       {/* Decorative elements */}
       <div className="absolute right-[5%] top-[25%] w-32 h-32 parallax-item" data-speed-x="-15" data-speed-y="10">
@@ -138,8 +131,8 @@ export function HeroSection() {
         delay: 0.4
       }}>
           <div className="relative w-full max-w-md mx-auto">
-            {/* Removed circular border styling */}
-            <div className="absolute inset-0 -z-10 bg-gradient-radial from-portfolio-blue/20 to-transparent transform scale-150"></div>
+            {/* Decorative circle backdrop */}
+            <div className="absolute inset-0 -z-10 bg-gradient-radial from-portfolio-blue/20 to-transparent rounded-full transform scale-150"></div>
             
             {/* Floating code snippets */}
             <div className="absolute -left-12 top-10 glass-card p-3 text-xs font-mono parallax-item animate-float" data-speed-x="8" data-speed-y="-5">
@@ -157,17 +150,11 @@ export function HeroSection() {
               </pre>
             </div>
             
-            {/* Main image container */}
-            <div className="relative aspect-square overflow-hidden rounded-3xl backdrop-blur-sm shadow-2xl">
+            {/* Main image container with creative cropping */}
+            <div className="relative aspect-square overflow-hidden rounded-3xl border-4 border-portfolio-blue/20 backdrop-blur-sm shadow-2xl">
               <div className="absolute inset-0 bg-gradient-to-b from-portfolio-blue/10 to-transparent mix-blend-overlay"></div>
               
-              <img 
-                alt="Geethika Isuru" 
-                className="w-full h-full object-cover object-center transform parallax-item" 
-                data-speed-x="5" 
-                data-speed-y="-3" 
-                src="/lovable-uploads/73dc8931-7f0c-4216-a3bb-3c6eba7ad90f.png" 
-              />
+              <img alt="Geethika Isuru" className="w-full h-full object-cover object-center transform parallax-item" data-speed-x="5" data-speed-y="-3" src="/lovable-uploads/73dc8931-7f0c-4216-a3bb-3c6eba7ad90f.png" />
             </div>
           </div>
         </motion.div>
