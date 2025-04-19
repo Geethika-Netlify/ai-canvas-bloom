@@ -1,4 +1,3 @@
-
 import { FollowerPointerCard } from "@/components/ui/following-pointer";
 import { motion } from "framer-motion";
 
@@ -16,6 +15,20 @@ const projects = [
     link: "https://gyma.azynctra.com",
     technologies: "TypeScript, Supabase, Vite, React",
     image: "/lovable-uploads/e28aa767-adf0-4275-ac84-583406ea4a7c.png"
+  },
+  {
+    title: "Intelligent Knowledge Management System Max-Lab AI",
+    description: "Created a system for Advanced Enterprise Knowledge Management. System capabilities include ingestion, understanding, and information retrieval from databases of documents and URLs. Provides accurate insights using Advanced LLM methods.",
+    link: "#",
+    technologies: "Python, Fast API, OpenAI, Huggingface, Supabase, Pinecone, Airbyte, Nextjs",
+    image: "/lovable-uploads/3d6e5a96-248b-4c53-a9e8-9c41405d3a29.png"
+  },
+  {
+    title: "Voice & Text Research Data Collection Portal",
+    description: "Built to collect Anonymous, Multi-modality data (Text or Voice) for a research. Text data will be saved to an excel sheet automatically. Voice data's pitch will be changed automatically & saved to a google drive folder. Pitch is changed to preserve the voice privacy of the students.",
+    link: "https://lucid-dreams-research-usj.streamlit.app",
+    technologies: "Python, Streamlit, googleapiclient, numpy, wave",
+    image: "/lovable-uploads/59569372-634b-465a-bb9b-b9d5f724f1ac.png"
   },
   {
     title: "Cognita AI",
@@ -37,13 +50,6 @@ const projects = [
     link: "https://colab.research.google.com/drive/1j59xSq8r9duRLLMH6hgnrjiLBEvSM6TT",
     technologies: "Python, TensorFlow, Matplotlib, Numpy, sklearn",
     image: "/lovable-uploads/b74ef9fb-f9de-4e2a-ade9-c0b5bf175f69.png"
-  },
-  {
-    title: "Intelligent Knowledge Management System Max-Lab AI",
-    description: "Created a system for Advanced Enterprise Knowledge Management. System capabilities include ingestion, understanding, and information retrieval from databases of documents and URLs. Provides accurate insights using Advanced LLM methods.",
-    link: "#",
-    technologies: "Python, Fast API, OpenAI, Huggingface, Supabase, Pinecone, Airbyte, Nextjs",
-    image: "/lovable-uploads/3d6e5a96-248b-4c53-a9e8-9c41405d3a29.png"
   }
 ];
 
