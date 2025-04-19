@@ -1,6 +1,5 @@
 
 import { motion } from "framer-motion";
-import { GraduationCap, Award, Medal } from "lucide-react";
 import {
   Card,
   CardHeader,
@@ -15,7 +14,7 @@ const certificates = [
     year: "2023",
     courses: 5,
     url: "https://coursera.org/verify/specialization/M6X5QHSKFW2E",
-    icon: GraduationCap,
+    logo: "/lovable-uploads/91b30ba7-314d-47d8-9cd9-fb352c331a69.png",
   },
   {
     title: "Machine Learning Specialization",
@@ -23,7 +22,7 @@ const certificates = [
     year: "2023",
     courses: 3,
     url: "https://coursera.org/verify/specialization/B4CL2GCZ3UWS",
-    icon: Award,
+    logo: "/lovable-uploads/91b30ba7-314d-47d8-9cd9-fb352c331a69.png",
   },
   {
     title: "Machine Learning Engineering for Production (MLOps)",
@@ -31,7 +30,7 @@ const certificates = [
     year: "2024",
     courses: 4,
     url: "https://coursera.org/verify/specialization/6DAZ5D67ZRPK",
-    icon: Medal,
+    logo: "/lovable-uploads/91b30ba7-314d-47d8-9cd9-fb352c331a69.png",
   },
   {
     title: "TensorFlow Developer Professional Certificate",
@@ -39,7 +38,7 @@ const certificates = [
     year: "2023",
     courses: 4,
     url: "https://www.coursera.org/account/accomplishments/professional-cert/GH8BHEYDYRA4",
-    icon: Award,
+    logo: "/lovable-uploads/91b30ba7-314d-47d8-9cd9-fb352c331a69.png",
   },
   {
     title: "Google Data Analytics Professional Certificate",
@@ -47,7 +46,7 @@ const certificates = [
     year: "2023",
     courses: 8,
     url: "https://www.coursera.org/account/accomplishments/specialization/certificate/XBVLYF42H3F5",
-    icon: GraduationCap,
+    logo: "/lovable-uploads/07eab3f0-fe51-41cd-adbe-5664bc822b1c.png",
   },
   {
     title: "Entrepreneurship Specialization",
@@ -55,28 +54,28 @@ const certificates = [
     year: "2023",
     courses: 5,
     url: "https://www.coursera.org/account/accomplishments/specialization/certificate/XBVLYF42H3F5",
-    icon: Medal,
+    logo: "/lovable-uploads/a8f34605-3ab7-4b6e-980a-86a485dbecf8.png",
   },
   {
     title: "Successful Negotiation: Essential Strategies and Skills",
     issuer: "University of Michigan",
     year: "2022",
     url: "https://www.coursera.org/account/accomplishments/certificate/34RVMRBFHWQB",
-    icon: Medal,
+    logo: "/lovable-uploads/3f1d184b-401d-423e-a537-b8e034728e1e.png",
   },
   {
     title: "Fundamentals of Digital Marketing",
     issuer: "Google",
     year: "2020",
     url: "https://learndigital.withgoogle.com/link/1qsdpcedm9s",
-    icon: Award,
+    logo: "/lovable-uploads/07eab3f0-fe51-41cd-adbe-5664bc822b1c.png",
   },
   {
     title: "Cisco IT Essentials",
     issuer: "Cisco Networking Academy",
     year: "2016",
     url: "https://www.linkedin.com/in/geethikaisuru/details/certifications/",
-    icon: GraduationCap,
+    logo: "/lovable-uploads/7964df05-1e6b-47ad-8de9-b010768f6269.png",
   },
 ];
 
@@ -109,8 +108,12 @@ export function CertificatesSection() {
               <a href={cert.url} target="_blank" rel="noopener noreferrer">
                 <Card className="h-full hover:shadow-lg transition-shadow duration-300 dark:hover:shadow-primary/5">
                   <CardHeader className="flex flex-row items-center gap-4 pb-2">
-                    <div className="h-12 w-12 rounded-full bg-primary/10 dark:bg-primary/20 flex items-center justify-center">
-                      <cert.icon className="h-6 w-6 text-primary" />
+                    <div className="h-12 w-12 rounded-lg overflow-hidden bg-white flex items-center justify-center p-2">
+                      <img 
+                        src={cert.logo} 
+                        alt={`${cert.issuer} logo`} 
+                        className="h-full w-full object-contain"
+                      />
                     </div>
                     <div className="flex flex-col">
                       <h3 className="font-semibold text-lg leading-tight">{cert.title}</h3>
