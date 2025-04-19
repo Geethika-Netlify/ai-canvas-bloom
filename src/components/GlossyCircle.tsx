@@ -28,7 +28,7 @@ export const GlossyCircle = () => {
     // Create circle geometry
     const geometry = new THREE.CircleGeometry(1, 64);
     
-    // Create shader material with glossy gradient and inner glow
+    // Create shader material with glossy gradient and enhanced inner glow
     const material = new THREE.ShaderMaterial({
       uniforms: {
         iTime: { value: 0 },
@@ -61,11 +61,11 @@ export const GlossyCircle = () => {
           vec3 col = vec3(cos(uv * vec2(d, a)) * 0.6 + 0.4, cos(a + d) * 0.5 + 0.5);
           col = cos(col * cos(vec3(d, a, 2.5)) * 0.5 + 0.5);
           
-          // Add inner glow
+          // Add inner glow with 50% more intensity
           float dist = length(uv);
-          float glow = smoothstep(0.8, 1.0, dist);
+          float glow = smoothstep(0.75, 1.0, dist); // Adjusted range for stronger effect
           vec3 glowColor = vec3(0.5, 0.8, 1.0);
-          col = mix(col, col + glowColor, glow * 0.5);
+          col = mix(col, col + glowColor, glow * 0.75); // Increased from 0.5 to 0.75 (50% more)
           
           gl_FragColor = vec4(col, 1.0);
         }
@@ -114,8 +114,7 @@ export const GlossyCircle = () => {
       className="fixed bottom-8 right-8 w-[120px] h-[120px] z-[9999] rounded-full overflow-hidden"
       style={{
         filter: 'drop-shadow(0 0 20px rgba(100, 200, 255, 0.3))',
-        animation: 'pulse 3s infinite',
-        opacity: 1,
+        // Removed animation that was causing opacity changes
         willChange: 'transform'
       }}
     />
