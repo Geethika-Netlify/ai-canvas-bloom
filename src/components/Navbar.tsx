@@ -2,11 +2,36 @@
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "./ThemeToggle";
-import { Menu } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Home, Settings, User } from "lucide-react";
+import { MenuBar } from "@/components/ui/glow-menu";
+
+const menuItems = [
+  {
+    icon: Home,
+    label: "Home",
+    href: "#home",
+    gradient: "radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(37,99,235,0.06) 50%, rgba(29,78,216,0) 100%)",
+    iconColor: "text-blue-500",
+  },
+  {
+    icon: Settings,
+    label: "Expertise",
+    href: "#expertise",
+    gradient: "radial-gradient(circle, rgba(34,197,94,0.15) 0%, rgba(22,163,74,0.06) 50%, rgba(21,128,61,0) 100%)",
+    iconColor: "text-green-500",
+  },
+  {
+    icon: User,
+    label: "Projects",
+    href: "#projects",
+    gradient: "radial-gradient(circle, rgba(239,68,68,0.15) 0%, rgba(220,38,38,0.06) 50%, rgba(185,28,28,0) 100%)",
+    iconColor: "text-red-500",
+  }
+];
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeItem, setActiveItem] = useState("Home");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -23,15 +48,14 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navLinks = [
-    { name: "Home", href: "#home" },
-    { name: "Expertise", href: "#expertise" },
-    { name: "Projects", href: "#projects" },
-    { name: "Experience", href: "#experience" },
-    { name: "Certificates", href: "#certificates" },
-    { name: "Education", href: "#education" },
-    { name: "Contact", href: "#contact" }
-  ];
+  const handleItemClick = (label: string) => {
+    setActiveItem(label);
+    setIsMenuOpen(false);
+    const element = document.querySelector(
+      menuItems.find((item) => item.label === label)?.href || ""
+    );
+    element?.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
     <header
@@ -49,59 +73,40 @@ export function Navbar() {
         
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-8">
-          <ul className="flex items-center gap-6">
-            {navLinks.map((link) => (
-              <li key={link.name}>
-                <a
-                  href={link.href}
-                  className="text-foreground/80 hover:text-primary transition-colors font-medium"
-                >
-                  {link.name}
-                </a>
-              </li>
-            ))}
-          </ul>
+          <MenuBar
+            items={menuItems}
+            activeItem={activeItem}
+            onItemClick={handleItemClick}
+            className="bg-transparent border-none shadow-none"
+          />
           <ThemeToggle />
         </div>
-        
-        {/* Mobile Menu Button */}
-        <div className="flex items-center gap-2 md:hidden">
+
+        {/* Mobile Navigation */}
+        <div className="flex items-center gap-4 md:hidden">
           <ThemeToggle />
-          <Button 
-            variant="ghost" 
-            size="icon" 
-            className="md:hidden"
+          <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="text-muted-foreground hover:text-foreground"
           >
             <Menu className="h-6 w-6" />
-            <span className="sr-only">Toggle menu</span>
-          </Button>
+          </button>
         </div>
       </nav>
-      
+
       {/* Mobile Menu */}
-      <div 
-        className={cn(
-          "fixed inset-0 bg-background/95 backdrop-blur-sm z-40 transition-all duration-300 md:hidden",
-          isMenuOpen ? "opacity-100 translate-x-0" : "opacity-0 translate-x-full pointer-events-none"
-        )}
-      >
-        <div className="flex flex-col items-center justify-center h-full gap-8">
-          <ul className="flex flex-col items-center gap-6">
-            {navLinks.map((link) => (
-              <li key={link.name}>
-                <a
-                  href={link.href}
-                  className="text-lg font-medium text-foreground/90 hover:text-primary"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {link.name}
-                </a>
-              </li>
-            ))}
-          </ul>
+      {isMenuOpen && (
+        <div className="fixed inset-0 bg-background/95 backdrop-blur-sm z-40 md:hidden">
+          <div className="flex flex-col items-center justify-center h-full gap-8">
+            <MenuBar
+              items={menuItems}
+              activeItem={activeItem}
+              onItemClick={handleItemClick}
+              className="flex-col bg-transparent border-none shadow-none"
+            />
+          </div>
         </div>
-      </div>
+      )}
     </header>
   );
 }
