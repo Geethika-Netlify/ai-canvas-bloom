@@ -59,13 +59,14 @@ export function HeroSection() {
       }} transition={{
         duration: 0.8
       }}>
-          <motion.h1 
-            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" 
-            initial={{ opacity: 0, y: 20 }} 
-            animate={{ opacity: 1, y: 0 }} 
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            Hey, I'm{" "}
+          <motion.h1 className="flex items-baseline text-4xl md:text-5xl lg:text-6xl font-bold mb-4" layout>
+            <motion.span
+              className="mr-3"
+              layout
+              transition={{ type: "spring", damping: 30, stiffness: 400 }}
+            >
+              Hey, I'm{" "}
+            </motion.span>
             <TextRotate
               texts={[
                 "Geethika Isuru",
@@ -74,17 +75,18 @@ export function HeroSection() {
                 "a Leader",
                 "a Problem Solver"
               ]}
-              mainClassName="gradient-text"
-              staggerFrom="first"
+              mainClassName="gradient-text overflow-hidden"
+              staggerFrom="last"
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               exit={{ y: "-120%" }}
               staggerDuration={0.025}
               splitLevelClassName="overflow-hidden"
               transition={{ type: "spring", damping: 30, stiffness: 400 }}
-              rotationInterval={3000}
+              rotationInterval={2000}
             />
           </motion.h1>
+          
           
           <motion.div className="text-lg text-foreground/70 max-w-lg mx-auto lg:mx-0 space-y-4" initial={{
           opacity: 0,
@@ -106,6 +108,7 @@ export function HeroSection() {
             </p>
           </motion.div>
           
+          
           <motion.div className="mt-8 flex flex-wrap gap-4 justify-center lg:justify-start" initial={{
           opacity: 0,
           y: 20
@@ -121,6 +124,7 @@ export function HeroSection() {
           </motion.div>
         </motion.div>
         
+        
         <motion.div className="lg:w-1/2 relative" initial={{
         opacity: 0,
         scale: 0.9
@@ -134,12 +138,14 @@ export function HeroSection() {
           <div className="relative w-full max-w-md mx-auto">
             <div className="absolute inset-0 -z-10 bg-gradient-radial from-portfolio-blue/20 to-transparent rounded-full transform scale-150"></div>
             
+            
             <div className="absolute -left-12 top-10 glass-card p-3 text-xs font-mono parallax-item animate-float" data-speed-x="8" data-speed-y="-5">
               <pre className="text-portfolio-blue dark:text-portfolio-blue">
                 def ai_solve(problem):
                   return solution
               </pre>
             </div>
+            
             
             <div className="absolute -right-8 bottom-16 glass-card p-3 text-xs font-mono parallax-item animate-float" style={{
             animationDelay: '1.5s'
@@ -149,8 +155,10 @@ export function HeroSection() {
               </pre>
             </div>
             
+            
             <div className="relative aspect-square overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-b from-portfolio-blue/10 to-transparent mix-blend-overlay"></div>
+              
               
               <img 
                 alt="Geethika Isuru" 
@@ -163,6 +171,7 @@ export function HeroSection() {
           </div>
         </motion.div>
       </div>
+      
       
       <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center animate-bounce">
         <span className="text-sm mb-2 text-foreground/70">Scroll Down</span>
