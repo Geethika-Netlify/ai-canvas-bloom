@@ -1,5 +1,5 @@
 
-import * as googleGenAI from "@google/genai";
+import { GoogleGenerativeAI } from "@google/genai";
 
 // Audio configuration constants
 const FORMAT = 'audio/pcm';
@@ -56,7 +56,7 @@ export class GeminiLiveStream {
   async initialize(apiKey: string): Promise<boolean> {
     try {
       // Using the correct API structure for @google/genai
-      this.genAIClient = new googleGenAI.GoogleGenerativeAI(apiKey);
+      this.genAIClient = new GoogleGenerativeAI(apiKey);
       return true;
     } catch (error) {
       console.error("Failed to initialize Gemini API:", error);
