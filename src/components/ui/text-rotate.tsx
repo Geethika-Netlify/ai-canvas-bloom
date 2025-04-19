@@ -51,14 +51,14 @@ const TextRotate = forwardRef<TextRotateRef, TextRotateProps>(
   (
     {
       texts,
-      transition = { type: "spring", damping: 30, stiffness: 400 }, // Increased stiffness for faster transition
+      transition = { type: "spring", damping: 35, stiffness: 500 }, // Further increased stiffness for even faster transition
       initial = { y: "100%", opacity: 0 },
       animate = { y: 0, opacity: 1 },
       exit = { y: "-120%", opacity: 0 },
       animatePresenceMode = "wait",
       animatePresenceInitial = false,
-      rotationInterval = 1000, // Reduced from 2000 to 1000ms
-      staggerDuration = 0.015, // Slightly reduced stagger duration
+      rotationInterval = 500, // Reduced from 1000 to 500ms
+      staggerDuration = 0.008, // Further reduced stagger duration
       staggerFrom = "first",
       loop = true,
       auto = true,
