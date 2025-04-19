@@ -1,9 +1,9 @@
-
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 
 export const GlossyCircle = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
   
   useEffect(() => {
     if (!containerRef.current) return;
@@ -110,13 +110,29 @@ export const GlossyCircle = () => {
   
   return (
     <div 
-      ref={containerRef}
-      className="fixed bottom-8 right-8 w-[120px] h-[120px] z-[9999] rounded-full overflow-hidden"
-      style={{
-        filter: 'drop-shadow(0 0 20px rgba(100, 200, 255, 0.3))',
-        // Removed animation that was causing opacity changes
-        willChange: 'transform'
-      }}
-    />
+      className="group fixed bottom-8 right-8 flex flex-col items-center cursor-pointer z-[9999]"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div 
+        ref={containerRef}
+        className={`w-[120px] h-[120px] rounded-full overflow-hidden transition-transform duration-300 ease-out ${
+          isHovered ? 'transform -translate-y-2' : ''
+        }`}
+        style={{
+          filter: 'drop-shadow(0 0 20px rgba(100, 200, 255, 0.3))',
+          willChange: 'transform'
+        }}
+      />
+      <div 
+        className={`mt-2 font-montserrat font-medium text-sm bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent transition-all duration-300 ease-out ${
+          isHovered 
+            ? 'opacity-100 transform translate-y-0' 
+            : 'opacity-0 transform -translate-y-4'
+        }`}
+      >
+        Talk to GAIA
+      </div>
+    </div>
   );
 };
