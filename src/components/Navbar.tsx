@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { ThemeToggle } from "./ThemeToggle";
 import { Home, BriefcaseIcon, FileText, Book, Award, Mail, SquareStack } from "lucide-react";
 import { MenuBar } from "@/components/ui/glow-menu";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const menuItems = [
   {
@@ -59,6 +60,7 @@ const menuItems = [
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeItem, setActiveItem] = useState("Home");
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -87,12 +89,14 @@ export function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-center gap-4">
         <div className="flex items-center justify-center gap-4">
-          <MenuBar
-            items={menuItems}
-            activeItem={activeItem}
-            onItemClick={handleItemClick}
-            className="bg-transparent border-none shadow-none"
-          />
+          {!isMobile && (
+            <MenuBar
+              items={menuItems}
+              activeItem={activeItem}
+              onItemClick={handleItemClick}
+              className="bg-transparent border-none shadow-none"
+            />
+          )}
           <ThemeToggle />
         </div>
       </div>
