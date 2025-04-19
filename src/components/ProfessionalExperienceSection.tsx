@@ -37,7 +37,6 @@ export function ProfessionalExperienceSection() {
         duration: 0.6
       }} className="text-center mb-16">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <Briefcase className="w-8 h-8 text-portfolio-blue" />
             <h2 className="text-4xl md:text-5xl font-bold text-portfolio-blue">
               Professional Experience
             </h2>
