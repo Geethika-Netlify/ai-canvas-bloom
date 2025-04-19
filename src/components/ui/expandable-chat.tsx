@@ -23,8 +23,8 @@ const chatConfig = {
     "bottom-left": "bottom-5 left-5",
   },
   chatPositions: {
-    "bottom-right": "sm:bottom-[calc(100%-30px)] sm:right-0", // Increased bottom margin
-    "bottom-left": "sm:bottom-[calc(100%-30px)] sm:left-0", // Increased bottom margin
+    "bottom-right": "sm:bottom-[calc(100%-35px)] sm:right-0", // Increased bottom margin
+    "bottom-left": "sm:bottom-[calc(100%-35px)] sm:left-0", // Increased bottom margin
   },
   states: {
     open: "pointer-events-auto opacity-100 visible scale-100 translate-y-0",
