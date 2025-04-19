@@ -1,9 +1,12 @@
 import { useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import { motion, LayoutGroup } from "framer-motion";
 import { ArrowDown, Code, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { TextRotate } from "@/components/ui/text-rotate";
+
 export function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     if (!containerRef.current) return;
     const handleMouseMove = (e: MouseEvent) => {
@@ -30,6 +33,7 @@ export function HeroSection() {
       window.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
+
   return <section id="home" className="relative min-h-screen overflow-hidden flex flex-col items-center justify-center pt-16" ref={containerRef}>
       {/* Decorative elements */}
       <div className="absolute right-[5%] top-[25%] w-32 h-32 parallax-item" data-speed-x="-15" data-speed-y="10">
@@ -48,7 +52,6 @@ export function HeroSection() {
       </div>
       
       <div className="container mx-auto px-6 py-12 flex flex-col lg:flex-row items-center justify-between gap-12 mt-10">
-        {/* Text content */}
         <motion.div className="lg:w-1/2 text-center lg:text-left z-10" initial={{
         opacity: 0,
         y: 20
@@ -58,18 +61,36 @@ export function HeroSection() {
       }} transition={{
         duration: 0.8
       }}>
-          <motion.h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" initial={{
-          opacity: 0,
-          y: 20
-        }} animate={{
-          opacity: 1,
-          y: 0
-        }} transition={{
-          duration: 0.8,
-          delay: 0.2
-        }}>
-            Hey, I'm <span className="gradient-text">Geethika Isuru</span>
-          </motion.h1>
+          <LayoutGroup>
+            <motion.h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 flex items-center justify-center lg:justify-start" layout>
+              <motion.span
+                className="inline-block"
+                layout
+                transition={{ type: "spring", damping: 30, stiffness: 400 }}
+              >
+                Hey, I'm{" "}
+              </motion.span>
+              <TextRotate
+                texts={[
+                  "Geethika Isuru",
+                  "a AI Engineer",
+                  "a Developer",
+                  "a Leader",
+                  "a Problem Solver"
+                ]}
+                mainClassName="gradient-text px-2 overflow-hidden"
+                staggerFrom="last"
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                exit={{ y: "-120%" }}
+                staggerDuration={0.025}
+                splitLevelClassName="overflow-hidden"
+                transition={{ type: "spring", damping: 30, stiffness: 400 }}
+                rotationInterval={2000}
+              />
+            </motion.h1>
+          </LayoutGroup>
+
           
           <motion.h2 className="text-xl md:text-2xl font-medium text-foreground/80 mb-6" initial={{
           opacity: 0,
