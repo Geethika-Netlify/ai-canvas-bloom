@@ -1,5 +1,5 @@
 
-import { GoogleGenerativeAI } from "@google/genai";
+import { genai } from "@google/genai";
 
 // Audio configuration constants
 const FORMAT = 'audio/pcm';
@@ -55,8 +55,11 @@ export class GeminiLiveStream {
 
   async initialize(apiKey: string): Promise<boolean> {
     try {
-      // Using the correct API structure for @google/genai
-      this.genAIClient = new GoogleGenerativeAI(apiKey);
+      // Initialize the client with the correct API method
+      this.genAIClient = new genai.GenerativeModel({
+        apiKey,
+        model: MODEL,
+      });
       return true;
     } catch (error) {
       console.error("Failed to initialize Gemini API:", error);
@@ -110,13 +113,15 @@ export class GeminiLiveStream {
     }
 
     try {
-      // This is a placeholder for the actual Gemini API call to start a live session
-      // We'll use the correct API structure for the JS SDK
-      const model = this.genAIClient.getGenerativeModel({ model: MODEL });
-      this.session = await model.startChat({
-        generationConfig: {
-          maxOutputTokens: 8192,
-        }
+      // Update this once the actual Gemini Live API documentation is released
+      // This is a placeholder based on the expected structure
+      this.session = await this.genAIClient.generateContent({
+        contents: [{
+          role: "user",
+          parts: [{
+            text: "Hello Gemini, I'd like to start a conversation."
+          }]
+        }]
       });
 
       // Process any queued audio data
@@ -129,19 +134,17 @@ export class GeminiLiveStream {
 
       // Set up event listeners for receiving audio and text from Gemini
       if (this.session) {
-        // These are placeholders since the actual API may differ
-        // Will be updated once the Live API is fully documented
-        this.session.onAudio = (audioData: Uint8Array) => {
-          if (options.onAudioReceived) {
-            options.onAudioReceived(audioData);
-          }
-        };
-
-        this.session.onText = (text: string) => {
+        this.session.on?.('text', (text: string) => {
           if (options.onTextReceived) {
             options.onTextReceived(text);
           }
-        };
+        });
+
+        this.session.on?.('audio', (audioData: Uint8Array) => {
+          if (options.onAudioReceived) {
+            options.onAudioReceived(audioData);
+          }
+        });
       }
 
       this.isStreaming = true;
@@ -181,7 +184,7 @@ export class GeminiLiveStream {
     try {
       // This is a placeholder for the actual Gemini API call
       // We'll need to update this once we have more specific implementation details
-      await this.session.sendAudio(audioData);
+      await this.session.sendAudio?.(audioData);
     } catch (error) {
       console.error("Error sending audio to Gemini:", error);
     } finally {
@@ -197,7 +200,7 @@ export class GeminiLiveStream {
 
     try {
       // Placeholder for the actual Gemini API call to send text
-      const result = await this.session.sendMessage(text);
+      await this.session.sendMessage?.(text);
       return true;
     } catch (error) {
       console.error("Failed to send text message:", error);
@@ -210,7 +213,7 @@ export class GeminiLiveStream {
 
     if (this.session) {
       try {
-        await this.session.close();
+        await this.session.close?.();
       } catch (error) {
         console.error("Error closing Gemini session:", error);
       }

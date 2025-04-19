@@ -128,6 +128,7 @@ export const GlossyChatWidget = () => {
     }
   }, [messages]);
 
+  // This effect handles the 3D glossy circle rendering
   useEffect(() => {
     if (!glossyContainerRef.current) return;
 
@@ -218,9 +219,7 @@ export const GlossyChatWidget = () => {
 
     // Handle window resize
     const handleResize = () => {
-      const {
-        current
-      } = glossyContainerRef;
+      const current = glossyContainerRef.current;
       if (!current) return;
       const newSize = isOpen ? 50 : 120;
       renderer.setSize(newSize, newSize);
@@ -239,24 +238,22 @@ export const GlossyChatWidget = () => {
     };
   }, [isOpen]); // Added isOpen as a dependency to recreate the circle when the chat state changes
 
-  return <div className="fixed bottom-8 right-8 z-[9999]">
-      {isOpen ? <motion.div initial={{
-      opacity: 0
-    }} animate={{
-      opacity: 1
-    }} exit={{
-      opacity: 0
-    }}>
+  return (
+    <div className="fixed bottom-8 right-8 z-[9999]">
+      {isOpen ? (
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
           <ExpandableChat size="lg" position="bottom-right" className="glossy-chat-window">
             <ExpandableChatHeader className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <motion.div initial={{
-              scale: 0.6,
-              opacity: 0
-            }} animate={{
-              scale: 1,
-              opacity: 1
-            }} className="w-10 h-10 overflow-hidden rounded-full">
+                <motion.div 
+                  initial={{ scale: 0.6, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  className="w-10 h-10 overflow-hidden rounded-full"
+                >
                   <div ref={glossyContainerRef} className="w-full h-full rounded-full overflow-hidden" />
                 </motion.div>
                 <div>
@@ -264,22 +261,27 @@ export const GlossyChatWidget = () => {
                   <p className="text-xs text-muted-foreground">Geethika's AI Assistant</p>
                 </div>
               </div>
-              <Button variant="ghost" size="icon" onClick={toggleChat} className="rounded-full hover:bg-muted">
-                <motion.div initial={{
-              rotate: 0
-            }} animate={{
-              rotate: 180
-            }} exit={{
-              rotate: 0
-            }} transition={{
-              duration: 0.3
-            }}>
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                onClick={toggleChat} 
+                className="rounded-full hover:bg-muted"
+              >
+                <motion.div 
+                  initial={{ rotate: 0 }}
+                  animate={{ rotate: 180 }}
+                  exit={{ rotate: 0 }}
+                  transition={{ duration: 0.3 }}
+                >
                   ×
                 </motion.div>
               </Button>
             </ExpandableChatHeader>
 
-            <ExpandableChatBody className="backdrop-blur-sm bg-background/80" ref={chatBodyRef}>
+            <ExpandableChatBody 
+              className="backdrop-blur-sm bg-background/80" 
+              ref={chatBodyRef}
+            >
               {!isInitialized && (
                 <div className="p-4">
                   <ApiKeySetup onSubmit={handleKeySetup} isProcessing={isProcessing} />
@@ -287,17 +289,21 @@ export const GlossyChatWidget = () => {
               )}
               
               <ChatMessageList>
-                {messages.map(message => <ChatBubble key={message.id} variant={message.sender === "user" ? "sent" : "received"}>
+                {messages.map(message => (
+                  <ChatBubble key={message.id} variant={message.sender === "user" ? "sent" : "received"}>
                     <ChatBubbleAvatar fallback={message.sender === "user" ? "You" : "AI"} />
                     <ChatBubbleMessage variant={message.sender === "user" ? "sent" : "received"}>
                       {message.content}
                     </ChatBubbleMessage>
-                  </ChatBubble>)}
+                  </ChatBubble>
+                ))}
 
-                {isLoading && <ChatBubble variant="received">
+                {isLoading && (
+                  <ChatBubble variant="received">
                     <ChatBubbleAvatar fallback="AI" />
                     <ChatBubbleMessage isLoading />
-                  </ChatBubble>}
+                  </ChatBubble>
+                )}
               </ChatMessageList>
             </ExpandableChatBody>
 
@@ -318,7 +324,12 @@ export const GlossyChatWidget = () => {
               {/* Text input form */}
               {(showTextInput || !isInitialized) && (
                 <form onSubmit={handleSubmit} className="relative rounded-lg border bg-background/80 backdrop-blur-sm focus-within:ring-1 focus-within:ring-ring p-1">
-                  <ChatInput value={input} onChange={e => setInput(e.target.value)} placeholder="Ask GAIA anything..." className="min-h-12 resize-none rounded-lg bg-background/0 border-0 p-3 shadow-none focus-visible:ring-0 font-montserrat" />
+                  <ChatInput 
+                    value={input} 
+                    onChange={e => setInput(e.target.value)} 
+                    placeholder="Ask GAIA anything..." 
+                    className="min-h-12 resize-none rounded-lg bg-background/0 border-0 p-3 shadow-none focus-visible:ring-0 font-montserrat" 
+                  />
                   <div className="flex items-center p-3 pt-0 justify-between">
                     <div className="flex">
                       <Button variant="ghost" size="icon" type="button">
@@ -337,18 +348,32 @@ export const GlossyChatWidget = () => {
               )}
             </ExpandableChatFooter>
           </ExpandableChat>
-        </motion.div> : <motion.div className="cursor-pointer" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} onClick={toggleChat}>
+        </motion.div>
+      ) : (
+        <motion.div 
+          className="cursor-pointer" 
+          onMouseEnter={() => setIsHovered(true)} 
+          onMouseLeave={() => setIsHovered(false)} 
+          onClick={toggleChat}
+        >
           <div className="flex flex-col items-center">
-            <motion.div className={`rounded-full overflow-hidden transition-transform duration-300 ease-out ${isHovered ? 'transform -translate-y-2' : ''}`} style={{
-          filter: 'drop-shadow(0 0 20px rgba(100, 200, 255, 0.3))',
-          willChange: 'transform'
-        }}>
-              <div ref={glossyContainerRef} className="w-[120px] h-[120px]" />
+            <motion.div 
+              className={`rounded-full overflow-hidden transition-transform duration-300 ease-out ${isHovered ? 'transform -translate-y-2' : ''}`}
+              style={{
+                filter: 'drop-shadow(0 0 20px rgba(100, 200, 255, 0.3))',
+                willChange: 'transform'
+              }}
+            >
+              <div className="w-[120px] h-[120px]" ref={glossyContainerRef} />
             </motion.div>
-            <div className={`mt-2 font-montserrat font-bold text-xl bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent transition-all duration-300 ease-out ${isHovered ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform -translate-y-4'}`}>
+            <div 
+              className={`mt-2 font-montserrat font-bold text-xl bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent transition-all duration-300 ease-out ${isHovered ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform -translate-y-4'}`}
+            >
               <strong>Talk to GAIA</strong>
             </div>
           </div>
-        </motion.div>}
-    </div>;
+        </motion.div>
+      )}
+    </div>
+  );
 };
