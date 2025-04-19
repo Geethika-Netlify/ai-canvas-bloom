@@ -1,3 +1,4 @@
+
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 
@@ -125,13 +126,13 @@ export const GlossyCircle = () => {
         }}
       />
       <div 
-        className={`mt-2 font-montserrat font-medium text-sm bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent transition-all duration-300 ease-out ${
+        className={`mt-2 font-montserrat font-bold text-lg bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent transition-all duration-300 ease-out ${
           isHovered 
             ? 'opacity-100 transform translate-y-0' 
             : 'opacity-0 transform -translate-y-4'
         }`}
       >
-        Talk to GAIA
+        <strong>Talk to GAIA</strong>
       </div>
     </div>
   );
