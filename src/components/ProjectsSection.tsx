@@ -1,3 +1,4 @@
+
 import { FollowerPointerCard } from "@/components/ui/following-pointer";
 import { motion } from "framer-motion";
 
@@ -49,7 +50,7 @@ const projects = [
 export function ProjectsSection() {
   return (
     <section id="projects" className="py-20 bg-gray-50/50 dark:bg-gray-900/50">
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -63,7 +64,7 @@ export function ProjectsSection() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {projects.map((project, index) => (
             <motion.div
               key={project.title}
@@ -89,7 +90,7 @@ export function ProjectsSection() {
                       <h3 className="font-bold text-xl mb-2 text-zinc-700 dark:text-zinc-200">
                         {project.title}
                       </h3>
-                      <p className="text-zinc-500 dark:text-zinc-400 mb-4">
+                      <p className="text-zinc-500 dark:text-zinc-400 mb-4 line-clamp-3">
                         {project.description}
                       </p>
                       <div className="mb-4">
