@@ -1,5 +1,7 @@
+
 import { Navbar } from "@/components/Navbar";
 import { HeroSection } from "@/components/HeroSection";
+import { CoreCompetenciesSection } from "@/components/CoreCompetenciesSection";
 import { ParticleBackground } from "@/components/ParticleBackground";
 
 const Index = () => {
@@ -9,7 +11,7 @@ const Index = () => {
       <Navbar />
       <main>
         <HeroSection />
-        {/* Other sections will go here */}
+        <CoreCompetenciesSection />
       </main>
     </div>
   );
