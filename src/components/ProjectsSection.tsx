@@ -1,5 +1,6 @@
 import { FollowerPointerCard } from "@/components/ui/following-pointer";
 import { motion } from "framer-motion";
+import { FloatingScrollButton } from "./FloatingScrollButton";
 
 const projects = [
   {
@@ -103,7 +104,7 @@ const projects = [
     description: "Tool to check availability of thousands of '.com' domains simultaneously",
     link: "https://github.com/geethikaisuru/Domain-Checker",
     technologies: "Python, Streamlit, whois, threading",
-    image: "/lovable-uploads/73dc8931-7f0c-4216-a3bb-3c6eba7ad90f.png",
+    image: "/lovable-uploads/40be1a32-38f5-444a-9234-1ac26253db88.png",
     date: "Jan 2025"
   },
 ];
@@ -111,6 +112,7 @@ const projects = [
 export function ProjectsSection() {
   return (
     <section id="projects" className="py-20 bg-gray-50/50 dark:bg-gray-900/50">
+      <FloatingScrollButton />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
