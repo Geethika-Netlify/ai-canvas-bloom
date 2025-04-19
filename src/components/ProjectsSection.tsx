@@ -67,7 +67,7 @@ export function ProjectsSection() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
               <FollowerPointerCard
-                title={project.technologies}
+                title="Solo Project"
                 className="h-full"
               >
                 <a href={project.link} target="_blank" rel="noopener noreferrer">
@@ -86,6 +86,11 @@ export function ProjectsSection() {
                       <p className="text-zinc-500 dark:text-zinc-400 mb-4">
                         {project.description}
                       </p>
+                      <div className="mb-4">
+                        <span className="text-sm font-medium text-zinc-600 dark:text-zinc-300">
+                          Technologies: {project.technologies}
+                        </span>
+                      </div>
                       <div className="flex justify-end">
                         <span className="relative z-10 px-6 py-2 bg-primary text-primary-foreground font-medium rounded-xl text-sm">
                           View Project
