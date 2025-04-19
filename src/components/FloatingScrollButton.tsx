@@ -1,5 +1,5 @@
 
-import { ScrollIcon } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export const FloatingScrollButton = () => {
@@ -15,11 +15,11 @@ export const FloatingScrollButton = () => {
   return (
     <Button
       onClick={handleScroll}
-      className="fixed bottom-8 right-8 rounded-full p-4 shadow-lg bg-primary hover:bg-primary/90 z-50"
+      className="fixed left-1/2 bottom-10 transform -translate-x-1/2 rounded-full p-4 bg-transparent hover:bg-transparent border border-portfolio-blue/30 text-portfolio-blue"
       size="icon"
     >
-      <ScrollIcon className="h-6 w-6" />
-      <span className="sr-only">Scroll down</span>
+      <ArrowDown className="h-6 w-6" />
+      <span className="sr-only">Scroll Down</span>
     </Button>
   );
 };
