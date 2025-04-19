@@ -1,7 +1,7 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Linkedin, Github, Smartphone, MapPin } from 'lucide-react';
+import { SparklesText } from '@/components/ui/sparkles-text';
 
 export const Footer = () => {
   const socials = [
@@ -32,9 +32,11 @@ export const Footer = () => {
           transition={{ duration: 0.6 }}
           className="flex flex-col items-center justify-center space-y-8"
         >
-          <p className="text-2xl md:text-3xl font-montserrat font-medium italic text-center bg-clip-text text-transparent bg-gradient-to-r from-portfolio-blue to-portfolio-dark-blue">
-            "Stay Magical & Never Give Up"
-          </p>
+          <SparklesText 
+            text="Stay Magical & Never Give Up"
+            className="text-2xl md:text-3xl font-montserrat font-medium italic text-center"
+            colors={{ first: "#2196F3", second: "#1976D2" }}
+          />
           
           <div className="flex items-center space-x-2 text-muted-foreground">
             <MapPin className="h-4 w-4" />
