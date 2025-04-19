@@ -37,9 +37,7 @@ export function ProfessionalExperienceSection() {
         duration: 0.6
       }} className="text-center mb-16">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <h2 className="text-4xl md:text-5xl font-bold text-portfolio-blue">
-              Professional Experience
-            </h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-portfolio-blue">Professional Experience 🛠️</h2>
           </div>
           <div className="w-20 h-1 bg-portfolio-blue/30 mx-auto rounded-full" />
         </motion.div>
