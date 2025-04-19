@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/components/ui/sonner";
+import { supabase } from "@/integrations/supabase/client";
 import {
   Form,
   FormControl,
@@ -35,22 +36,16 @@ export function ContactSection() {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const response = await fetch(
-        "https://ovuyuspsxdrxrymvdnzm.supabase.co/functions/v1/send-email",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(values),
-        }
-      );
+      const response = await supabase.functions.invoke('send-email', {
+        body: JSON.stringify(values)
+      });
 
-      if (!response.ok) throw new Error("Failed to send message");
+      if (response.error) throw new Error(response.error.message);
 
       toast.success("Message sent successfully!");
       form.reset();
     } catch (error) {
+      console.error(error);
       toast.error("Failed to send message. Please try again.");
     }
   };
