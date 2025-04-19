@@ -1,4 +1,5 @@
-import { genai } from "@google/genai";
+
+import * as googleGenAI from "@google/genai";
 
 // Audio configuration constants
 const FORMAT = 'audio/pcm';
@@ -54,11 +55,8 @@ export class GeminiLiveStream {
 
   async initialize(apiKey: string): Promise<boolean> {
     try {
-      const genaiInstance = new genai.GenerativeModel({
-        apiKey: apiKey,
-        model: MODEL
-      });
-      this.genAIClient = genaiInstance;
+      // Using the correct API structure for @google/genai
+      this.genAIClient = new googleGenAI.GoogleGenerativeAI(apiKey);
       return true;
     } catch (error) {
       console.error("Failed to initialize Gemini API:", error);
@@ -113,10 +111,10 @@ export class GeminiLiveStream {
 
     try {
       // This is a placeholder for the actual Gemini API call to start a live session
-      // We'll need to update this with the correct API once available in the JS SDK
-      this.session = await this.genAIClient.initializeChatSession({
+      // We'll use the correct API structure for the JS SDK
+      const model = this.genAIClient.getGenerativeModel({ model: MODEL });
+      this.session = await model.startChat({
         generationConfig: {
-          responseStreamingEnabled: true,
           maxOutputTokens: 8192,
         }
       });
@@ -131,6 +129,8 @@ export class GeminiLiveStream {
 
       // Set up event listeners for receiving audio and text from Gemini
       if (this.session) {
+        // These are placeholders since the actual API may differ
+        // Will be updated once the Live API is fully documented
         this.session.onAudio = (audioData: Uint8Array) => {
           if (options.onAudioReceived) {
             options.onAudioReceived(audioData);
@@ -197,7 +197,7 @@ export class GeminiLiveStream {
 
     try {
       // Placeholder for the actual Gemini API call to send text
-      await this.session.sendText(text);
+      const result = await this.session.sendMessage(text);
       return true;
     } catch (error) {
       console.error("Failed to send text message:", error);

@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -342,7 +341,9 @@ export const GlossyChatWidget = () => {
             <motion.div className={`rounded-full overflow-hidden transition-transform duration-300 ease-out ${isHovered ? 'transform -translate-y-2' : ''}`} style={{
           filter: 'drop-shadow(0 0 20px rgba(100, 200, 255, 0.3))',
           willChange: 'transform'
-        }} ref={glossyContainerRef} />
+        }}>
+              <div ref={glossyContainerRef} className="w-[120px] h-[120px]" />
+            </motion.div>
             <div className={`mt-2 font-montserrat font-bold text-xl bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent transition-all duration-300 ease-out ${isHovered ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform -translate-y-4'}`}>
               <strong>Talk to GAIA</strong>
             </div>
