@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Linkedin, Github, WhatsApp, MapPin } from 'lucide-react';
+import { Linkedin, Github, Smartphone, MapPin } from 'lucide-react';
 
 export const Footer = () => {
   const socials = [
@@ -16,7 +16,7 @@ export const Footer = () => {
       label: "GitHub",
     },
     {
-      icon: <WhatsApp className="h-5 w-5" />,
+      icon: <Smartphone className="h-5 w-5" />,
       href: "http://wa.me/94771442131",
       label: "WhatsApp",
     },
