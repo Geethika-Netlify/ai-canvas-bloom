@@ -4,6 +4,7 @@ import { HeroSection } from "@/components/HeroSection";
 import { ProjectsSection } from "@/components/ProjectsSection";
 import { ExpertiseSection } from "@/components/ExpertiseSection";
 import { CertificatesSection } from "@/components/CertificatesSection";
+import { EducationSection } from "@/components/EducationSection";
 import { ParticleBackground } from "@/components/ParticleBackground";
 
 const Index = () => {
@@ -16,6 +17,7 @@ const Index = () => {
         <ProjectsSection />
         <ExpertiseSection />
         <CertificatesSection />
+        <EducationSection />
       </main>
     </div>
   );
