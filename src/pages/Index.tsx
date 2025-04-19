@@ -3,6 +3,7 @@ import { Navbar } from "@/components/Navbar";
 import { HeroSection } from "@/components/HeroSection";
 import { ProjectsSection } from "@/components/ProjectsSection";
 import { ExpertiseSection } from "@/components/ExpertiseSection";
+import { CertificatesSection } from "@/components/CertificatesSection";
 import { ParticleBackground } from "@/components/ParticleBackground";
 
 const Index = () => {
@@ -14,6 +15,7 @@ const Index = () => {
         <HeroSection />
         <ProjectsSection />
         <ExpertiseSection />
+        <CertificatesSection />
       </main>
     </div>
   );
