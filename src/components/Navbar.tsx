@@ -88,14 +88,16 @@ export function Navbar() {
           : "bg-transparent"
       )}
     >
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between gap-4">
-        <MenuBar
-          items={menuItems}
-          activeItem={activeItem}
-          onItemClick={handleItemClick}
-          className="bg-transparent border-none shadow-none"
-        />
-        <ThemeToggle />
+      <div className="max-w-7xl mx-auto px-6 flex items-center justify-center gap-4">
+        <div className="flex items-center justify-center gap-4">
+          <MenuBar
+            items={menuItems}
+            activeItem={activeItem}
+            onItemClick={handleItemClick}
+            className="bg-transparent border-none shadow-none"
+          />
+          <ThemeToggle />
+        </div>
       </div>
     </header>
   );
