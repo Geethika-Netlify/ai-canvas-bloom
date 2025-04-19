@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "./ThemeToggle";
-import { Home, Settings, User, Menu } from "lucide-react";
+import { Home, Settings, User } from "lucide-react";
 import { MenuBar } from "@/components/ui/glow-menu";
 
 const menuItems = [
@@ -32,16 +32,11 @@ const menuItems = [
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeItem, setActiveItem] = useState("Home");
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      if (scrollPosition > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setIsScrolled(scrollPosition > 50);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -50,7 +45,6 @@ export function Navbar() {
 
   const handleItemClick = (label: string) => {
     setActiveItem(label);
-    setIsMenuOpen(false);
     const element = document.querySelector(
       menuItems.find((item) => item.label === label)?.href || ""
     );
@@ -60,53 +54,22 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4 px-6 lg:px-12",
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4",
         isScrolled 
           ? "bg-background/80 backdrop-blur-md shadow-md" 
           : "bg-transparent"
       )}
     >
-      <nav className="flex items-center justify-between max-w-7xl mx-auto">
-        <div className="flex items-center gap-2">
-          <span className="text-xl md:text-2xl font-bold gradient-text">Geethika Isuru</span>
-        </div>
-        
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-8">
-          <MenuBar
-            items={menuItems}
-            activeItem={activeItem}
-            onItemClick={handleItemClick}
-            className="bg-transparent border-none shadow-none"
-          />
-          <ThemeToggle />
-        </div>
-
-        {/* Mobile Navigation */}
-        <div className="flex items-center gap-4 md:hidden">
-          <ThemeToggle />
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="text-muted-foreground hover:text-foreground"
-          >
-            <Menu className="h-6 w-6" />
-          </button>
-        </div>
-      </nav>
-
-      {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className="fixed inset-0 bg-background/95 backdrop-blur-sm z-40 md:hidden">
-          <div className="flex flex-col items-center justify-center h-full gap-8">
-            <MenuBar
-              items={menuItems}
-              activeItem={activeItem}
-              onItemClick={handleItemClick}
-              className="flex-col bg-transparent border-none shadow-none"
-            />
-          </div>
-        </div>
-      )}
+      <div className="max-w-7xl mx-auto px-6 flex items-center justify-center gap-4">
+        <MenuBar
+          items={menuItems}
+          activeItem={activeItem}
+          onItemClick={handleItemClick}
+          className="bg-transparent border-none shadow-none"
+        />
+        <ThemeToggle />
+      </div>
     </header>
   );
 }
+
