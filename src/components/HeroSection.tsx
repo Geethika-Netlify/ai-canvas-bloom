@@ -48,7 +48,7 @@ export function HeroSection() {
       }} />
       </div>
       
-      <div className="container mx-auto px-6 py-12 flex flex-col lg:flex-row items-center justify-between gap-12 mt-10">
+      <div className="container py-12 flex flex-col lg:flex-row items-center justify-between gap-12 mt-10 mx-[11px] px-[34px]">
         <motion.div className="lg:w-1/2 text-center lg:text-left z-10" initial={{
         opacity: 0,
         y: 20
