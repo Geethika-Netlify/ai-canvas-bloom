@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "./ThemeToggle";
@@ -87,7 +88,7 @@ export function Navbar() {
           : "bg-transparent"
       )}
     >
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-center gap-4">
+      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between gap-4">
         <MenuBar
           items={menuItems}
           activeItem={activeItem}
