@@ -78,6 +78,13 @@ const projects = [
     link: "https://dinum-lottery-scanster.lovable.app/",
     technologies: "React, TypeScript, Supabase, Vite",
     image: "/lovable-uploads/4b8b8c0f-ea08-4cce-b878-f04322e6f19a.png"
+  },
+  {
+    title: "VFX Agency Website",
+    description: "My old venture in business before fully committing to AI. The Official Website of the SL VFX sub brand made purely for fiverr Agency Profile.",
+    link: "https://studio.azynctra.com/",
+    technologies: "HTML5, CSS, JavaScript, Github",
+    image: "/lovable-uploads/3c875501-105c-4461-a228-163023c60914.png"
   }
 ];
 
