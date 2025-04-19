@@ -2,6 +2,7 @@
 import { Navbar } from "@/components/Navbar";
 import { HeroSection } from "@/components/HeroSection";
 import { CoreCompetenciesSection } from "@/components/CoreCompetenciesSection";
+import { ExpertiseSection } from "@/components/ExpertiseSection";
 import { ParticleBackground } from "@/components/ParticleBackground";
 
 const Index = () => {
@@ -12,6 +13,7 @@ const Index = () => {
       <main>
         <HeroSection />
         <CoreCompetenciesSection />
+        <ExpertiseSection />
       </main>
     </div>
   );
