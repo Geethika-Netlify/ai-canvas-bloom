@@ -50,7 +50,6 @@ export function HeroSection() {
       </div>
       
       <div className="container mx-auto px-6 py-12 flex flex-col lg:flex-row items-center justify-between gap-12 mt-10">
-        {/* Text content */}
         <motion.div className="lg:w-1/2 text-center lg:text-left z-10" initial={{
         opacity: 0,
         y: 20
@@ -122,7 +121,6 @@ export function HeroSection() {
           </motion.div>
         </motion.div>
         
-        {/* Image content with creative treatment */}
         <motion.div className="lg:w-1/2 relative" initial={{
         opacity: 0,
         scale: 0.9
@@ -134,10 +132,8 @@ export function HeroSection() {
         delay: 0.4
       }}>
           <div className="relative w-full max-w-md mx-auto">
-            {/* Decorative circle backdrop */}
             <div className="absolute inset-0 -z-10 bg-gradient-radial from-portfolio-blue/20 to-transparent rounded-full transform scale-150"></div>
             
-            {/* Floating code snippets */}
             <div className="absolute -left-12 top-10 glass-card p-3 text-xs font-mono parallax-item animate-float" data-speed-x="8" data-speed-y="-5">
               <pre className="text-portfolio-blue dark:text-portfolio-blue">
                 def ai_solve(problem):
@@ -153,7 +149,6 @@ export function HeroSection() {
               </pre>
             </div>
             
-            {/* Main image container without border */}
             <div className="relative aspect-square overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-b from-portfolio-blue/10 to-transparent mix-blend-overlay"></div>
               
@@ -169,7 +164,6 @@ export function HeroSection() {
         </motion.div>
       </div>
       
-      {/* Scroll indicator */}
       <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center animate-bounce">
         <span className="text-sm mb-2 text-foreground/70">Scroll Down</span>
         <ArrowDown className="w-5 h-5 text-portfolio-blue" />
