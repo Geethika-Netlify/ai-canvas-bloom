@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -66,14 +67,12 @@ export const MenuBar = React.forwardRef<HTMLDivElement, MenuBarProps>(
     const isDarkTheme = theme === "dark"
 
     return (
-      <motion.nav
+      <div
         ref={ref}
         className={cn(
           "p-2 rounded-2xl bg-gradient-to-b from-background/80 to-background/40 backdrop-blur-lg border border-border/40 shadow-lg relative overflow-hidden",
           className,
         )}
-        initial="initial"
-        whileHover="hover"
         {...props}
       >
         <motion.div
@@ -82,6 +81,8 @@ export const MenuBar = React.forwardRef<HTMLDivElement, MenuBarProps>(
               ? "via-blue-400/30 via-30% via-purple-400/30 via-60% via-red-400/30 via-90%"
               : "via-blue-400/20 via-30% via-purple-400/20 via-60% via-red-400/20 via-90%"
           } to-transparent rounded-3xl z-0 pointer-events-none`}
+          initial="initial"
+          whileHover="hover"
           variants={navGlowVariants}
         />
         <ul className="flex items-center gap-2 relative z-10">
@@ -91,12 +92,8 @@ export const MenuBar = React.forwardRef<HTMLDivElement, MenuBarProps>(
 
             return (
               <motion.li key={item.label} className="relative">
-                <a
-                  href={item.href}
-                  onClick={(e) => {
-                    e.preventDefault()
-                    onItemClick?.(item.label)
-                  }}
+                <button
+                  onClick={() => onItemClick?.(item.label)}
                   className="block w-full"
                 >
                   <motion.div
@@ -167,12 +164,12 @@ export const MenuBar = React.forwardRef<HTMLDivElement, MenuBarProps>(
                       <span>{item.label}</span>
                     </motion.div>
                   </motion.div>
-                </a>
+                </button>
               </motion.li>
             )
           })}
         </ul>
-      </motion.nav>
+      </div>
     )
   },
 )

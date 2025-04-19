@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "./ThemeToggle";
-import { Home, Settings, User } from "lucide-react";
+import { Home, Settings, User, Menu } from "lucide-react";
 import { MenuBar } from "@/components/ui/glow-menu";
 
 const menuItems = [
