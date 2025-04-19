@@ -28,6 +28,7 @@ export function Navbar() {
     { name: "Expertise", href: "#expertise" },
     { name: "Projects", href: "#projects" },
     { name: "Experience", href: "#experience" },
+    { name: "Certificates", href: "#certificates" },
     { name: "Contact", href: "#contact" }
   ];
 

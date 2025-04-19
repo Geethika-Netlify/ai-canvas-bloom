@@ -45,7 +45,7 @@ const certificates = [
     year: "2023",
     courses: 8,
     url: "https://www.coursera.org/account/accomplishments/specialization/certificate/XBVLYF42H3F5",
-    logo: "/lovable-uploads/07eab3f0-fe51-41cd-adbe-5664bc822b1c.png",
+    logo: "/lovable-uploads/4974c8fe-b57e-49b8-ae2c-8b4df34c5bc4.png",
   },
   {
     title: "Entrepreneurship Specialization",
