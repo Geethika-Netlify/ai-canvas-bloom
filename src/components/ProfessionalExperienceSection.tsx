@@ -1,11 +1,11 @@
-
 import { motion } from "framer-motion";
 import { Separator } from "@/components/ui/separator";
 import { Briefcase } from "lucide-react";
-
 export function ProfessionalExperienceSection() {
   const container = {
-    hidden: { opacity: 0 },
+    hidden: {
+      opacity: 0
+    },
     show: {
       opacity: 1,
       transition: {
@@ -13,22 +13,29 @@ export function ProfessionalExperienceSection() {
       }
     }
   };
-
   const item = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0 }
+    hidden: {
+      opacity: 0,
+      y: 20
+    },
+    show: {
+      opacity: 1,
+      y: 0
+    }
   };
-
-  return (
-    <section id="experience" className="py-24 bg-background">
+  return <section id="experience" className="py-24 bg-slate-900">
       <div className="container max-w-6xl mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
+        <motion.div initial={{
+        opacity: 0,
+        y: 20
+      }} whileInView={{
+        opacity: 1,
+        y: 0
+      }} viewport={{
+        once: true
+      }} transition={{
+        duration: 0.6
+      }} className="text-center mb-16">
           <div className="flex items-center justify-center gap-3 mb-4">
             <Briefcase className="w-8 h-8 text-portfolio-blue" />
             <h2 className="text-4xl md:text-5xl font-bold text-portfolio-blue">
@@ -38,13 +45,9 @@ export function ProfessionalExperienceSection() {
           <div className="w-20 h-1 bg-portfolio-blue/30 mx-auto rounded-full" />
         </motion.div>
 
-        <motion.div
-          variants={container}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          className="space-y-16"
-        >
+        <motion.div variants={container} initial="hidden" whileInView="show" viewport={{
+        once: true
+      }} className="space-y-16">
           {/* AZYNCTRA Experience */}
           <motion.div variants={item} className="relative">
             <div className="space-y-4">
@@ -101,6 +104,5 @@ export function ProfessionalExperienceSection() {
           </motion.div>
         </motion.div>
       </div>
-    </section>
-  );
+    </section>;
 }
