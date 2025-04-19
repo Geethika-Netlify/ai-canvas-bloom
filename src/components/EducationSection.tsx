@@ -1,10 +1,10 @@
-
 import { motion } from "framer-motion";
 import { Separator } from "@/components/ui/separator";
-
 export function EducationSection() {
   const container = {
-    hidden: { opacity: 0 },
+    hidden: {
+      opacity: 0
+    },
     show: {
       opacity: 1,
       transition: {
@@ -12,33 +12,36 @@ export function EducationSection() {
       }
     }
   };
-
   const item = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0 }
+    hidden: {
+      opacity: 0,
+      y: 20
+    },
+    show: {
+      opacity: 1,
+      y: 0
+    }
   };
-
-  return (
-    <section id="education" className="py-24 bg-gradient-to-b from-background to-background/50">
+  return <section id="education" className="py-24 bg-gradient-to-b from-background to-background/50">
       <div className="container max-w-6xl mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl font-bold mb-4 gradient-text">Education</h2>
+        <motion.div initial={{
+        opacity: 0,
+        y: 20
+      }} whileInView={{
+        opacity: 1,
+        y: 0
+      }} viewport={{
+        once: true
+      }} transition={{
+        duration: 0.6
+      }} className="text-center mb-16">
+          <h2 className="text-4xl font-bold mb-4 gradient-text">Education 💪</h2>
           <div className="w-20 h-1 bg-portfolio-blue/30 mx-auto rounded-full" />
         </motion.div>
 
-        <motion.div
-          variants={container}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          className="space-y-16"
-        >
+        <motion.div variants={container} initial="hidden" whileInView="show" viewport={{
+        once: true
+      }} className="space-y-16">
           {/* University */}
           <motion.div variants={item} className="relative">
             <div className="space-y-4">
@@ -140,6 +143,5 @@ export function EducationSection() {
           </motion.div>
         </motion.div>
       </div>
-    </section>
-  );
+    </section>;
 }
