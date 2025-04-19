@@ -14,7 +14,7 @@ const certificates = [
     year: "2023",
     courses: 5,
     url: "https://coursera.org/verify/specialization/M6X5QHSKFW2E",
-    logo: "/lovable-uploads/91b30ba7-314d-47d8-9cd9-fb352c331a69.png",
+    logo: "/lovable-uploads/692253ef-9602-46b3-a610-a35b6a235ae8.png",
   },
   {
     title: "Machine Learning Specialization",
@@ -22,7 +22,7 @@ const certificates = [
     year: "2023",
     courses: 3,
     url: "https://coursera.org/verify/specialization/B4CL2GCZ3UWS",
-    logo: "/lovable-uploads/91b30ba7-314d-47d8-9cd9-fb352c331a69.png",
+    logo: "/lovable-uploads/692253ef-9602-46b3-a610-a35b6a235ae8.png",
   },
   {
     title: "Machine Learning Engineering for Production (MLOps)",
@@ -30,7 +30,7 @@ const certificates = [
     year: "2024",
     courses: 4,
     url: "https://coursera.org/verify/specialization/6DAZ5D67ZRPK",
-    logo: "/lovable-uploads/91b30ba7-314d-47d8-9cd9-fb352c331a69.png",
+    logo: "/lovable-uploads/692253ef-9602-46b3-a610-a35b6a235ae8.png",
   },
   {
     title: "TensorFlow Developer Professional Certificate",
@@ -38,7 +38,7 @@ const certificates = [
     year: "2023",
     courses: 4,
     url: "https://www.coursera.org/account/accomplishments/professional-cert/GH8BHEYDYRA4",
-    logo: "/lovable-uploads/91b30ba7-314d-47d8-9cd9-fb352c331a69.png",
+    logo: "/lovable-uploads/692253ef-9602-46b3-a610-a35b6a235ae8.png",
   },
   {
     title: "Google Data Analytics Professional Certificate",
