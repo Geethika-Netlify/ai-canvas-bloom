@@ -1,6 +1,6 @@
 
 import { motion } from "framer-motion";
-import { GraduationCap, Award, Medal, Certificate } from "lucide-react";
+import { GraduationCap, Award, Medal } from "lucide-react";
 import {
   Card,
   CardHeader,
@@ -39,7 +39,7 @@ const certificates = [
     year: "2023",
     courses: 4,
     url: "https://www.coursera.org/account/accomplishments/professional-cert/GH8BHEYDYRA4",
-    icon: Certificate,
+    icon: Award,
   },
   {
     title: "Google Data Analytics Professional Certificate",
@@ -47,7 +47,7 @@ const certificates = [
     year: "2023",
     courses: 8,
     url: "https://www.coursera.org/account/accomplishments/specialization/certificate/XBVLYF42H3F5",
-    icon: Award,
+    icon: GraduationCap,
   },
   {
     title: "Entrepreneurship Specialization",
@@ -55,7 +55,7 @@ const certificates = [
     year: "2023",
     courses: 5,
     url: "https://www.coursera.org/account/accomplishments/specialization/certificate/XBVLYF42H3F5",
-    icon: GraduationCap,
+    icon: Medal,
   },
   {
     title: "Successful Negotiation: Essential Strategies and Skills",
@@ -69,14 +69,14 @@ const certificates = [
     issuer: "Google",
     year: "2020",
     url: "https://learndigital.withgoogle.com/link/1qsdpcedm9s",
-    icon: Certificate,
+    icon: Award,
   },
   {
     title: "Cisco IT Essentials",
     issuer: "Cisco Networking Academy",
     year: "2016",
     url: "https://www.linkedin.com/in/geethikaisuru/details/certifications/",
-    icon: Award,
+    icon: GraduationCap,
   },
 ];
 
