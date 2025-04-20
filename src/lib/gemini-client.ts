@@ -27,7 +27,7 @@ export const getGeminiChat = async () => {
   try {
     const geminiClient = getGeminiClient();
     // Use the latest API method to get the model
-    const model = geminiClient.getGenerativeModel({ model: 'gemini-pro' });
+    const model = geminiClient.getGenerativeModel({ model: 'gemini-1.5-flash' });
     
     // Initialize the chat with system instructions
     const chat = model.startChat({
