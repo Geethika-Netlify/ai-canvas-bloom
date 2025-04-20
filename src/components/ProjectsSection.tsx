@@ -92,6 +92,13 @@ const projects = [{
   technologies: "Python, Streamlit, whois, threading",
   image: "/img/40be1a32-38f5-444a-9234-1ac26253db88.png",
   date: "Jan 2025"
+}, {
+  title: "My Portfolio Website",
+  description: "A website to showcase my related work and projects. With an RAG AI assistant integrated.",
+  link: "https://geethika-isuru.netlify.app/",
+  technologies: "React, Supabase, Google Gemini AI, TypeScript, Vite, Tailwind CSS, Python",
+  image: "/img/port-web-preview.png",
+  date: "Apr 2025"
 }];
 export function ProjectsSection() {
   return <section id="projects" className="py-20 bg-gray-50/50 dark:bg-gray-900/50">

@@ -127,22 +127,6 @@ export function HeroSection() {
         delay: 0.4
       }}>
           <div className="relative w-full max-w-md mx-auto">
-            <div className="absolute inset-0 -z-10 bg-gradient-radial from-portfolio-blue/20 to-transparent rounded-full transform scale-150"></div>
-            
-            <div className="absolute -left-12 top-10 glass-card p-3 text-xs font-mono parallax-item animate-float" data-speed-x="8" data-speed-y="-5">
-              <pre className="text-portfolio-blue dark:text-portfolio-blue">
-                def ai_solve(problem):
-                  return solution
-              </pre>
-            </div>
-            
-            <div className="absolute -right-8 bottom-16 glass-card p-3 text-xs font-mono parallax-item animate-float" style={{
-            animationDelay: '1.5s'
-          }} data-speed-x="-8" data-speed-y="5">
-              <pre className="text-portfolio-blue dark:text-portfolio-blue">
-                model.train(x_data, y_data)
-              </pre>
-            </div>
             
             <div className="relative aspect-square overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-b from-portfolio-blue/10 to-transparent mix-blend-overlay"></div>
