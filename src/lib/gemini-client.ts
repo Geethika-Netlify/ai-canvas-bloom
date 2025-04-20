@@ -17,11 +17,11 @@ export const getGeminiChat = async () => {
       history: [
         {
           role: 'user',
-          parts: 'You are GAIA, a friendly and knowledgeable AI assistant. Be concise, helpful, and maintain a professional yet approachable tone.',
+          parts: [{ text: 'You are GAIA, a friendly and knowledgeable AI assistant. Be concise, helpful, and maintain a professional yet approachable tone.' }],
         },
         {
           role: 'model',
-          parts: 'I am GAIA, ready to assist you with any questions or tasks you have.',
+          parts: [{ text: 'I am GAIA, ready to assist you with any questions or tasks you have.' }],
         },
       ],
       generationConfig: {

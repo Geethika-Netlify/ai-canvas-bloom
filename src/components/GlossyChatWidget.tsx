@@ -1,3 +1,4 @@
+
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -193,40 +194,39 @@ export const GlossyChatWidget = () => {
               </Button>
             </ExpandableChatHeader>
             
-            <ExpandableChatBody 
-              ref={chatBodyRef as React.Ref<HTMLDivElement>} 
-              className="backdrop-blur-sm bg-background/80"
-            >
-              {error && (
-                <Alert variant="destructive" className="mb-4 mx-4 mt-2">
-                  <AlertCircle className="h-4 w-4" />
-                  <AlertDescription>{error}</AlertDescription>
-                </Alert>
-              )}
-              <ChatMessageList>
-                {messages.map(message => (
-                  <ChatBubble
-                    key={message.id}
-                    variant={message.sender === "user" ? "sent" : "received"}
-                  >
-                    <ChatBubbleAvatar
-                      fallback={message.sender === "user" ? "You" : "AI"}
-                    />
-                    <ChatBubbleMessage
+            <ExpandableChatBody className="backdrop-blur-sm bg-background/80">
+              <div ref={chatBodyRef} className="h-full overflow-y-auto">
+                {error && (
+                  <Alert variant="destructive" className="mb-4 mx-4 mt-2">
+                    <AlertCircle className="h-4 w-4" />
+                    <AlertDescription>{error}</AlertDescription>
+                  </Alert>
+                )}
+                <ChatMessageList>
+                  {messages.map(message => (
+                    <ChatBubble
+                      key={message.id}
                       variant={message.sender === "user" ? "sent" : "received"}
                     >
-                      {message.content}
-                    </ChatBubbleMessage>
-                  </ChatBubble>
-                ))}
+                      <ChatBubbleAvatar
+                        fallback={message.sender === "user" ? "You" : "AI"}
+                      />
+                      <ChatBubbleMessage
+                        variant={message.sender === "user" ? "sent" : "received"}
+                      >
+                        {message.content}
+                      </ChatBubbleMessage>
+                    </ChatBubble>
+                  ))}
 
-                {isLoading && (
-                  <ChatBubble variant="received">
-                    <ChatBubbleAvatar fallback="AI" />
-                    <ChatBubbleMessage isLoading />
-                  </ChatBubble>
-                )}
-              </ChatMessageList>
+                  {isLoading && (
+                    <ChatBubble variant="received">
+                      <ChatBubbleAvatar fallback="AI" />
+                      <ChatBubbleMessage isLoading />
+                    </ChatBubble>
+                  )}
+                </ChatMessageList>
+              </div>
             </ExpandableChatBody>
 
             <ExpandableChatFooter>
