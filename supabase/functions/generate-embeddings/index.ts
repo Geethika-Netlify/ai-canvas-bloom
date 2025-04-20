@@ -14,12 +14,14 @@ const supabaseClient = createClient(
   Deno.env.get("SUPABASE_ANON_KEY") ?? "",
   {
     global: {
-      headers: { Authorization: `Bearer ${Deno.env.get("SUPABASE_ANON_KEY")}` },
+      headers: { 
+        Authorization: `Bearer ${Deno.env.get("SUPABASE_ANON_KEY")}`,
+        apikey: Deno.env.get("SUPABASE_ANON_KEY") ?? "",
+      },
     },
   }
 );
 
-// This function will generate embeddings using Supabase's "gte-small" model
 async function generateEmbedding(text: string) {
   try {
     console.log("Generating embedding for text length:", text.length);
@@ -32,6 +34,10 @@ async function generateEmbedding(text: string) {
     if (error) {
       console.error("Error from embed-text function:", error);
       throw error;
+    }
+
+    if (!data?.embedding) {
+      throw new Error("No embedding was generated");
     }
 
     console.log("Successfully received embedding with dimensions:", data.embedding.length);
@@ -93,6 +99,10 @@ serve(async (req) => {
     // Generate an embedding for the document content
     const embedding = await generateEmbedding(content);
     
+    if (!embedding) {
+      throw new Error("Failed to generate embedding");
+    }
+
     // Store the document and its embedding in the database
     const document = await storeDocument(title, content, embedding);
 

@@ -7,8 +7,6 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-// This function uses the Supabase Vector API to generate embeddings
-// with the "gte-small" model which has 384 dimensions
 serve(async (req) => {
   // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
@@ -28,18 +26,18 @@ serve(async (req) => {
       );
     }
 
-    // Call Supabase's built-in embedding functionality
-    // This uses the pgvector extension with the "gte-small" model
+    // Use the correct Supabase Vector API endpoint
     const SUPABASE_URL = Deno.env.get("SUPABASE_URL") || "";
     const SUPABASE_ANON_KEY = Deno.env.get("SUPABASE_ANON_KEY") || "";
 
     console.log("Calling embedding API with text length:", text.length);
 
-    const response = await fetch(`${SUPABASE_URL}/functions/v1/embeddings`, {
+    const response = await fetch(`${SUPABASE_URL}/rest/v1/embeddings`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+        "apikey": SUPABASE_ANON_KEY,
       },
       body: JSON.stringify({
         input: text,
