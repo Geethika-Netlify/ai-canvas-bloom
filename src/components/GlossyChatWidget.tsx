@@ -8,6 +8,7 @@ import { ChatInput } from "@/components/ui/chat-input";
 import { ExpandableChat, ExpandableChatHeader, ExpandableChatBody, ExpandableChatFooter } from "@/components/ui/expandable-chat";
 import { ChatMessageList } from "@/components/ui/chat-message-list";
 import { useGeminiLiveStream } from '@/hooks/useGeminiLiveStream';
+import { MicOff } from 'lucide-react';
 
 export const GlossyChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -236,23 +237,32 @@ export const GlossyChatWidget = () => {
                   </Button>
                 </div>
               </form>
+              <div className="flex items-center space-x-2 p-4">
+                {!isListening ? (
+                  <Button 
+                    onClick={startLiveStream}
+                    className="flex items-center gap-2"
+                  >
+                    <Mic className="h-4 w-4" />
+                    Start Voice Chat
+                  </Button>
+                ) : (
+                  <Button 
+                    onClick={stopLiveStream}
+                    variant="destructive"
+                    className="flex items-center gap-2"
+                  >
+                    <MicOff className="h-4 w-4" />
+                    Stop Voice Chat
+                  </Button>
+                )}
+                {error && (
+                  <div className="text-red-500 text-sm">
+                    {error}
+                  </div>
+                )}
+              </div>
             </ExpandableChatFooter>
-             <div className="flex items-center space-x-2">
-              {!isListening ? (
-                <Button onClick={startLiveStream}>
-                  Start Voice Chat
-                </Button>
-              ) : (
-                <Button onClick={stopLiveStream}>
-                  Stop Voice Chat
-                </Button>
-              )}
-              {error && (
-                <div className="text-red-500 text-sm">
-                  {error}
-                </div>
-              )}
-            </div>
           </ExpandableChat>
         </motion.div> : <motion.div className="cursor-pointer" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} onClick={toggleChat}>
           <div className="flex flex-col items-center">
