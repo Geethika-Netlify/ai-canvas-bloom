@@ -134,50 +134,54 @@ ${context}
 USER QUERY:
 ${query}`;
 
-    // Generate response from Gemini using REST API
+    // Generate response from Gemini using REST API as specified in the documentation
     console.log("Sending request to Gemini");
-    const geminiResponse = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-goog-api-key": Deno.env.get("GEMINI_API_KEY") || "",
-      },
-      body: JSON.stringify({
-        contents: [
-          {
-            parts: [
-              {
-                text: systemPrompt
-              }
-            ]
-          }
-        ],
-        generationConfig: {
-          temperature: 0.2,
-          topK: 40,
-          topP: 0.95,
-          maxOutputTokens: 1024,
+    
+    const MODEL_ID = "gemini-2.0-flash-lite";
+    const GEMINI_API_KEY = Deno.env.get("GEMINI_API_KEY") || "";
+    
+    const geminiResponse = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/${MODEL_ID}:generateContent?key=${GEMINI_API_KEY}`, 
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-        safetySettings: [
-          {
-            category: "HARM_CATEGORY_HARASSMENT",
-            threshold: "BLOCK_LOW_AND_ABOVE"
+        body: JSON.stringify({
+          contents: [
+            {
+              role: "user",
+              parts: [
+                {
+                  text: systemPrompt
+                }
+              ]
+            }
+          ],
+          generationConfig: {
+            responseMimeType: "text/plain",
+            temperature: 0.2,
+            topK: 40,
+            topP: 0.95,
+            maxOutputTokens: 1024,
           },
-          {
-            category: "HARM_CATEGORY_HATE_SPEECH",
-            threshold: "BLOCK_LOW_AND_ABOVE"
-          },
-          {
-            category: "HARM_CATEGORY_SEXUALLY_EXPLICIT",
-            threshold: "BLOCK_NONE"
-          },
-          {
-            category: "HARM_CATEGORY_DANGEROUS_CONTENT",
-            threshold: "BLOCK_LOW_AND_ABOVE"
-          },
-        ]
-      })
-    });
+          safetySettings: [
+            {
+              category: "HARM_CATEGORY_HATE_SPEECH",
+              threshold: "BLOCK_LOW_AND_ABOVE"
+            },
+            {
+              category: "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+              threshold: "BLOCK_NONE"
+            },
+            {
+              category: "HARM_CATEGORY_DANGEROUS_CONTENT",
+              threshold: "BLOCK_LOW_AND_ABOVE"
+            }
+          ]
+        })
+      }
+    );
 
     if (!geminiResponse.ok) {
       const errorText = await geminiResponse.text();
@@ -188,7 +192,7 @@ ${query}`;
     const geminiData = await geminiResponse.json();
     console.log("Received response from Gemini");
     
-    // Extract the text from the response
+    // Extract the text from the response based on the Gemini API structure
     const answerText = geminiData.candidates?.[0]?.content?.parts?.[0]?.text || 
                        "Sorry, I couldn't generate a response.";
     
