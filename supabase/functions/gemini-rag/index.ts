@@ -2,7 +2,6 @@
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.38.1";
-import { GoogleGenAI } from "https://esm.sh/@google/genai@0.2.2";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -19,9 +18,6 @@ const supabaseClient = createClient(
     },
   }
 );
-
-// Initialize Google Gemini client
-const genAI = new GoogleGenAI({ apiKey: Deno.env.get("GEMINI_API_KEY") ?? "" });
 
 // Generate embedding for user query using the same model as documents
 async function generateQueryEmbedding(text: string) {
@@ -126,9 +122,6 @@ serve(async (req) => {
     // Format context from retrieved documents
     const context = formatContextFromDocuments(similarDocuments);
     
-    // Construct prompt for Gemini
-    const model = genAI.models.getGenerativeModel({ model: "gemini-2.0-flash-lite" });
-    
     // Construct the system prompt
     const systemPrompt = `You are a helpful AI assistant with access to a knowledge base. 
 Answer the user's question based ONLY on the information provided in the context below. 
@@ -141,22 +134,66 @@ ${context}
 USER QUERY:
 ${query}`;
 
-    // Generate response from Gemini
+    // Generate response from Gemini using REST API
     console.log("Sending request to Gemini");
-    const response = await model.generateContent({
-      contents: systemPrompt,
-      config: {
-        temperature: 0.2,
-        topK: 40,
-        topP: 0.95,
-        maxOutputTokens: 1024,
-      }
+    const geminiResponse = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-goog-api-key": Deno.env.get("GEMINI_API_KEY") || "",
+      },
+      body: JSON.stringify({
+        contents: [
+          {
+            parts: [
+              {
+                text: systemPrompt
+              }
+            ]
+          }
+        ],
+        generationConfig: {
+          temperature: 0.2,
+          topK: 40,
+          topP: 0.95,
+          maxOutputTokens: 1024,
+        },
+        safetySettings: [
+          {
+            category: "HARM_CATEGORY_HARASSMENT",
+            threshold: "BLOCK_LOW_AND_ABOVE"
+          },
+          {
+            category: "HARM_CATEGORY_HATE_SPEECH",
+            threshold: "BLOCK_LOW_AND_ABOVE"
+          },
+          {
+            category: "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+            threshold: "BLOCK_NONE"
+          },
+          {
+            category: "HARM_CATEGORY_DANGEROUS_CONTENT",
+            threshold: "BLOCK_LOW_AND_ABOVE"
+          },
+        ]
+      })
     });
 
+    if (!geminiResponse.ok) {
+      const errorText = await geminiResponse.text();
+      console.error("Gemini API error response:", errorText);
+      throw new Error(`Gemini API error: ${errorText}`);
+    }
+
+    const geminiData = await geminiResponse.json();
     console.log("Received response from Gemini");
     
+    // Extract the text from the response
+    const answerText = geminiData.candidates?.[0]?.content?.parts?.[0]?.text || 
+                       "Sorry, I couldn't generate a response.";
+    
     const result = {
-      answer: response.text,
+      answer: answerText,
       sources: similarDocuments.map(doc => ({
         title: doc.title,
         similarity: doc.similarity,
