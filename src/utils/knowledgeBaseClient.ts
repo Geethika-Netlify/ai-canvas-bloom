@@ -1,5 +1,6 @@
 
 import { supabase } from "@/integrations/supabase/client";
+import type { Tables } from "@/integrations/supabase/types";
 
 /**
  * Upload a document to the knowledge base
@@ -31,7 +32,7 @@ export async function uploadDocument(title: string, content: string) {
 export async function listDocuments() {
   try {
     const { data, error } = await supabase
-      .from("documents")
+      .from('documents')  // Explicitly use the table name
       .select("id, title, created_at")
       .order("created_at", { ascending: false });
 
@@ -42,6 +43,30 @@ export async function listDocuments() {
     return { success: true, documents: data };
   } catch (error) {
     console.error("Error listing documents:", error);
+    return { success: false, error };
+  }
+}
+
+/**
+ * Retrieve a specific document by its ID
+ * @param id Document ID
+ * @returns Promise with the document details
+ */
+export async function getDocument(id: number) {
+  try {
+    const { data, error } = await supabase
+      .from('documents')
+      .select("*")
+      .eq('id', id)
+      .single();
+
+    if (error) {
+      throw error;
+    }
+
+    return { success: true, document: data };
+  } catch (error) {
+    console.error("Error retrieving document:", error);
     return { success: false, error };
   }
 }
