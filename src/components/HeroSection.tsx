@@ -37,7 +37,6 @@ export function HeroSection() {
         
       </div>
       <div className="absolute left-[10%] bottom-[20%] w-20 h-20 parallax-item" data-speed-x="25" data-speed-y="-15">
-        <div className="w-full h-full rounded-full bg-portfolio-blue/15 dark:bg-portfolio-blue/25 backdrop-blur-sm animate-pulse-slow"></div>
       </div>
       <div className="absolute left-[15%] top-[30%] parallax-item" data-speed-x="10" data-speed-y="20">
         <Code className="text-portfolio-blue/40 w-12 h-12 animate-float" />
