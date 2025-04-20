@@ -39,18 +39,21 @@ export async function uploadDocument(title: string, content: string) {
  */
 export async function listDocuments() {
   try {
-    // Use explicit type casting to overcome type issues
-    // This is necessary because the TypeScript types don't know about our "documents" table yet
-    const { data, error } = await (supabase
-      .from("documents") as any)
+    // Use type assertion with unknown first, then cast to the proper type
+    // This avoids the TypeScript error while still providing type safety for the response
+    const { data, error } = await supabase
+      .from('documents')
       .select("id, title, created_at")
-      .order("created_at", { ascending: false });
+      .order("created_at", { ascending: false }) as unknown as {
+        data: Document[] | null;
+        error: Error | null;
+      };
 
     if (error) {
       throw error;
     }
 
-    return { success: true, documents: data as Document[] };
+    return { success: true, documents: data || [] };
   } catch (error) {
     console.error("Error listing documents:", error);
     return { success: false, error };
