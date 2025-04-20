@@ -1,46 +1,22 @@
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Bot, Send, Paperclip, Mic } from 'lucide-react';
+import { Send, Paperclip, Mic } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { ChatBubble, ChatBubbleAvatar, ChatBubbleMessage } from "@/components/ui/chat-bubble";
 import { ChatInput } from "@/components/ui/chat-input";
 import { ExpandableChat, ExpandableChatHeader, ExpandableChatBody, ExpandableChatFooter } from "@/components/ui/expandable-chat";
 import { ChatMessageList } from "@/components/ui/chat-message-list";
+import { useGeminiChat } from '@/hooks/useGeminiChat';
+
 export const GlossyChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const [messages, setMessages] = useState([{
-    id: 1,
-    content: "Hello! I am GAIA. How can I assist you today?",
-    sender: "ai"
-  }]);
   const [input, setInput] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const { messages, isLoading, sendMessage } = useGeminiChat();
   const containerRef = useRef<HTMLDivElement>(null);
   const glossyContainerRef = useRef<HTMLDivElement>(null);
-  const toggleChat = () => {
-    setIsOpen(!isOpen);
-  };
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!input.trim()) return;
-    setMessages(prev => [...prev, {
-      id: prev.length + 1,
-      content: input,
-      sender: "user"
-    }]);
-    setInput("");
-    setIsLoading(true);
-    setTimeout(() => {
-      setMessages(prev => [...prev, {
-        id: prev.length + 1,
-        content: "I'm GAIA, your AI assistant. How can I help you further?",
-        sender: "ai"
-      }]);
-      setIsLoading(false);
-    }, 1000);
-  };
+
   useEffect(() => {
     if (!glossyContainerRef.current) return;
 
@@ -152,65 +128,99 @@ export const GlossyChatWidget = () => {
     };
   }, [isOpen]); // Added isOpen as a dependency to recreate the circle when the chat state changes
 
-  return <div className="fixed bottom-8 right-8 z-[9999]">
-      {isOpen ? <motion.div initial={{
-      opacity: 0
-    }} animate={{
-      opacity: 1
-    }} exit={{
-      opacity: 0
-    }}>
+  const toggleChat = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!input.trim()) return;
+    
+    await sendMessage(input);
+    setInput("");
+  };
+
+  return (
+    <div className="fixed bottom-8 right-8 z-[9999]">
+      {isOpen ? (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
           <ExpandableChat size="lg" position="bottom-right" className="glossy-chat-window">
             <ExpandableChatHeader className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <motion.div initial={{
-              scale: 0.6,
-              opacity: 0
-            }} animate={{
-              scale: 1,
-              opacity: 1
-            }} className="w-10 h-10 overflow-hidden rounded-full">
-                  <div ref={glossyContainerRef} className="w-full h-full rounded-full overflow-hidden" />
+                <motion.div
+                  initial={{ scale: 0.6, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  className="w-10 h-10 overflow-hidden rounded-full"
+                >
+                  <div
+                    ref={glossyContainerRef}
+                    className="w-full h-full rounded-full overflow-hidden"
+                  />
                 </motion.div>
                 <div>
                   <h3 className="font-montserrat font-bold text-lg">GAIA</h3>
                   <p className="text-xs text-muted-foreground">Geethika's AI Assistant</p>
                 </div>
               </div>
-              <Button variant="ghost" size="icon" onClick={toggleChat} className="rounded-full hover:bg-muted">
-                <motion.div initial={{
-              rotate: 0
-            }} animate={{
-              rotate: 180
-            }} exit={{
-              rotate: 0
-            }} transition={{
-              duration: 0.3
-            }}>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={toggleChat}
+                className="rounded-full hover:bg-muted"
+              >
+                <motion.div
+                  initial={{ rotate: 0 }}
+                  animate={{ rotate: 180 }}
+                  exit={{ rotate: 0 }}
+                  transition={{ duration: 0.3 }}
+                >
                   ×
                 </motion.div>
               </Button>
             </ExpandableChatHeader>
-
+            
             <ExpandableChatBody className="backdrop-blur-sm bg-background/80">
               <ChatMessageList>
-                {messages.map(message => <ChatBubble key={message.id} variant={message.sender === "user" ? "sent" : "received"}>
-                    <ChatBubbleAvatar fallback={message.sender === "user" ? "You" : "AI"} />
-                    <ChatBubbleMessage variant={message.sender === "user" ? "sent" : "received"}>
+                {messages.map(message => (
+                  <ChatBubble
+                    key={message.id}
+                    variant={message.sender === "user" ? "sent" : "received"}
+                  >
+                    <ChatBubbleAvatar
+                      fallback={message.sender === "user" ? "You" : "AI"}
+                    />
+                    <ChatBubbleMessage
+                      variant={message.sender === "user" ? "sent" : "received"}
+                    >
                       {message.content}
                     </ChatBubbleMessage>
-                  </ChatBubble>)}
+                  </ChatBubble>
+                ))}
 
-                {isLoading && <ChatBubble variant="received">
+                {isLoading && (
+                  <ChatBubble variant="received">
                     <ChatBubbleAvatar fallback="AI" />
                     <ChatBubbleMessage isLoading />
-                  </ChatBubble>}
+                  </ChatBubble>
+                )}
               </ChatMessageList>
             </ExpandableChatBody>
 
             <ExpandableChatFooter>
-              <form onSubmit={handleSubmit} className="relative rounded-lg border bg-background/80 backdrop-blur-sm focus-within:ring-1 focus-within:ring-ring p-1">
-                <ChatInput value={input} onChange={e => setInput(e.target.value)} placeholder="Ask GAIA anything..." className="min-h-12 resize-none rounded-lg bg-background/0 border-0 p-3 shadow-none focus-visible:ring-0 font-montserrat" />
+              <form
+                onSubmit={handleSubmit}
+                className="relative rounded-lg border bg-background/80 backdrop-blur-sm focus-within:ring-1 focus-within:ring-ring p-1"
+              >
+                <ChatInput
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  placeholder="Ask GAIA anything..."
+                  className="min-h-12 resize-none rounded-lg bg-background/0 border-0 p-3 shadow-none focus-visible:ring-0 font-montserrat"
+                />
                 <div className="flex items-center p-3 pt-0 justify-between">
                   <div className="flex">
                     <Button variant="ghost" size="icon" type="button">
@@ -228,7 +238,9 @@ export const GlossyChatWidget = () => {
               </form>
             </ExpandableChatFooter>
           </ExpandableChat>
-        </motion.div> : <motion.div className="cursor-pointer" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} onClick={toggleChat}>
+        </motion.div>
+      ) : (
+        <motion.div className="cursor-pointer" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} onClick={toggleChat}>
           <div className="flex flex-col items-center">
             <motion.div className={`rounded-full overflow-hidden transition-transform duration-300 ease-out ${isHovered ? 'transform -translate-y-2' : ''}`} style={{
           filter: 'drop-shadow(0 0 20px rgba(100, 200, 255, 0.3))',
@@ -238,6 +250,8 @@ export const GlossyChatWidget = () => {
               <strong>Talk to GAIA</strong>
             </div>
           </div>
-        </motion.div>}
-    </div>;
+        </motion.div>
+      )}
+    </div>
+  );
 };
