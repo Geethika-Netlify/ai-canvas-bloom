@@ -22,7 +22,7 @@ export default defineConfig(({ mode }) => ({
   },
   build: {
     rollupOptions: {
-      // Make sure external packages are properly bundled
+      // Explicitly include @google/genai to prevent build errors
       external: [],
     },
   },
