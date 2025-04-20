@@ -181,7 +181,7 @@ export const GlossyChatWidget = () => {
         onClick={toggleOpen}
         className="cursor-pointer"
       >
-        <GlossyCircle />
+        <GlossyCircle isExpanded={isOpen} />
       </motion.div>
     </div>
   );

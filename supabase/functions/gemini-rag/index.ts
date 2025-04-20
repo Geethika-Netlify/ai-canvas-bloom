@@ -68,10 +68,11 @@ serve(async (req) => {
       console.log("No relevant documents found");
     }
 
-    // Step 4: Build the prompt with context for Gemini
+    // Step 4: Build the prompt with context and system message for Gemini
+    const systemMessage = "You are GAIA, Geethika's AI Assistant. You are an AI built on the Geethika's protfolio website. Your job is to cater to the visitor's questions about Geethika. Answer in a helpful manner. Be polite & professional.";
     const promptWithContext = context 
-      ? `Based on the following information:\n\n${context}\n\nPlease answer this question: ${query}`
-      : `Please answer this question: ${query}`;
+      ? `${systemMessage}\n\nBased on the following information:\n\n${context}\n\nPlease answer this question: ${query}`
+      : `${systemMessage}\n\nPlease answer this question: ${query}`;
       
     console.log("Sending request to Gemini API");
     

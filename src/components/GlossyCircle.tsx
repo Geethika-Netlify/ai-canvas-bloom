@@ -1,13 +1,16 @@
+
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 
 interface GlossyCircleProps {
   className?: string;
+  isExpanded?: boolean;
 }
 
-export const GlossyCircle: React.FC<GlossyCircleProps> = ({ className = '' }) => {
+export const GlossyCircle: React.FC<GlossyCircleProps> = ({ className = '', isExpanded = false }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const size = isExpanded ? 40 : 120; // Size reduced by 3x when expanded
   
   useEffect(() => {
     if (!containerRef.current) return;
@@ -25,7 +28,7 @@ export const GlossyCircle: React.FC<GlossyCircleProps> = ({ className = '' }) =>
       alpha: true,
       preserveDrawingBuffer: true 
     });
-    renderer.setSize(120, 120);
+    renderer.setSize(size, size);
     renderer.setPixelRatio(window.devicePixelRatio);
     containerRef.current.appendChild(renderer.domElement);
     
@@ -36,7 +39,7 @@ export const GlossyCircle: React.FC<GlossyCircleProps> = ({ className = '' }) =>
     const material = new THREE.ShaderMaterial({
       uniforms: {
         iTime: { value: 0 },
-        iResolution: { value: new THREE.Vector2(120, 120) }
+        iResolution: { value: new THREE.Vector2(size, size) }
       },
       vertexShader: `
         varying vec2 vUv;
@@ -67,9 +70,9 @@ export const GlossyCircle: React.FC<GlossyCircleProps> = ({ className = '' }) =>
           
           // Add inner glow with 50% more intensity
           float dist = length(uv);
-          float glow = smoothstep(0.75, 1.0, dist); // Adjusted range for stronger effect
+          float glow = smoothstep(0.75, 1.0, dist);
           vec3 glowColor = vec3(0.5, 0.8, 1.0);
-          col = mix(col, col + glowColor, glow * 0.75); // Increased from 0.5 to 0.75 (50% more)
+          col = mix(col, col + glowColor, glow * 0.75);
           
           gl_FragColor = vec4(col, 1.0);
         }
@@ -95,8 +98,8 @@ export const GlossyCircle: React.FC<GlossyCircleProps> = ({ className = '' }) =>
     const handleResize = () => {
       const { current } = containerRef;
       if (!current) return;
-      renderer.setSize(120, 120);
-      material.uniforms.iResolution.value = new THREE.Vector2(120, 120);
+      renderer.setSize(size, size);
+      material.uniforms.iResolution.value = new THREE.Vector2(size, size);
     };
     
     window.addEventListener('resize', handleResize);
@@ -110,7 +113,7 @@ export const GlossyCircle: React.FC<GlossyCircleProps> = ({ className = '' }) =>
       geometry.dispose();
       material.dispose();
     };
-  }, []);
+  }, [size]); // Added size as dependency
   
   return (
     <div 
@@ -120,10 +123,12 @@ export const GlossyCircle: React.FC<GlossyCircleProps> = ({ className = '' }) =>
     >
       <div 
         ref={containerRef}
-        className={`w-[120px] h-[120px] rounded-full overflow-hidden transition-transform duration-300 ease-out ${
+        className={`rounded-full overflow-hidden transition-all duration-300 ease-out ${
           isHovered ? 'transform -translate-y-2' : ''
         }`}
         style={{
+          width: `${size}px`,
+          height: `${size}px`,
           filter: 'drop-shadow(0 0 20px rgba(100, 200, 255, 0.3))',
           willChange: 'transform'
         }}
