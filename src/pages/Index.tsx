@@ -1,31 +1,32 @@
 
-import { Button } from "@/components/ui/button";
-import { KnowledgeBaseChat } from "@/components/KnowledgeBaseChat";
-import { Link } from "react-router-dom";
+import { Navbar } from "@/components/Navbar";
+import { HeroSection } from "@/components/HeroSection";
+import { ProjectsSection } from "@/components/ProjectsSection";
+import { ExpertiseSection } from "@/components/ExpertiseSection";
+import { CertificatesSection } from "@/components/CertificatesSection";
+import { EducationSection } from "@/components/EducationSection";
+import { ContactSection } from "@/components/ContactSection";
+import { ProfessionalExperienceSection } from "@/components/ProfessionalExperienceSection";
+import { ParticleBackground } from "@/components/ParticleBackground";
+import { Footer } from "@/components/Footer";
 
-export default function Index() {
+const Index = () => {
   return (
-    <div className="min-h-screen flex flex-col">
-      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
-        <div className="container flex h-16 items-center justify-between">
-          <h1 className="text-2xl font-bold">AI Knowledge Assistant</h1>
-          <Button variant="outline" asChild>
-            <Link to="/uptsupkb">Admin</Link>
-          </Button>
-        </div>
-      </header>
-      
-      <main className="flex-1 container py-6">
-        <div className="h-[70vh]">
-          <KnowledgeBaseChat />
-        </div>
+    <div className="min-h-screen">
+      <ParticleBackground />
+      <Navbar />
+      <main>
+        <HeroSection />
+        <ProjectsSection />
+        <ExpertiseSection />
+        <CertificatesSection />
+        <EducationSection />
+        <ProfessionalExperienceSection />
+        <ContactSection />
       </main>
-      
-      <footer className="border-t py-4">
-        <div className="container text-center text-sm text-muted-foreground">
-          Powered by Gemini and Supabase Vector Database
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
-}
+};
+
+export default Index;

@@ -1,15 +1,6 @@
 
 import { supabase } from "@/integrations/supabase/client";
 
-// Define the Document type to match our database schema
-interface Document {
-  id: number;
-  title: string;
-  content: string;
-  metadata?: Record<string, any>;
-  created_at: string;
-}
-
 /**
  * Upload a document to the knowledge base
  * @param title Document title
@@ -39,45 +30,18 @@ export async function uploadDocument(title: string, content: string) {
  */
 export async function listDocuments() {
   try {
-    // Use type assertion with unknown first, then cast to the proper type
-    // This avoids the TypeScript error while still providing type safety for the response
     const { data, error } = await supabase
-      .from('documents')
+      .from("documents")
       .select("id, title, created_at")
-      .order("created_at", { ascending: false }) as unknown as {
-        data: Document[] | null;
-        error: Error | null;
-      };
+      .order("created_at", { ascending: false });
 
     if (error) {
       throw error;
     }
 
-    return { success: true, documents: data || [] };
+    return { success: true, documents: data };
   } catch (error) {
     console.error("Error listing documents:", error);
-    return { success: false, error };
-  }
-}
-
-/**
- * Query the knowledge base with a question
- * @param question User's question
- * @returns Promise with the AI response
- */
-export async function queryKnowledgeBase(question: string) {
-  try {
-    const { data, error } = await supabase.functions.invoke('gemini-rag', {
-      body: { question }
-    });
-
-    if (error) {
-      throw error;
-    }
-
-    return { success: true, answer: data.answer };
-  } catch (error) {
-    console.error("Error querying knowledge base:", error);
     return { success: false, error };
   }
 }
