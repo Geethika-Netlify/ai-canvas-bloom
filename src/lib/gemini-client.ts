@@ -1,8 +1,10 @@
+
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
 // Get the API key from environment variables
 const getApiKey = () => {
-  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+  // Use the API key from environment variables
+  const apiKey = import.meta.env.VITE_GEMINI_API_KEY || "AIzaSyDcLnJhNDh3l4lRlBgtAM1LXnix3G9D-k4";
   if (!apiKey) {
     throw new Error("Gemini API key is missing. Please set the VITE_GEMINI_API_KEY environment variable.");
   }
