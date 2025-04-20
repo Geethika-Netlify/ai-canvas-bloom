@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -113,11 +112,19 @@ export const GlossyChatWidget = () => {
     }
   };
 
-  // Try to initialize with stored API key on mount
+  // Try to initialize with stored API key or environment variable on mount
   useEffect(() => {
-    const storedApiKey = localStorage.getItem('gemini_api_key');
-    if (storedApiKey) {
-      initializeGemini(storedApiKey);
+    // First check environment variable
+    const envApiKey = import.meta.env.VITE_GEMINI_API_KEY;
+    
+    if (envApiKey) {
+      initializeGemini(envApiKey);
+    } else {
+      // Fall back to localStorage
+      const storedApiKey = localStorage.getItem('gemini_api_key');
+      if (storedApiKey) {
+        initializeGemini(storedApiKey);
+      }
     }
   }, []);
 
@@ -237,7 +244,7 @@ export const GlossyChatWidget = () => {
       geometry.dispose();
       material.dispose();
     };
-  }, [isOpen]); // Added isOpen as a dependency to recreate the circle when the chat state changes
+  }, [isOpen]);
 
   return <div className="fixed bottom-8 right-8 z-[9999]">
       {isOpen ? <motion.div initial={{

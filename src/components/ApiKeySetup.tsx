@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Key } from 'lucide-react';
@@ -14,6 +14,14 @@ export const ApiKeySetup: React.FC<ApiKeySetupProps> = ({
   isProcessing
 }) => {
   const [apiKey, setApiKey] = useState('');
+  
+  useEffect(() => {
+    // Pre-populate with the Gemini API key from environment variable
+    const envApiKey = import.meta.env.VITE_GEMINI_API_KEY;
+    if (envApiKey) {
+      setApiKey(envApiKey);
+    }
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
