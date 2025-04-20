@@ -65,11 +65,15 @@ export class AudioManager {
   async playAudio(audioData: ArrayBuffer) {
     if (!this.audioContext) return;
     
-    const audioBuffer = await this.audioContext.decodeAudioData(audioData);
-    const source = this.audioContext.createBufferSource();
-    source.buffer = audioBuffer;
-    source.connect(this.audioContext.destination);
-    source.start();
+    try {
+      const audioBuffer = await this.audioContext.decodeAudioData(audioData);
+      const source = this.audioContext.createBufferSource();
+      source.buffer = audioBuffer;
+      source.connect(this.audioContext.destination);
+      source.start();
+    } catch (error) {
+      console.error('Error playing audio:', error);
+    }
   }
 }
 
