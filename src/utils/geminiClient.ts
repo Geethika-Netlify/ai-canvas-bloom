@@ -1,4 +1,3 @@
-
 import { GoogleGenAI } from '@google/genai';
 
 // Get the API key from environment variables
@@ -13,14 +12,13 @@ export const geminiClient = new GoogleGenAI({
   apiKey: apiKey || 'dummy-key-for-development'
 });
 
-// Update the configuration to match the expected LiveConnectConfig structure
+// Update the configuration structure to match Google Gemini's requirements
 export const LIVE_CONFIG = {
   model: 'gemini-2.0-flash-live-001',
   config: {
-    generationConfig: {
-      // Use streamMode instead of responseStreamingEnabled
-      streamMode: "streaming"
-    },
+    // Instead of using streamMode directly in generationConfig
+    // Let's keep this simpler based on what the API supports
+    generationConfig: {},
     systemInstruction: "You are GAIA, an AI assistant built to be helpful, friendly, and engaging.",
     tools: []
   }

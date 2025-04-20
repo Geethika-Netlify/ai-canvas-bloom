@@ -4,15 +4,15 @@ import { geminiClient, LIVE_CONFIG } from '@/utils/geminiClient';
 import { AudioManager } from '@/utils/audioUtils';
 import { GoogleGenAI } from '@google/genai';
 
-// Define correct interfaces based on the actual API
-type LiveSession = ReturnType<typeof GoogleGenAI.prototype.live.connect>;
+// Define a custom type for the live session
+type LiveSession = any; // Using any for now as the exact type is complex
 
 export const useGeminiLiveStream = () => {
   const [isConnected, setIsConnected] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const audioManagerRef = useRef<AudioManager | null>(null);
-  const liveSessionRef = useRef<any>(null);
+  const liveSessionRef = useRef<LiveSession | null>(null);
 
   const startLiveStream = useCallback(async () => {
     try {
@@ -24,21 +24,20 @@ export const useGeminiLiveStream = () => {
       audioManagerRef.current = new AudioManager();
       await audioManagerRef.current.initialize();
 
+      console.log('Connecting to Gemini live stream...');
+      
       // Connect to Gemini live stream with proper configuration
+      // We're passing the LIVE_CONFIG directly to avoid property type mismatches
       const liveSession = await geminiClient.live.connect({
         model: LIVE_CONFIG.model,
-        config: {
-          // Use the correct property name according to Gemini API
-          generationConfig: {
-            streamMode: "streaming"
-          },
-          systemInstruction: "You are a helpful, friendly assistant named GAIA.",
-          tools: []
-        },
+        config: LIVE_CONFIG.config,
         // Add required callbacks with correct types
         callbacks: {
-          onmessage: () => {},
+          onmessage: () => {
+            console.log('Message received');
+          },
           onclose: () => {
+            console.log('Live session closed');
             setIsConnected(false);
             setIsListening(false);
           },
@@ -51,6 +50,7 @@ export const useGeminiLiveStream = () => {
         }
       });
       
+      console.log('Connection established');
       liveSessionRef.current = liveSession;
       
       // Start audio processing loop
