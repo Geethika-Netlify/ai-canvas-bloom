@@ -286,6 +286,7 @@ export const GlossyChatWidget = () => {
               </Button>
             </ExpandableChatHeader>
 
+            {/* Fix: Instead of passing ref as a prop, use the ref attribute */}
             <ExpandableChatBody className="backdrop-blur-sm bg-background/80" ref={chatBodyRef}>
               {!isInitialized && (
                 <div className="p-4">
