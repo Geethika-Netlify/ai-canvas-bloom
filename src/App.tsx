@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "./components/ThemeProvider";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import Uptsupkb from "./pages/Uptsupkb";  // Add this import
 import { GlossyChatWidget } from "./components/GlossyChatWidget";
 
 const queryClient = new QueryClient();
@@ -20,6 +21,7 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/uptsupkb" element={<Uptsupkb />} />  {/* Add this route */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
