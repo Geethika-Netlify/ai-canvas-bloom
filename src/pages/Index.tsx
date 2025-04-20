@@ -1,32 +1,18 @@
 
-import { Navbar } from "@/components/Navbar";
 import { HeroSection } from "@/components/HeroSection";
-import { ProjectsSection } from "@/components/ProjectsSection";
 import { ExpertiseSection } from "@/components/ExpertiseSection";
-import { CertificatesSection } from "@/components/CertificatesSection";
-import { EducationSection } from "@/components/EducationSection";
-import { ContactSection } from "@/components/ContactSection";
 import { ProfessionalExperienceSection } from "@/components/ProfessionalExperienceSection";
-import { ParticleBackground } from "@/components/ParticleBackground";
-import { Footer } from "@/components/Footer";
+import { EducationSection } from "@/components/EducationSection";
+import { ProjectsSection } from "@/components/ProjectsSection";
+import { ContactSection } from "@/components/ContactSection";
+import { CertificatesSection } from "@/components/CertificatesSection";
+import { CoreCompetenciesSection } from "@/components/CoreCompetenciesSection";
+import { KnowledgeBaseChat } from "@/components/KnowledgeBaseChat";
 
-const Index = () => {
-  return (
-    <div className="min-h-screen">
-      <ParticleBackground />
-      <Navbar />
-      <main>
-        <HeroSection />
-        <ProjectsSection />
-        <ExpertiseSection />
-        <CertificatesSection />
-        <EducationSection />
-        <ProfessionalExperienceSection />
-        <ContactSection />
-      </main>
-      <Footer />
-    </div>
-  );
-};
+const Index = () => (
+  <div className="min-h-screen bg-background">
+    <KnowledgeBaseChat />
+  </div>
+);
 
 export default Index;
