@@ -26,10 +26,12 @@ export const useGeminiLiveStream = (options: UseGeminiLiveStreamOptions = {}) =>
 
   // Initialize the Gemini API
   const initialize = async (key: string) => {
+    console.log('Initializing Gemini API...');
     setIsProcessing(true);
     const success = await geminiLiveStream.initialize(key);
     
     if (success) {
+      console.log('Gemini API initialized successfully');
       setIsInitialized(true);
       setApiKey(key);
       toast({
@@ -40,6 +42,7 @@ export const useGeminiLiveStream = (options: UseGeminiLiveStreamOptions = {}) =>
         options.onInitialized();
       }
     } else {
+      console.error('Failed to initialize Gemini API');
       toast({
         title: "Initialization Failed",
         description: "Could not initialize Gemini Live API",
@@ -52,7 +55,9 @@ export const useGeminiLiveStream = (options: UseGeminiLiveStreamOptions = {}) =>
 
   // Start recording and streaming audio
   const startRecording = async () => {
+    console.log('Starting recording...');
     if (!isInitialized) {
+      console.error('Gemini API not initialized');
       toast({
         title: "Not Initialized",
         description: "Please initialize the Gemini API first",
@@ -62,9 +67,11 @@ export const useGeminiLiveStream = (options: UseGeminiLiveStreamOptions = {}) =>
     }
 
     setIsProcessing(true);
+    console.log('Requesting microphone access...');
     const micStarted = await geminiLiveStream.startMicrophone();
     
     if (!micStarted) {
+      console.error('Failed to access microphone');
       toast({
         title: "Microphone Access Failed",
         description: "Could not access your microphone",
@@ -73,9 +80,11 @@ export const useGeminiLiveStream = (options: UseGeminiLiveStreamOptions = {}) =>
       setIsProcessing(false);
       return false;
     }
-
+    
+    console.log('Microphone access granted, starting stream...');
     const streamStarted = await geminiLiveStream.startStream({
       onTextReceived: (text) => {
+        console.log('Received text from Gemini:', text);
         const newMessage = {
           id: messageIdCounter.current++,
           content: text,
@@ -87,6 +96,7 @@ export const useGeminiLiveStream = (options: UseGeminiLiveStreamOptions = {}) =>
           
           // If the last message is from AI, append to it
           if (lastMessage && lastMessage.sender === 'ai') {
+            console.log('Appending to existing AI message');
             return [
               ...prev.slice(0, -1), 
               { ...lastMessage, content: lastMessage.content + text }
@@ -94,6 +104,7 @@ export const useGeminiLiveStream = (options: UseGeminiLiveStreamOptions = {}) =>
           }
           
           // Otherwise, create a new message
+          console.log('Creating new AI message');
           return [...prev, newMessage];
         });
         
@@ -103,6 +114,7 @@ export const useGeminiLiveStream = (options: UseGeminiLiveStreamOptions = {}) =>
       },
       onAudioReceived: () => {
         // Start speaking indicator
+        console.log('Audio received, AI is speaking');
         if (!isSpeaking) {
           setIsSpeaking(true);
           if (options.onSpeakingChange) {
@@ -111,12 +123,14 @@ export const useGeminiLiveStream = (options: UseGeminiLiveStreamOptions = {}) =>
         }
       },
       onStopSpeaking: () => {
+        console.log('AI stopped speaking');
         setIsSpeaking(false);
         if (options.onSpeakingChange) {
           options.onSpeakingChange(false);
         }
       },
       onError: (error) => {
+        console.error('Stream error:', error);
         toast({
           title: "Stream Error",
           description: error.message,
@@ -127,12 +141,14 @@ export const useGeminiLiveStream = (options: UseGeminiLiveStreamOptions = {}) =>
     });
 
     if (streamStarted) {
+      console.log('Stream started successfully');
       setIsRecording(true);
       toast({
         title: "Recording Started",
         description: "You can now speak with the AI",
       });
     } else {
+      console.error('Failed to start stream');
       toast({
         title: "Stream Failed",
         description: "Could not start the audio stream",
@@ -147,6 +163,7 @@ export const useGeminiLiveStream = (options: UseGeminiLiveStreamOptions = {}) =>
 
   // Stop recording and streaming
   const stopRecording = async () => {
+    console.log('Stopping recording...');
     setIsProcessing(true);
     await geminiLiveStream.stopStream();
     setIsRecording(false);
@@ -157,6 +174,7 @@ export const useGeminiLiveStream = (options: UseGeminiLiveStreamOptions = {}) =>
       options.onSpeakingChange(false);
     }
 
+    console.log('Recording stopped successfully');
     toast({
       title: "Recording Stopped",
       description: "Audio stream has been closed",
@@ -167,7 +185,9 @@ export const useGeminiLiveStream = (options: UseGeminiLiveStreamOptions = {}) =>
 
   // Send a text message
   const sendTextMessage = async (text: string) => {
+    console.log('Sending text message:', text);
     if (!isInitialized) {
+      console.error('Gemini API not initialized');
       toast({
         title: "Not Initialized",
         description: "Please initialize the Gemini API first",
@@ -188,14 +208,18 @@ export const useGeminiLiveStream = (options: UseGeminiLiveStreamOptions = {}) =>
       options.onMessage(newMessage);
     }
 
+    console.log('Sending text message to Gemini API...');
     const success = await geminiLiveStream.sendTextMessage(text);
     
     if (!success) {
+      console.error('Failed to send message');
       toast({
         title: "Message Failed",
         description: "Could not send your message",
         variant: "destructive",
       });
+    } else {
+      console.log('Message sent successfully');
     }
 
     return success;
@@ -205,6 +229,7 @@ export const useGeminiLiveStream = (options: UseGeminiLiveStreamOptions = {}) =>
   useEffect(() => {
     return () => {
       if (isRecording) {
+        console.log('Component unmounting, stopping recording');
         geminiLiveStream.stopStream();
       }
     };

@@ -18,14 +18,21 @@ export const ApiKeySetup: React.FC<ApiKeySetupProps> = ({
   useEffect(() => {
     // Pre-populate with the Gemini API key from environment variable
     const envApiKey = import.meta.env.VITE_GEMINI_API_KEY;
+    console.log('Environment API key exists:', !!envApiKey);
     if (envApiKey) {
       setApiKey(envApiKey);
+      // Automatically submit the API key if provided from environment
+      console.log('Auto-submitting API key from environment');
+      onSubmit(envApiKey);
+    } else {
+      console.log('No API key found in environment variables');
     }
-  }, []);
+  }, [onSubmit]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (apiKey.trim()) {
+      console.log('Submitting API key from form');
       onSubmit(apiKey.trim());
     }
   };
