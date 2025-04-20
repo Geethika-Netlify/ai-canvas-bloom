@@ -16,7 +16,7 @@ export const GlossyChatWidget = () => {
   const [inputValue, setInputValue] = useState("");
   const [messages, setMessages] = useState<Message[]>([{
     id: "welcome",
-    content: "Hi there! How can I help you today?",
+    content: "Hi, I'm GAIA.! You can ask any question about Geethika",
     role: "assistant",
     timestamp: new Date()
   }]);
