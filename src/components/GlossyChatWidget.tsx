@@ -16,7 +16,7 @@ export const GlossyChatWidget = () => {
   const [inputValue, setInputValue] = useState("");
   const [messages, setMessages] = useState<Message[]>([{
     id: "welcome",
-    content: "Hi, I'm GAIA.! You can ask any question about Geethika",
+    content: "Hi, I'm GAIA😊 You can ask any question about Geethika.",
     role: "assistant",
     timestamp: new Date()
   }]);
@@ -99,7 +99,7 @@ export const GlossyChatWidget = () => {
         y: 20
       }} className="bg-background mb-4 rounded-lg shadow-lg border border-border w-80 sm:w-96 h-[500px] max-h-[80vh] overflow-hidden flex flex-col">
             <div className="p-3 border-b border-border bg-muted/20 flex justify-between items-center">
-              <h2 className="font-semibold text-sm">GAIA - Geethika's AI Assistant</h2>
+              <h2 className="font-semibold text-sm">GAIA - Geethika's AI Assistant ✨</h2>
               <Button size="icon" variant="ghost" className="h-7 w-7" onClick={toggleOpen}>
                 <X className="h-4 w-4" />
               </Button>

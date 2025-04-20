@@ -27,7 +27,7 @@ const expertise = [{
   skills: ["Adobe After Effects", "Adobe Premiere Pro", "Motion Graphics", "Video Editing"]
 }];
 export function ExpertiseSection() {
-  return <section className="py-20 relative overflow-hidden bg-gradient-to-b from-background to-muted/30">
+  return <section id="expertise" className="py-20 relative overflow-hidden bg-gradient-to-b from-background to-muted/30">
       <div className="container mx-auto px-6">
         <motion.div initial={{
         opacity: 0,
