@@ -34,9 +34,10 @@ export function HeroSection() {
   return <section id="home" className="relative min-h-screen overflow-hidden flex flex-col items-center justify-center pt-16" ref={containerRef}>
       {/* Decorative elements */}
       <div className="absolute right-[5%] top-[25%] w-32 h-32 parallax-item" data-speed-x="-15" data-speed-y="10">
-        
+        <div className="w-full h-full rounded-full bg-portfolio-blue/10 dark:bg-portfolio-blue/20 backdrop-blur-sm animate-pulse-slow"></div>
       </div>
       <div className="absolute left-[10%] bottom-[20%] w-20 h-20 parallax-item" data-speed-x="25" data-speed-y="-15">
+        <div className="w-full h-full rounded-full bg-portfolio-blue/15 dark:bg-portfolio-blue/25 backdrop-blur-sm animate-pulse-slow"></div>
       </div>
       <div className="absolute left-[15%] top-[30%] parallax-item" data-speed-x="10" data-speed-y="20">
         <Code className="text-portfolio-blue/40 w-12 h-12 animate-float" />
