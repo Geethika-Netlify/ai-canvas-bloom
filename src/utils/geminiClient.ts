@@ -18,7 +18,8 @@ export const LIVE_CONFIG = {
   model: 'gemini-2.0-flash-live-001',
   config: {
     generationConfig: {
-      responseStreamingEnabled: true
+      // Use streamMode instead of responseStreamingEnabled
+      streamMode: "streaming"
     },
     systemInstruction: "You are GAIA, an AI assistant built to be helpful, friendly, and engaging.",
     tools: []

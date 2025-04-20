@@ -28,9 +28,9 @@ export const useGeminiLiveStream = () => {
       const liveSession = await geminiClient.live.connect({
         model: LIVE_CONFIG.model,
         config: {
-          // Use the config structure that matches the expected LiveConnectConfig type
+          // Use the correct property name according to Gemini API
           generationConfig: {
-            responseStreamingEnabled: true
+            streamMode: "streaming"
           },
           systemInstruction: "You are a helpful, friendly assistant named GAIA.",
           tools: []
