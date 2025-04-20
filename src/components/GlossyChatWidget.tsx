@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -194,7 +193,10 @@ export const GlossyChatWidget = () => {
               </Button>
             </ExpandableChatHeader>
             
-            <ExpandableChatBody className="backdrop-blur-sm bg-background/80" ref={chatBodyRef}>
+            <ExpandableChatBody 
+              ref={chatBodyRef as React.Ref<HTMLDivElement>} 
+              className="backdrop-blur-sm bg-background/80"
+            >
               {error && (
                 <Alert variant="destructive" className="mb-4 mx-4 mt-2">
                   <AlertCircle className="h-4 w-4" />
