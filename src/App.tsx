@@ -8,6 +8,7 @@ import { ThemeProvider } from "./components/ThemeProvider";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import { GlossyChatWidget } from "./components/GlossyChatWidget";
+import UploadKnowledgeBase from "./pages/UploadKnowledgeBase";
 
 const queryClient = new QueryClient();
 
@@ -20,6 +21,7 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/uptsupkb" element={<UploadKnowledgeBase />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
