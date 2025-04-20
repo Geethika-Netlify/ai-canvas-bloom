@@ -7,134 +7,40 @@ import { ChatBubble, ChatBubbleAvatar, ChatBubbleMessage } from "@/components/ui
 import { ChatInput } from "@/components/ui/chat-input";
 import { ExpandableChat, ExpandableChatHeader, ExpandableChatBody, ExpandableChatFooter } from "@/components/ui/expandable-chat";
 import { ChatMessageList } from "@/components/ui/chat-message-list";
-import { ApiKeySetup } from "@/components/ApiKeySetup";
-import { VoiceControls } from "@/components/VoiceControls";
-import { useGeminiLiveStream, Message as GeminiMessage } from "@/hooks/useGeminiLiveStream";
-import { useToast } from "@/components/ui/use-toast";
-
-type Message = {
-  id: number;
-  content: string;
-  sender: "user" | "ai";
-};
-
 export const GlossyChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const [showTextInput, setShowTextInput] = useState(true);
-  const [messages, setMessages] = useState<Message[]>([{
+  const [messages, setMessages] = useState([{
     id: 1,
     content: "Hello! I am GAIA. How can I assist you today?",
     sender: "ai"
   }]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  
   const containerRef = useRef<HTMLDivElement>(null);
   const glossyContainerRef = useRef<HTMLDivElement>(null);
-  const chatBodyRef = useRef<HTMLDivElement>(null);
-  
-  const { toast } = useToast();
-
-  // Initialize Gemini Live Stream
-  const { 
-    isInitialized, 
-    isRecording, 
-    isProcessing, 
-    isSpeaking,
-    startRecording, 
-    stopRecording, 
-    sendTextMessage,
-    initialize: initializeGemini
-  } = useGeminiLiveStream({
-    onMessage: (message) => {
-      addMessage(message);
-    },
-    onSpeakingChange: (speaking) => {
-      // This will be used for animations when the AI is speaking
-    }
-  });
-
   const toggleChat = () => {
     setIsOpen(!isOpen);
   };
-
-  const addMessage = (message: Message) => {
-    setMessages(prev => [...prev, message]);
-    
-    // Scroll to bottom after adding message
-    setTimeout(() => {
-      if (chatBodyRef.current) {
-        chatBodyRef.current.scrollTop = chatBodyRef.current.scrollHeight;
-      }
-    }, 100);
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return;
-    
-    if (isInitialized) {
-      // Use Gemini for message handling
-      sendTextMessage(input);
-      setInput("");
-    } else {
-      // Fallback to the mock response
-      const newMessage = {
-        id: messages.length + 1,
-        content: input,
-        sender: "user" as const
-      };
-      
-      setMessages(prev => [...prev, newMessage]);
-      setInput("");
-      setIsLoading(true);
-      
-      setTimeout(() => {
-        setMessages(prev => [...prev, {
-          id: prev.length + 1,
-          content: "I'm GAIA, your AI assistant. How can I help you further?",
-          sender: "ai"
-        }]);
-        setIsLoading(false);
-      }, 1000);
-    }
+    setMessages(prev => [...prev, {
+      id: prev.length + 1,
+      content: input,
+      sender: "user"
+    }]);
+    setInput("");
+    setIsLoading(true);
+    setTimeout(() => {
+      setMessages(prev => [...prev, {
+        id: prev.length + 1,
+        content: "I'm GAIA, your AI assistant. How can I help you further?",
+        sender: "ai"
+      }]);
+      setIsLoading(false);
+    }, 1000);
   };
-
-  const toggleVoiceText = () => {
-    setShowTextInput(!showTextInput);
-  };
-
-  const handleKeySetup = async (apiKey: string) => {
-    const success = await initializeGemini(apiKey);
-    if (success) {
-      localStorage.setItem('gemini_api_key', apiKey);
-    }
-  };
-
-  // Try to initialize with stored API key or environment variable on mount
-  useEffect(() => {
-    // First check environment variable
-    const envApiKey = import.meta.env.VITE_GEMINI_API_KEY;
-    
-    if (envApiKey) {
-      initializeGemini(envApiKey);
-    } else {
-      // Fall back to localStorage
-      const storedApiKey = localStorage.getItem('gemini_api_key');
-      if (storedApiKey) {
-        initializeGemini(storedApiKey);
-      }
-    }
-  }, []);
-
-  // Update scrolling when new messages come in
-  useEffect(() => {
-    if (chatBodyRef.current) {
-      chatBodyRef.current.scrollTop = chatBodyRef.current.scrollHeight;
-    }
-  }, [messages]);
-
   useEffect(() => {
     if (!glossyContainerRef.current) return;
 
@@ -244,7 +150,7 @@ export const GlossyChatWidget = () => {
       geometry.dispose();
       material.dispose();
     };
-  }, [isOpen]);
+  }, [isOpen]); // Added isOpen as a dependency to recreate the circle when the chat state changes
 
   return <div className="fixed bottom-8 right-8 z-[9999]">
       {isOpen ? <motion.div initial={{
@@ -286,14 +192,7 @@ export const GlossyChatWidget = () => {
               </Button>
             </ExpandableChatHeader>
 
-            {/* Fix: Instead of passing ref as a prop, use the ref attribute */}
-            <ExpandableChatBody className="backdrop-blur-sm bg-background/80" ref={chatBodyRef}>
-              {!isInitialized && (
-                <div className="p-4">
-                  <ApiKeySetup onSubmit={handleKeySetup} isProcessing={isProcessing} />
-                </div>
-              )}
-              
+            <ExpandableChatBody className="backdrop-blur-sm bg-background/80">
               <ChatMessageList>
                 {messages.map(message => <ChatBubble key={message.id} variant={message.sender === "user" ? "sent" : "received"}>
                     <ChatBubbleAvatar fallback={message.sender === "user" ? "You" : "AI"} />
@@ -309,40 +208,24 @@ export const GlossyChatWidget = () => {
               </ChatMessageList>
             </ExpandableChatBody>
 
-            <ExpandableChatFooter className="flex flex-col gap-2">
-              {/* Voice controls */}
-              {isInitialized && (
-                <VoiceControls
-                  isRecording={isRecording}
-                  isProcessing={isProcessing}
-                  isSpeaking={isSpeaking}
-                  onStartRecording={startRecording}
-                  onStopRecording={stopRecording}
-                  onToggleTextInput={toggleVoiceText}
-                  className="px-3 py-2"
-                />
-              )}
-              
-              {/* Text input form */}
-              {(showTextInput || !isInitialized) && (
-                <form onSubmit={handleSubmit} className="relative rounded-lg border bg-background/80 backdrop-blur-sm focus-within:ring-1 focus-within:ring-ring p-1">
-                  <ChatInput value={input} onChange={e => setInput(e.target.value)} placeholder="Ask GAIA anything..." className="min-h-12 resize-none rounded-lg bg-background/0 border-0 p-3 shadow-none focus-visible:ring-0 font-montserrat" />
-                  <div className="flex items-center p-3 pt-0 justify-between">
-                    <div className="flex">
-                      <Button variant="ghost" size="icon" type="button">
-                        <Paperclip className="size-4" />
-                      </Button>
-                      <Button variant="ghost" size="icon" type="button">
-                        <Mic className="size-4" />
-                      </Button>
-                    </div>
-                    <Button type="submit" size="sm" className="ml-auto gap-1.5">
-                      Send
-                      <Send className="size-3.5" />
+            <ExpandableChatFooter>
+              <form onSubmit={handleSubmit} className="relative rounded-lg border bg-background/80 backdrop-blur-sm focus-within:ring-1 focus-within:ring-ring p-1">
+                <ChatInput value={input} onChange={e => setInput(e.target.value)} placeholder="Ask GAIA anything..." className="min-h-12 resize-none rounded-lg bg-background/0 border-0 p-3 shadow-none focus-visible:ring-0 font-montserrat" />
+                <div className="flex items-center p-3 pt-0 justify-between">
+                  <div className="flex">
+                    <Button variant="ghost" size="icon" type="button">
+                      <Paperclip className="size-4" />
+                    </Button>
+                    <Button variant="ghost" size="icon" type="button">
+                      <Mic className="size-4" />
                     </Button>
                   </div>
-                </form>
-              )}
+                  <Button type="submit" size="sm" className="ml-auto gap-1.5">
+                    Send
+                    <Send className="size-3.5" />
+                  </Button>
+                </div>
+              </form>
             </ExpandableChatFooter>
           </ExpandableChat>
         </motion.div> : <motion.div className="cursor-pointer" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} onClick={toggleChat}>
@@ -350,9 +233,7 @@ export const GlossyChatWidget = () => {
             <motion.div className={`rounded-full overflow-hidden transition-transform duration-300 ease-out ${isHovered ? 'transform -translate-y-2' : ''}`} style={{
           filter: 'drop-shadow(0 0 20px rgba(100, 200, 255, 0.3))',
           willChange: 'transform'
-        }}>
-              <div ref={glossyContainerRef} className="w-[120px] h-[120px]" />
-            </motion.div>
+        }} ref={glossyContainerRef} />
             <div className={`mt-2 font-montserrat font-bold text-xl bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent transition-all duration-300 ease-out ${isHovered ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform -translate-y-4'}`}>
               <strong>Talk to GAIA</strong>
             </div>
