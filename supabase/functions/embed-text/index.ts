@@ -30,11 +30,16 @@ serve(async (req) => {
 
     // Call Supabase's built-in embedding functionality
     // This uses the pgvector extension with the "gte-small" model
-    const response = await fetch("https://ovuyuspsxdrxrymvdnzm.supabase.co/functions/v1/embeddings", {
+    const SUPABASE_URL = Deno.env.get("SUPABASE_URL") || "";
+    const SUPABASE_ANON_KEY = Deno.env.get("SUPABASE_ANON_KEY") || "";
+
+    console.log("Calling embedding API with text length:", text.length);
+
+    const response = await fetch(`${SUPABASE_URL}/functions/v1/embeddings`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${Deno.env.get("SUPABASE_ANON_KEY")}`,
+        "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
       },
       body: JSON.stringify({
         input: text,
@@ -43,11 +48,13 @@ serve(async (req) => {
     });
 
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(`Embedding API error: ${JSON.stringify(errorData)}`);
+      const errorText = await response.text();
+      console.error("Embedding API error response:", errorText);
+      throw new Error(`Embedding API error: ${errorText}`);
     }
 
     const data = await response.json();
+    console.log("Successfully generated embedding with dimensions:", data[0].embedding.length);
     
     return new Response(
       JSON.stringify({ embedding: data[0].embedding }),

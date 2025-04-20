@@ -2,7 +2,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -35,6 +34,7 @@ const UploadKnowledgeBase = () => {
     }
 
     setIsLoading(true);
+    toast.info("Processing document. This may take a moment...");
     
     try {
       // Read the file content
@@ -46,6 +46,7 @@ const UploadKnowledgeBase = () => {
       });
 
       if (error) {
+        console.error("Error from generate-embeddings function:", error);
         throw error;
       }
 
@@ -62,7 +63,7 @@ const UploadKnowledgeBase = () => {
       }
     } catch (error) {
       console.error("Error uploading document:", error);
-      toast.error(`Error uploading document: ${error.message || error}`);
+      toast.error(`Error uploading document: ${error.message || "Unknown error"}`);
     } finally {
       setIsLoading(false);
     }

@@ -22,14 +22,19 @@ const supabaseClient = createClient(
 // This function will generate embeddings using Supabase's "gte-small" model
 async function generateEmbedding(text: string) {
   try {
+    console.log("Generating embedding for text length:", text.length);
+    
+    // Call the embed-text function directly
     const { data, error } = await supabaseClient.functions.invoke('embed-text', {
       body: { text }
     });
 
     if (error) {
+      console.error("Error from embed-text function:", error);
       throw error;
     }
 
+    console.log("Successfully received embedding with dimensions:", data.embedding.length);
     return data.embedding;
   } catch (error) {
     console.error("Error generating embedding:", error);
@@ -39,6 +44,8 @@ async function generateEmbedding(text: string) {
 
 async function storeDocument(title: string, content: string, embedding: number[]) {
   try {
+    console.log("Storing document with title:", title);
+    
     const { data, error } = await supabaseClient
       .from("documents")
       .insert({
@@ -50,9 +57,11 @@ async function storeDocument(title: string, content: string, embedding: number[]
       .select();
 
     if (error) {
+      console.error("Error storing document in database:", error);
       throw error;
     }
 
+    console.log("Document stored successfully with ID:", data[0].id);
     return data;
   } catch (error) {
     console.error("Error storing document:", error);
@@ -79,6 +88,8 @@ serve(async (req) => {
       );
     }
 
+    console.log("Processing document with title:", title);
+    
     // Generate an embedding for the document content
     const embedding = await generateEmbedding(content);
     
