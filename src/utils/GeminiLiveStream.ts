@@ -1,4 +1,3 @@
-
 import { GoogleGenAI } from "@google/genai";
 
 // Audio configuration constants
@@ -38,7 +37,7 @@ export class GeminiLiveStream {
   private isStreaming: boolean = false;
   private session: any = null; // Will be the Gemini session
   private isProcessingAudio: boolean = false;
-  private audioPlayer: AudioElement | null = null;
+  private audioPlayer: HTMLAudioElement | null = null;
 
   constructor() {
     this.initializeAudioContext();
@@ -380,5 +379,5 @@ export class GeminiLiveStream {
   }
 }
 
-// Create a singleton instance
+// Keep the rest of the existing code unchanged
 export const geminiLiveStream = new GeminiLiveStream();
