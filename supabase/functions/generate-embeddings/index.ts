@@ -11,10 +11,10 @@ const corsHeaders = {
 // Create a Supabase client with the Auth context of the function
 const supabaseClient = createClient(
   Deno.env.get("SUPABASE_URL") ?? "",
-  Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "",
+  Deno.env.get("SUPABASE_ANON_KEY") ?? "",
   {
     global: {
-      headers: { Authorization: `Bearer ${Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")}` },
+      headers: { Authorization: `Bearer ${Deno.env.get("SUPABASE_ANON_KEY")}` },
     },
   }
 );
@@ -22,31 +22,15 @@ const supabaseClient = createClient(
 // This function will generate embeddings using Supabase's "gte-small" model
 async function generateEmbedding(text: string) {
   try {
-    console.log("Calling embed-text function for text of length:", text.length);
-    
-    // Direct API call to generate embedding
-    const response = await fetch("https://api.supabase.com/v1/vector/embed", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")}`,
-        "apikey": Deno.env.get("SUPABASE_SERVICE_ROLE_KEY"),
-      },
-      body: JSON.stringify({
-        input: text,
-        model: "gte-small"
-      }),
+    const { data, error } = await supabaseClient.functions.invoke('embed-text', {
+      body: { text }
     });
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error("Error response:", errorText);
-      throw new Error(`Embedding API error: ${errorText}`);
+    if (error) {
+      throw error;
     }
 
-    const data = await response.json();
-    console.log("Embedding generated successfully");
-    return data[0].embedding;
+    return data.embedding;
   } catch (error) {
     console.error("Error generating embedding:", error);
     throw error;
@@ -55,7 +39,6 @@ async function generateEmbedding(text: string) {
 
 async function storeDocument(title: string, content: string, embedding: number[]) {
   try {
-    console.log("Storing document with title:", title);
     const { data, error } = await supabaseClient
       .from("documents")
       .insert({
@@ -67,11 +50,9 @@ async function storeDocument(title: string, content: string, embedding: number[]
       .select();
 
     if (error) {
-      console.error("Database error:", error);
       throw error;
     }
 
-    console.log("Document stored successfully");
     return data;
   } catch (error) {
     console.error("Error storing document:", error);
@@ -98,8 +79,6 @@ serve(async (req) => {
       );
     }
 
-    console.log("Processing document with title:", title);
-    
     // Generate an embedding for the document content
     const embedding = await generateEmbedding(content);
     

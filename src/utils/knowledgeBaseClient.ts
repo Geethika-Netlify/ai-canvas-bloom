@@ -32,7 +32,7 @@ export async function uploadDocument(title: string, content: string) {
 export async function listDocuments() {
   try {
     const { data, error } = await supabase
-      .from('documents')
+      .from('documents')  // Explicitly use the table name
       .select("id, title, created_at")
       .order("created_at", { ascending: false });
 
@@ -67,28 +67,6 @@ export async function getDocument(id: number) {
     return { success: true, document: data };
   } catch (error) {
     console.error("Error retrieving document:", error);
-    return { success: false, error };
-  }
-}
-
-/**
- * Ask a question to the RAG system
- * @param question The question to ask
- * @returns Promise with the answer from the RAG system
- */
-export async function askQuestion(question: string) {
-  try {
-    const { data, error } = await supabase.functions.invoke('gemini-rag', {
-      body: { query: question }
-    });
-
-    if (error) {
-      throw error;
-    }
-
-    return { success: true, data };
-  } catch (error) {
-    console.error("Error asking question to RAG system:", error);
     return { success: false, error };
   }
 }

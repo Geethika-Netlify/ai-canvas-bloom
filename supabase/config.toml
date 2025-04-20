@@ -6,6 +6,3 @@ verify_jwt = true
 
 [functions.gemini-rag]
 verify_jwt = true
-
-[functions.embed-text]
-verify_jwt = true
