@@ -54,7 +54,7 @@ const certificates = [{
   issuer: "Google",
   year: "2020",
   url: "https://learndigital.withgoogle.com/link/1qsdpcedm9s",
-  logo: "/img/07eab3f0-fe51-41cd-adbe-5664bc822b1c.png"
+  logo: "/img/4974c8fe-b57e-49b8-ae2c-8b4df34c5bc4.png"
 }, {
   title: "Cisco IT Essentials",
   issuer: "Cisco Networking Academy",

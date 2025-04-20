@@ -4,11 +4,11 @@ import { Card, CardContent } from "@/components/ui/card";
 const expertise = [{
   icon: BrainCircuit,
   title: "AI & Machine Learning",
-  skills: ["Neural Networks", "Deep Learning", "TensorFlow", "Python"]
+  skills: ["Prompt Engineering", "LLMs", "AIOps", "TensorFlow", "pytorch", "LangChain"]
 }, {
   icon: Code2,
   title: "Software Development",
-  skills: ["TypeScript", "React", "FastAPI", "Python"]
+  skills: ["Python", "RestAPI", "TypeScript", "React"]
 }, {
   icon: Database,
   title: "Data Engineering",
@@ -19,12 +19,12 @@ const expertise = [{
   skills: ["MLOps", "Git", "Cloud Platforms", "Docker"]
 }, {
   icon: Users,
-  title: "Leadership",
-  skills: ["Project Management", "Team Leadership", "Strategic Planning", "Communication"]
+  title: "Soft Skills",
+  skills: [ "Exceptional Leadership","Project Management", "Strategic Planning", "Clear Communication"]
 }, {
   icon: Video,
-  title: "Video Production",
-  skills: ["Adobe After Effects", "Adobe Premiere Pro", "Motion Graphics", "Video Editing"]
+  title: "Creative",
+  skills: ["Adobe After Effects", "Adobe Premiere Pro", "Motion Graphics", "Cinemotography & Photography" ]
 }];
 export function ExpertiseSection() {
   return <section id="expertise" className="py-20 relative overflow-hidden bg-gradient-to-b from-background to-muted/30">
