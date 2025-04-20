@@ -19,41 +19,57 @@ serve(async (req) => {
 
   try {
     const { title, content } = await req.json();
+    console.log(`Processing document: "${title}" with content length: ${content.length}`);
 
-    // Generate embedding using Supabase's vector embeddings API
-    const embeddingResponse = await fetch(`${SUPABASE_URL}/rest/v1/embeddings`, {
+    // Generate embedding using OpenAI's text-embedding API through Supabase's embeddings API
+    const embeddingResponse = await fetch(`${SUPABASE_URL}/functions/v1/embed-text`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'apikey': SUPABASE_SERVICE_ROLE_KEY,
         'Authorization': `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
       },
       body: JSON.stringify({
-        input: content,
-        model: 'gte-small',
+        text: content,
+        model: "gte-small",
       }),
     });
 
     if (!embeddingResponse.ok) {
-      throw new Error(`Embedding API error: ${await embeddingResponse.text()}`);
+      const errorText = await embeddingResponse.text();
+      console.error(`Embedding API error status: ${embeddingResponse.status}`);
+      console.error(`Embedding API error response: ${errorText}`);
+      throw new Error(`Embedding API error: ${errorText}`);
     }
 
-    const { data: embeddingData } = await embeddingResponse.json();
+    const { data: embeddingData, error: embeddingError } = await embeddingResponse.json();
     
-    if (!embeddingData || !embeddingData[0]) {
+    if (embeddingError) {
+      console.error('Embedding error:', embeddingError);
+      throw new Error(`Embedding error: ${embeddingError.message}`);
+    }
+    
+    if (!embeddingData || !embeddingData.embedding) {
+      console.error('No embedding generated:', embeddingData);
       throw new Error('No embedding generated');
     }
 
+    console.log('Successfully generated embedding');
+
     // Store document with embedding in the database
-    const { error: insertError } = await supabase
+    const { data: insertData, error: insertError } = await supabase
       .from('documents')
       .insert({
         title,
         content,
-        embedding: embeddingData[0],
+        embedding: embeddingData.embedding,
       });
 
-    if (insertError) throw insertError;
+    if (insertError) {
+      console.error('Database insert error:', insertError);
+      throw insertError;
+    }
+
+    console.log('Successfully inserted document with embedding');
 
     return new Response(JSON.stringify({ success: true }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
