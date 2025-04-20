@@ -1,4 +1,3 @@
-
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
 // Get the API key from environment variables
