@@ -1,21 +1,32 @@
+
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Send, Paperclip, Mic } from 'lucide-react';
+import { Send, Paperclip, Mic, AlertCircle } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { ChatBubble, ChatBubbleAvatar, ChatBubbleMessage } from "@/components/ui/chat-bubble";
 import { ChatInput } from "@/components/ui/chat-input";
 import { ExpandableChat, ExpandableChatHeader, ExpandableChatBody, ExpandableChatFooter } from "@/components/ui/expandable-chat";
 import { ChatMessageList } from "@/components/ui/chat-message-list";
 import { useGeminiChat } from '@/hooks/useGeminiChat';
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 export const GlossyChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [input, setInput] = useState("");
-  const { messages, isLoading, sendMessage } = useGeminiChat();
+  const { messages, isLoading, error, sendMessage } = useGeminiChat();
   const containerRef = useRef<HTMLDivElement>(null);
   const glossyContainerRef = useRef<HTMLDivElement>(null);
+  const chatBodyRef = useRef<HTMLDivElement>(null);
+
+  // Auto-scroll to bottom when new messages arrive
+  useEffect(() => {
+    if (chatBodyRef.current && messages.length > 0) {
+      const scrollArea = chatBodyRef.current;
+      scrollArea.scrollTop = scrollArea.scrollHeight;
+    }
+  }, [messages]);
 
   useEffect(() => {
     if (!glossyContainerRef.current) return;
@@ -183,7 +194,13 @@ export const GlossyChatWidget = () => {
               </Button>
             </ExpandableChatHeader>
             
-            <ExpandableChatBody className="backdrop-blur-sm bg-background/80">
+            <ExpandableChatBody className="backdrop-blur-sm bg-background/80" ref={chatBodyRef}>
+              {error && (
+                <Alert variant="destructive" className="mb-4 mx-4 mt-2">
+                  <AlertCircle className="h-4 w-4" />
+                  <AlertDescription>{error}</AlertDescription>
+                </Alert>
+              )}
               <ChatMessageList>
                 {messages.map(message => (
                   <ChatBubble
@@ -219,19 +236,20 @@ export const GlossyChatWidget = () => {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   placeholder="Ask GAIA anything..."
+                  disabled={isLoading}
                   className="min-h-12 resize-none rounded-lg bg-background/0 border-0 p-3 shadow-none focus-visible:ring-0 font-montserrat"
                 />
                 <div className="flex items-center p-3 pt-0 justify-between">
                   <div className="flex">
-                    <Button variant="ghost" size="icon" type="button">
+                    <Button variant="ghost" size="icon" type="button" disabled={isLoading}>
                       <Paperclip className="size-4" />
                     </Button>
-                    <Button variant="ghost" size="icon" type="button">
+                    <Button variant="ghost" size="icon" type="button" disabled={isLoading}>
                       <Mic className="size-4" />
                     </Button>
                   </div>
-                  <Button type="submit" size="sm" className="ml-auto gap-1.5">
-                    Send
+                  <Button type="submit" size="sm" className="ml-auto gap-1.5" disabled={isLoading || !input.trim()}>
+                    {isLoading ? 'Sending...' : 'Send'}
                     <Send className="size-3.5" />
                   </Button>
                 </div>

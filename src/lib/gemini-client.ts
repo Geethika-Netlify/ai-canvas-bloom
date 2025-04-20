@@ -1,33 +1,43 @@
 
-import { GoogleGenAI } from '@google/genai';
+import { GoogleGenerativeAI } from '@google/genai';
 
-const geminiClient = new GoogleGenAI({
-  apiKey: import.meta.env.VITE_GEMINI_API_KEY || '',
-});
+// Initialize the client with the API key
+const geminiClient = new GoogleGenerativeAI(
+  import.meta.env.VITE_GEMINI_API_KEY || ''
+);
 
+// Function to get a chat instance with the model
 export const getGeminiChat = async () => {
-  const model = geminiClient.getGenerativeModel({ model: 'gemini-2.0-flash-001' });
-  
-  const chat = model.startChat({
-    history: [
-      {
-        role: 'user',
-        parts: 'You are GAIA, a friendly and knowledgeable AI assistant. Be concise, helpful, and maintain a professional yet approachable tone.',
+  try {
+    // Use the latest API method to get the model
+    const model = geminiClient.getGenerativeModel({ model: 'gemini-2.0-flash' });
+    
+    // Initialize the chat with system instructions
+    const chat = model.startChat({
+      history: [
+        {
+          role: 'user',
+          parts: 'You are GAIA, a friendly and knowledgeable AI assistant. Be concise, helpful, and maintain a professional yet approachable tone.',
+        },
+        {
+          role: 'model',
+          parts: 'I am GAIA, ready to assist you with any questions or tasks you have.',
+        },
+      ],
+      generationConfig: {
+        maxOutputTokens: 1000,
+        temperature: 0.7,
       },
-      {
-        role: 'model',
-        parts: 'I am GAIA, ready to assist you with any questions or tasks you have.',
-      },
-    ],
-    generationConfig: {
-      maxOutputTokens: 1000,
-      temperature: 0.7,
-    },
-  });
+    });
 
-  return chat;
+    return chat;
+  } catch (error) {
+    console.error('Failed to initialize Gemini chat:', error);
+    throw error;
+  }
 };
 
+// Function to stream responses from Gemini
 export const streamGeminiResponse = async (chat: any, message: string) => {
   try {
     const result = await chat.sendMessageStream(message);

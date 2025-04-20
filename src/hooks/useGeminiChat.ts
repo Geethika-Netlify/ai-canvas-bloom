@@ -18,14 +18,17 @@ export const useGeminiChat = () => {
   ]);
   const [isLoading, setIsLoading] = useState(false);
   const [chatInstance, setChatInstance] = useState<any>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const initChat = async () => {
       try {
         const chat = await getGeminiChat();
         setChatInstance(chat);
-      } catch (error) {
-        console.error('Failed to initialize chat:', error);
+        setError(null);
+      } catch (err) {
+        console.error('Failed to initialize chat:', err);
+        setError('Failed to initialize chat. Please check your API key and try again.');
       }
     };
     initChat();
@@ -42,6 +45,7 @@ export const useGeminiChat = () => {
 
     setMessages(prev => [...prev, userMessage]);
     setIsLoading(true);
+    setError(null);
 
     try {
       const response = await streamGeminiResponse(chatInstance, content);
@@ -56,8 +60,9 @@ export const useGeminiChat = () => {
         content: fullResponse,
         sender: 'ai'
       }]);
-    } catch (error) {
-      console.error('Error sending message:', error);
+    } catch (err: any) {
+      console.error('Error sending message:', err);
+      setError(err.message || 'Failed to get a response. Please try again.');
       setMessages(prev => [...prev, {
         id: prev.length + 1,
         content: "I apologize, but I encountered an error processing your request. Please try again.",
@@ -71,6 +76,7 @@ export const useGeminiChat = () => {
   return {
     messages,
     isLoading,
+    error,
     sendMessage
   };
 };
