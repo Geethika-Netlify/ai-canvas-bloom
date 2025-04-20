@@ -97,8 +97,7 @@ export function HeroSection() {
               a little better than I found it.
             </p>
             <p>
-              A problem solver. Someone who tries to make everything 
-              a little better with AI.
+              You can ask GAIA to learn more about me.
             </p>
           </motion.div>
           
