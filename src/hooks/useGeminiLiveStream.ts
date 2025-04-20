@@ -2,14 +2,17 @@
 import { useState, useCallback, useRef } from 'react';
 import { geminiClient, LIVE_CONFIG } from '@/utils/geminiClient';
 import { AudioManager } from '@/utils/audioUtils';
-import { LiveSession, LiveConnectParameters } from '@google/genai';
+import { GoogleGenAI } from '@google/genai';
+
+// Define correct interfaces based on the actual API
+type LiveSession = ReturnType<typeof GoogleGenAI.prototype.live.connect>;
 
 export const useGeminiLiveStream = () => {
   const [isConnected, setIsConnected] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const audioManagerRef = useRef<AudioManager | null>(null);
-  const liveSessionRef = useRef<LiveSession | null>(null);
+  const liveSessionRef = useRef<any>(null);
 
   const startLiveStream = useCallback(async () => {
     try {
@@ -22,9 +25,16 @@ export const useGeminiLiveStream = () => {
       await audioManagerRef.current.initialize();
 
       // Connect to Gemini live stream with proper configuration
-      const liveConnectParams: LiveConnectParameters = {
+      const liveSession = await geminiClient.live.connect({
         model: LIVE_CONFIG.model,
-        config: LIVE_CONFIG.config,
+        config: {
+          // Use the config structure that matches the expected LiveConnectConfig type
+          generationConfig: {
+            responseStreamingEnabled: true
+          },
+          systemInstruction: "You are a helpful, friendly assistant named GAIA.",
+          tools: []
+        },
         // Add required callbacks with correct types
         callbacks: {
           onmessage: () => {},
@@ -32,16 +42,15 @@ export const useGeminiLiveStream = () => {
             setIsConnected(false);
             setIsListening(false);
           },
-          onerror: (e: ErrorEvent) => {
+          onerror: (e: Event) => {
             console.error('Live session error:', e);
-            setError(e.message || 'Unknown error occurred');
+            setError('Error in live session connection');
             setIsConnected(false);
             setIsListening(false);
           }
         }
-      };
-
-      const liveSession = await geminiClient.live.connect(liveConnectParams);
+      });
+      
       liveSessionRef.current = liveSession;
       
       // Start audio processing loop
@@ -50,7 +59,7 @@ export const useGeminiLiveStream = () => {
           const audioChunk = audioManagerRef.current?.getAudioChunk();
           if (audioChunk && liveSessionRef.current) {
             try {
-              // Use the session from the ref to send audio
+              // Send audio to the session
               await liveSessionRef.current.sendAudio(audioChunk);
               
               // Handle response

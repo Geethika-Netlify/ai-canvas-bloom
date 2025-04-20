@@ -13,16 +13,14 @@ export const geminiClient = new GoogleGenAI({
   apiKey: apiKey || 'dummy-key-for-development'
 });
 
+// Update the configuration to match the expected LiveConnectConfig structure
 export const LIVE_CONFIG = {
   model: 'gemini-2.0-flash-live-001',
   config: {
-    response_modalities: ['audio'],
-    speech_config: {
-      voice_config: {
-        prebuilt_voice_config: {
-          voice_name: 'Zephyr'
-        }
-      }
-    }
+    generationConfig: {
+      responseStreamingEnabled: true
+    },
+    systemInstruction: "You are GAIA, an AI assistant built to be helpful, friendly, and engaging.",
+    tools: []
   }
 };
