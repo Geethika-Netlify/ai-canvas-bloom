@@ -1,5 +1,5 @@
 
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { GoogleGenAI } from '@google/genai';
 
 // Get the API key from environment variables
 const getApiKey = () => {
@@ -15,7 +15,7 @@ const getApiKey = () => {
 const getGeminiClient = () => {
   try {
     const apiKey = getApiKey();
-    return new GoogleGenerativeAI(apiKey);
+    return new GoogleGenAI(apiKey);
   } catch (error) {
     console.error("Failed to initialize Gemini client:", error);
     throw error;
@@ -27,7 +27,7 @@ export const getGeminiChat = async () => {
   try {
     const geminiClient = getGeminiClient();
     // Use the latest API method to get the model
-    const model = geminiClient.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    const model = geminiClient.getGenerativeModel({ model: 'gemini-2.0-flash' });
     
     // Initialize the chat with system instructions
     const chat = model.startChat({
