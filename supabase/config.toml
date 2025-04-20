@@ -6,4 +6,3 @@ verify_jwt = false
 
 [functions.gemini-rag]
 verify_jwt = false
-
