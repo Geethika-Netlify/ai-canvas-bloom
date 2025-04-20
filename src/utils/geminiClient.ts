@@ -1,8 +1,16 @@
 
 import { GoogleGenAI } from '@google/genai';
 
+// Get the API key from environment variables
+const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+
+// Check if API key exists before creating the client
+if (!apiKey) {
+  console.error('VITE_GEMINI_API_KEY is not set in environment variables');
+}
+
 export const geminiClient = new GoogleGenAI({
-  apiKey: import.meta.env.VITE_GEMINI_API_KEY
+  apiKey: apiKey || 'dummy-key-for-development'
 });
 
 export const LIVE_CONFIG = {
