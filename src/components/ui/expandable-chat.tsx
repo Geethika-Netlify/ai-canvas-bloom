@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useRef, useState, forwardRef } from "react";
@@ -105,10 +106,15 @@ const ExpandableChatHeader: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
 
 ExpandableChatHeader.displayName = "ExpandableChatHeader";
 
-const ExpandableChatBody: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
-  className,
-  ...props
-}) => <div className={cn("flex-grow overflow-y-auto", className)} {...props} />;
+// Convert ExpandableChatBody to use forwardRef
+const ExpandableChatBody = forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, children, ...props }, ref) => (
+  <div ref={ref} className={cn("flex-grow overflow-y-auto", className)} {...props}>
+    {children}
+  </div>
+));
 
 ExpandableChatBody.displayName = "ExpandableChatBody";
 
