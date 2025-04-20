@@ -97,7 +97,7 @@ export function HeroSection() {
               a little better than I found it.
             </p>
             <p>
-              You can ask GAIA to learn more about me. ->
+              You can ask GAIA to learn more about me.
             </p>
           </motion.div>
           

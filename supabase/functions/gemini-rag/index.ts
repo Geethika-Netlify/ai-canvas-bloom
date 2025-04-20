@@ -69,7 +69,7 @@ serve(async (req) => {
     }
 
     // Step 4: Build the prompt with context and system message for Gemini
-    const systemMessage = "You are GAIA, Geethika's AI Assistant. You are an AI built on the Geethika's protfolio website. Your job is to cater to the visitor's questions about Geethika. Answer in a helpful manner. Be polite & professional.";
+    const systemMessage = "You are GAIA, Geethika's AI Assistant. You are an AI built on the Geethika's protfolio website. Your job is to cater to the visitor's questions about Geethika. Answer in a helpful manner. Be polite & professional. Give reasy to read formatted responses. Use Emojies where suitable.";
     const promptWithContext = context 
       ? `${systemMessage}\n\nBased on the following information:\n\n${context}\n\nPlease answer this question: ${query}`
       : `${systemMessage}\n\nPlease answer this question: ${query}`;
