@@ -1,6 +1,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { getGeminiChat, streamGeminiResponse } from '@/lib/gemini-client';
+import { toast } from '@/hooks/use-toast';
 
 export type Message = {
   id: number;
@@ -26,9 +27,18 @@ export const useGeminiChat = () => {
         const chat = await getGeminiChat();
         setChatInstance(chat);
         setError(null);
-      } catch (err) {
+      } catch (err: any) {
         console.error('Failed to initialize chat:', err);
-        setError('Failed to initialize chat. Please check your API key and try again.');
+        if (err.message && err.message.includes('API key is missing')) {
+          setError('Gemini API key is missing. Please set the VITE_GEMINI_API_KEY environment variable in your .env file.');
+          toast({
+            title: "API Key Missing",
+            description: "Please add your Gemini API key to continue.",
+            variant: "destructive"
+          });
+        } else {
+          setError('Failed to initialize chat. Please check your API key and try again.');
+        }
       }
     };
     initChat();
@@ -63,6 +73,14 @@ export const useGeminiChat = () => {
     } catch (err: any) {
       console.error('Error sending message:', err);
       setError(err.message || 'Failed to get a response. Please try again.');
+      if (err.status === 403) {
+        setError('Invalid API key or authorization error. Please check your Gemini API key.');
+        toast({
+          title: "API Key Error",
+          description: "Your Gemini API key appears to be invalid. Please check it and try again.",
+          variant: "destructive"
+        });
+      }
       setMessages(prev => [...prev, {
         id: prev.length + 1,
         content: "I apologize, but I encountered an error processing your request. Please try again.",

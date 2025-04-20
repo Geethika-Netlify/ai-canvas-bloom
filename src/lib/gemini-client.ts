@@ -1,14 +1,30 @@
 
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
+// Get the API key from environment variables
+const getApiKey = () => {
+  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+  if (!apiKey) {
+    throw new Error("Gemini API key is missing. Please set the VITE_GEMINI_API_KEY environment variable.");
+  }
+  return apiKey;
+};
+
 // Initialize the client with the API key
-const geminiClient = new GoogleGenerativeAI(
-  import.meta.env.VITE_GEMINI_API_KEY || ''
-);
+const getGeminiClient = () => {
+  try {
+    const apiKey = getApiKey();
+    return new GoogleGenerativeAI(apiKey);
+  } catch (error) {
+    console.error("Failed to initialize Gemini client:", error);
+    throw error;
+  }
+};
 
 // Function to get a chat instance with the model
 export const getGeminiChat = async () => {
   try {
+    const geminiClient = getGeminiClient();
     // Use the latest API method to get the model
     const model = geminiClient.getGenerativeModel({ model: 'gemini-pro' });
     
