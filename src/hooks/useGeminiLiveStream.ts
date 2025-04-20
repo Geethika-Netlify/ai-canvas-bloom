@@ -2,13 +2,14 @@
 import { useState, useCallback, useRef } from 'react';
 import { geminiClient, LIVE_CONFIG } from '@/utils/geminiClient';
 import { AudioManager } from '@/utils/audioUtils';
+import { LiveSession, LiveConnectParameters } from '@google/genai';
 
 export const useGeminiLiveStream = () => {
   const [isConnected, setIsConnected] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const audioManagerRef = useRef<AudioManager | null>(null);
-  const liveSessionRef = useRef<any>(null);
+  const liveSessionRef = useRef<LiveSession | null>(null);
 
   const startLiveStream = useCallback(async () => {
     try {
@@ -21,19 +22,19 @@ export const useGeminiLiveStream = () => {
       await audioManagerRef.current.initialize();
 
       // Connect to Gemini live stream with proper configuration
-      const liveConnectParams = {
+      const liveConnectParams: LiveConnectParameters = {
         model: LIVE_CONFIG.model,
         config: LIVE_CONFIG.config,
-        // Add required callbacks
+        // Add required callbacks with correct types
         callbacks: {
           onmessage: () => {},
           onclose: () => {
             setIsConnected(false);
             setIsListening(false);
           },
-          onerror: (error: Error) => {
-            console.error('Live session error:', error);
-            setError(error.message);
+          onerror: (e: ErrorEvent) => {
+            console.error('Live session error:', e);
+            setError(e.message || 'Unknown error occurred');
             setIsConnected(false);
             setIsListening(false);
           }
