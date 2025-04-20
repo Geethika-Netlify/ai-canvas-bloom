@@ -19,51 +19,41 @@ serve(async (req) => {
 
   try {
     const { title, content } = await req.json();
-    console.log(`Processing document: "${title}" with content length: ${content.length}`);
 
-    // Generate embedding using our embed-text function
-    const embeddingResponse = await fetch(`${SUPABASE_URL}/functions/v1/embed-text`, {
+    // Generate embedding using Supabase's vector embeddings API
+    const embeddingResponse = await fetch(`${SUPABASE_URL}/rest/v1/embeddings`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'apikey': SUPABASE_SERVICE_ROLE_KEY,
+        'Authorization': `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
       },
       body: JSON.stringify({
-        text: content,
-        model: "gte-small",
+        input: content,
+        model: 'gte-small',
       }),
     });
 
     if (!embeddingResponse.ok) {
-      const errorText = await embeddingResponse.text();
-      console.error(`Embedding API error status: ${embeddingResponse.status}`);
-      console.error(`Embedding API error response: ${errorText}`);
-      throw new Error(`Embedding API error: ${errorText}`);
+      throw new Error(`Embedding API error: ${await embeddingResponse.text()}`);
     }
 
-    const embeddingData = await embeddingResponse.json();
+    const { data: embeddingData } = await embeddingResponse.json();
     
-    if (!embeddingData || !embeddingData.embedding) {
-      console.error('No embedding generated:', embeddingData);
+    if (!embeddingData || !embeddingData[0]) {
       throw new Error('No embedding generated');
     }
 
-    console.log('Successfully generated embedding');
-
     // Store document with embedding in the database
-    const { data: insertData, error: insertError } = await supabase
+    const { error: insertError } = await supabase
       .from('documents')
       .insert({
         title,
         content,
-        embedding: embeddingData.embedding,
+        embedding: embeddingData[0],
       });
 
-    if (insertError) {
-      console.error('Database insert error:', insertError);
-      throw insertError;
-    }
-
-    console.log('Successfully inserted document with embedding');
+    if (insertError) throw insertError;
 
     return new Response(JSON.stringify({ success: true }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
