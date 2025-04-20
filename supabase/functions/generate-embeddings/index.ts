@@ -21,12 +21,11 @@ serve(async (req) => {
     const { title, content } = await req.json();
     console.log(`Processing document: "${title}" with content length: ${content.length}`);
 
-    // Generate embedding using OpenAI's text-embedding API through Supabase's embeddings API
+    // Generate embedding using our embed-text function
     const embeddingResponse = await fetch(`${SUPABASE_URL}/functions/v1/embed-text`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
       },
       body: JSON.stringify({
         text: content,
@@ -41,12 +40,7 @@ serve(async (req) => {
       throw new Error(`Embedding API error: ${errorText}`);
     }
 
-    const { data: embeddingData, error: embeddingError } = await embeddingResponse.json();
-    
-    if (embeddingError) {
-      console.error('Embedding error:', embeddingError);
-      throw new Error(`Embedding error: ${embeddingError.message}`);
-    }
+    const embeddingData = await embeddingResponse.json();
     
     if (!embeddingData || !embeddingData.embedding) {
       console.error('No embedding generated:', embeddingData);

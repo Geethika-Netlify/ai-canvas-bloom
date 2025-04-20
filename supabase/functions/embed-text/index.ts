@@ -20,17 +20,16 @@ serve(async (req) => {
 
     console.log(`Generating embedding for text of length: ${text.length} using model: ${model || 'gte-small'}`);
 
-    // Direct call to the Supabase Vector API
+    // Using OpenAI's API for embeddings (gte-small is available there)
     const embeddingResponse = await fetch("https://api.openai.com/v1/embeddings", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')}`,
-        'apikey': Deno.env.get('SUPABASE_SERVICE_ROLE_KEY'),
+        'Authorization': `Bearer ${Deno.env.get('OPENAI_API_KEY')}`,
       },
       body: JSON.stringify({
         input: text,
-        model: model || "gte-small",
+        model: model || "text-embedding-ada-002", // Using OpenAI's embedding model
       }),
     });
 
