@@ -26,8 +26,8 @@ const getGeminiClient = () => {
 export const getGeminiChat = async () => {
   try {
     const geminiClient = getGeminiClient();
-    // Use the correct API method in @google/genai
-    const model = geminiClient.getGenerativeModel({ model: 'gemini-2.0-flash' });
+    // Use the correct method to initialize the model
+    const model = geminiClient.genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
     
     // Initialize the chat with system instructions
     const chat = model.startChat({

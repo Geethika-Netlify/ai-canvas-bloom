@@ -22,7 +22,7 @@ export default defineConfig(({ mode }) => ({
   },
   build: {
     rollupOptions: {
-      // Explicitly include @google/genai to prevent build errors
+      // Explicitly include the Google Generative AI package to prevent build errors
       external: [],
     },
   },
