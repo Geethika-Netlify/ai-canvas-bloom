@@ -3,8 +3,20 @@ import { motion } from "framer-motion";
 import { ArrowDown, Code, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { TextRotate } from "@/components/ui/text-rotate";
+
 export function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const handleDownloadResume = () => {
+    // Create a link to the resume file and trigger the download
+    const link = document.createElement('a');
+    link.href = '/resume/Geethika-Isuru-AI-ML-Engineer--Associate-Software-Engineer.pdf';
+    link.setAttribute('download', 'Geethika-Isuru-AI-ML-Engineer--Associate-Software-Engineer.pdf');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   useEffect(() => {
     if (!containerRef.current) return;
     const handleMouseMove = (e: MouseEvent) => {
@@ -31,6 +43,7 @@ export function HeroSection() {
       window.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
+
   return <section id="home" className="relative min-h-screen overflow-hidden flex flex-col items-center justify-center pt-16" ref={containerRef}>
       {/* Decorative elements */}
       <div className="absolute right-[5%] top-[25%] w-32 h-32 parallax-item" data-speed-x="-15" data-speed-y="10">
@@ -111,7 +124,7 @@ export function HeroSection() {
           duration: 0.8,
           delay: 0.8
         }}>
-            <Button size="lg" className="rounded-full">View My Work</Button>
+            <Button size="lg" className="rounded-full" onClick={handleDownloadResume}><strong>Download Resume</strong></Button>
             <Button size="lg" variant="outline" className="rounded-full">Contact Me</Button>
           </motion.div>
         </motion.div>
