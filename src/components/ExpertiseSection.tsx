@@ -11,12 +11,12 @@ const expertise = [{
   skills: ["Python", "RestAPI", "TypeScript", "React"]
 }, {
   icon: Database,
-  title: "Data Engineering",
+  title: "Other Tech",
   skills: ["Supabase", "Pinecone", "Airbyte", "Data Analytics"]
 }, {
   icon: Settings,
-  title: "DevOps & Tools",
-  skills: ["MLOps", "Git", "Cloud Platforms", "Docker"]
+  title: "Others",
+  skills: ["Branding and vision", "UI/ UX", "Product development", "Docker"]
 }, {
   icon: Users,
   title: "Soft Skills",
