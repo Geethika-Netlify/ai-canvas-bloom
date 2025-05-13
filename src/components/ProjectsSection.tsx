@@ -3,11 +3,18 @@ import { motion } from "framer-motion";
 import { FloatingScrollButton } from "./FloatingScrollButton";
 const projects = [{
   title: "Mahasen AI",
-  description: "Intelligent Customer Support & Order Management System for Social Media Platforms. B2B Product. Fully Integrated into whatsapp. Facebook, instagram on the way.",
+  description: "Intelligent Customer Support & Order Management System for Social Media Platforms. B2B Product.",
   link: "https://mahasen47.azynctra.com",
   technologies: "TypeScript, Supabase, Vite, React",
   image: "/img/bbf48067-6ae8-49d4-ba2c-e702a68f4ad7.png",
   date: "Dec 2024"
+}, {
+  title: "Podisen AI",
+  description: "Clone yourself from whatsapp chat history. Captures communication style & response stlye. Open Source project.",
+  link: "https://github.com/geethikaisuru/podisen-whatsapp-clone",
+  technologies: "Python, Vertex AI, Google Cloud platform, Docker, Whatsapp API",
+  image: "https://raw.githubusercontent.com/geethikaisuru/podisen-whatsapp-clone/main/banner.png",
+  date: "May 2025"
 }, {
   title: "GYMA App",
   description: "A gym workout tracker app that let's users save upto 40% of their gym time by managing rest intervals between exercises.",

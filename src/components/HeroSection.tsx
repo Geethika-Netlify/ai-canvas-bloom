@@ -112,6 +112,7 @@ export function HeroSection() {
             <p>
               You can ask GAIA to learn more about me.
             </p>
+            
           </motion.div>
           
           <motion.div className="mt-8 flex flex-wrap gap-4 justify-center lg:justify-start" initial={{
@@ -124,21 +125,33 @@ export function HeroSection() {
           duration: 0.8,
           delay: 0.8
         }}>
-            <Button size="lg" className="rounded-full" onClick={handleDownloadResume}><strong>Download Resume</strong></Button>
-            <Button size="lg" variant="outline" className="rounded-full">Contact Me</Button>
+          <Button 
+            size="lg" 
+            className="rounded-full px-8 py-6 text-lg" 
+            onClick={() => {
+              const projectsSection = document.getElementById('projects');
+              if (projectsSection) {
+                projectsSection.scrollIntoView({ behavior: 'smooth' });
+              }
+            }}
+          >
+            <strong>See My Projects ᯓ➤</strong>
+          </Button>
+          {/* <Button size="lg" className="rounded-full px-8 py-6 text-lg" onClick={handleDownloadResume}><strong>Download Resume</strong></Button>
+          <p>*Website is recommended over resume</p> */}
           </motion.div>
         </motion.div>
         
         <motion.div className="lg:w-1/2 relative" initial={{
-        opacity: 0,
-        scale: 0.9
-      }} animate={{
-        opacity: 1,
-        scale: 1
-      }} transition={{
-        duration: 0.8,
-        delay: 0.4
-      }}>
+          opacity: 0,
+          scale: 0.9
+        }} animate={{
+          opacity: 1,
+          scale: 1
+        }} transition={{
+          duration: 0.8,
+          delay: 0.4
+        }}>
           <div className="relative w-full max-w-md mx-auto">
             
             <div className="relative aspect-square overflow-hidden">

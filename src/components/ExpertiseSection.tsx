@@ -3,12 +3,12 @@ import { Settings, Code2, Database, BrainCircuit, Users, Video } from "lucide-re
 import { Card, CardContent } from "@/components/ui/card";
 const expertise = [{
   icon: BrainCircuit,
-  title: "AI & Machine Learning",
-  skills: ["Prompt Engineering", "LLMs", "AIOps", "TensorFlow", "pytorch", "LangChain"]
+  title: "AI",
+  skills: ["Machine Learning & Deep Learning", "LLMs", "AIOps", "TensorFlow", "pytorch", "LangChain"]
 }, {
   icon: Code2,
   title: "Software Development",
-  skills: ["Python", "RestAPI", "TypeScript", "React"]
+  skills: ["Python", "RestAPI", "TypeScript"]
 }, {
   icon: Database,
   title: "Other Tech",
