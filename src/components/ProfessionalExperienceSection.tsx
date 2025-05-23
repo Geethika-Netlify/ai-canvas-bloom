@@ -50,23 +50,25 @@ export function ProfessionalExperienceSection() {
             <div className="space-y-4">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <h3 className="text-2xl font-bold text-foreground/90">
-                  Founder at AZYNCTRA
+                  Freelance AI Engineer
                 </h3>
                 <span className="text-lg text-foreground/70">2024-Present</span>
               </div>
               <div className="space-y-4">
                 <p className="text-xl text-foreground/80 font-medium">
-                  Leading two main products:
+                  Contributed to the development of AI projects, including:
                 </p>
                 <ul className="list-none space-y-2">
                   <li className="flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-portfolio-blue/60" />
-                    <span className="text-foreground/80">Mahasen AI</span>
+                    <span className="text-foreground/80">A Customer Support system</span>
                   </li>
+                  
                   <li className="flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-portfolio-blue/60" />
-                    <span className="text-foreground/80">GYMA App (March 2025-Present)</span>
+                    <span className="text-foreground/80">An E-Commerce web with ML..</span>
                   </li>
+
                 </ul>
               </div>
             </div>
