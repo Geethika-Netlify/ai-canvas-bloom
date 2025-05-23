@@ -1,6 +1,5 @@
 # AI Canvas Bloom - Geethika Isuru Portfolio
-
-![Portfolio Preview](./public/img/port-web-preview.png)
+[![Portfolio Preview](./public/img/port-web-preview.png)](https://geethikaisuru.com "Visit Geethika Isuru's Portfolio")
 
 ## You may visit: https://geethikaisuru.com 
 
