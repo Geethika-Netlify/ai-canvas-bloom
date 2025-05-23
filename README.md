@@ -1,73 +1,57 @@
-# Welcome to your Lovable project
+# AI Canvas Bloom - Geethika Isuru Portfolio
 
-## Project info
+![Portfolio Preview](./public/img/port-web-preview.png)
 
-**URL**: https://lovable.dev/projects/8d7b7e10-06d8-40e7-a125-703c3a30029b
+## You may visit: https://geethikaisuru.com 
 
-## How can I edit this code?
+A modern, interactive portfolio website built with React, TypeScript, and Tailwind CSS. Features a RAG-powered AI assistant (GAIA) to answer questions about Geethika.
 
-There are several ways of editing your application.
+## 🌟 Features
 
-**Use Lovable**
+- **Interactive UI**: Smooth animations and transitions using Framer Motion
+- **Responsive Design**: Fully responsive layout for all device sizes
+- **Dark/Light Mode**: Theme switching functionality
+- **Particle Background**: Dynamic, interactive particle system
+- **AI Assistant (GAIA)**: RAG-based chatbot using Google Gemini API and Supabase
+- **Knowledge Base**: Uploadable documents for the AI assistant to reference
+- **Contact Form**: Direct messaging capability with email integration
+- **Project Showcase**: Highlighting various projects with detailed descriptions
+- **Professional Experience**: Timeline of work history and accomplishments
+- **Certificates**: Display of professional certifications and achievements
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/8d7b7e10-06d8-40e7-a125-703c3a30029b) and start prompting.
+## 🔧 Technologies
 
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
+### Frontend
+- React 18
 - TypeScript
-- React
-- shadcn-ui
+- Vite
 - Tailwind CSS
+- Framer Motion
+- Shadcn UI Components
+- Lucide React Icons
 
-## How can I deploy this project?
+### Backend
+- Supabase
+- Supabase Edge Functions
+- Google Gemini AI API
+- Vector Embeddings
 
-Simply open [Lovable](https://lovable.dev/projects/8d7b7e10-06d8-40e7-a125-703c3a30029b) and click on Share -> Publish.
+## 🧠 AI Features
 
-## Can I connect a custom domain to my Lovable project?
+### GAIA - Geethika's AI Assistant
 
-Yes, you can!
+GAIA is powered by a Retrieval Augmented Generation (RAG) system that:
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+1. Embeds user queries using the gte-small model
+2. Searches for relevant documents in the Supabase vector database
+3. Constructs a context-rich prompt with the retrieved information
+4. Sends the prompt to Google's Gemini API to generate a response
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+
+## 👤 Author
+
+**Geethika Isuru**
+
+- Portfolio: [geethika-isuru.netlify.app](https://geethika-isuru.netlify.app/)
+- LinkedIn: [linkedin.com/in/geethikaisuru](https://linkedin.com/in/geethikaisuru)
+- GitHub: [github.com/geethikaisuru](https://github.com/geethikaisuru)
