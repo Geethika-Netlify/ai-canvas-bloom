@@ -63,11 +63,11 @@ export function EducationSection() {
                   </li>
                   <li className="flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-portfolio-blue/60" />
-                    Founder & University Lead of IT LEGACY
+                    Founder & University Lead of IT LEGACY (2024 - 2025)
                   </li>
                   <li className="flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-portfolio-blue/60" />
-                    Member of oGX B2B of AIESEC USJ
+                    Member of oGX B2B of AIESEC USJ (2024)
                   </li>
                 </ul>
               </div>
@@ -100,7 +100,7 @@ export function EducationSection() {
                     </li>
                     <li className="flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-portfolio-blue/60" />
-                      Vice President and Sounds/Lighting/IT person at Radio and Technical Society
+                      Member of Technical Staff (Sound Engineering/Lighting/IT) at Taxila Radio and Technical Society
                     </li>
                     <li className="flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-portfolio-blue/60" />
@@ -109,10 +109,6 @@ export function EducationSection() {
                     <li className="flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-portfolio-blue/60" />
                       Executive at Astronomical Society
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-portfolio-blue/60" />
-                      Board Member of Senior Science Society
                     </li>
                   </motion.ul>
                   <motion.ul className="list-none space-y-2 text-foreground/80">
