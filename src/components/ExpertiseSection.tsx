@@ -8,23 +8,23 @@ const expertise = [{
 }, {
   icon: Code2,
   title: "Software Development",
-  skills: ["Python", "RestAPI", "TypeScript"]
+  skills: ["Python", "TypeScript", "Full-stack Development", "Database Management", "Progressive Web Apps"]
 }, {
   icon: Database,
   title: "Other Tech",
-  skills: ["Supabase", "Pinecone", "Airbyte", "Data Analytics"]
+  skills: ["Google Cloud Platform", "Enterprise Solutions", "System Integration"]
 }, {
   icon: Settings,
-  title: "Others",
-  skills: ["Branding and vision", "UI/ UX", "Product development", "Docker"]
+  title: "Others Skills",
+  skills: ["Branding and vision", "UI/ UX", "Product development", "Project Management", "Digital Marketing"]
 }, {
   icon: Users,
   title: "Soft Skills",
-  skills: [ "Exceptional Leadership","Project Management", "Strategic Planning", "Clear Communication"]
+  skills: [ "Exceptional Leadership","Team Management", "Strategic Planning", "Clear No Bullshit Communication"]
 }, {
   icon: Video,
   title: "Creative",
-  skills: ["Adobe After Effects", "Adobe Premiere Pro", "Motion Graphics", "Cinemotography & Photography" ]
+  skills: ["Adobe After Effects", "Adobe Premiere Pro", "Motion Graphics", "Cinemotography & Photography", "Content Creation" ]
 }];
 export function ExpertiseSection() {
   return <section id="expertise" className="py-20 relative overflow-hidden bg-gradient-to-b from-background to-muted/30">
@@ -40,9 +40,10 @@ export function ExpertiseSection() {
       }} viewport={{
         once: true
       }} className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">Technical Expertise 🌟</h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">Technical Expertise</h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Specialized in AI Engineering and Full Stack Development
+            <b>Above all, I can figure anything out.</b><br></br>
+            If I wanted to build a rocket, I will figure it out😎
           </p>
         </motion.div>
 

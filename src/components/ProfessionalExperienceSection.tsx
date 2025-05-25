@@ -37,7 +37,7 @@ export function ProfessionalExperienceSection() {
         duration: 0.6
       }} className="text-center mb-16">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <h2 className="text-4xl md:text-5xl font-bold text-portfolio-blue">Professional Experience 🛠️</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-portfolio-blue">Professional Experience🛠️</h2>
           </div>
           <div className="w-20 h-1 bg-portfolio-blue/30 mx-auto rounded-full" />
         </motion.div>
@@ -56,20 +56,8 @@ export function ProfessionalExperienceSection() {
               </div>
               <div className="space-y-4">
                 <p className="text-xl text-foreground/80 font-medium">
-                  Contributed to the development of AI projects, including:
+                  Contributed & took lead in the development of AI projects
                 </p>
-                <ul className="list-none space-y-2">
-                  <li className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-portfolio-blue/60" />
-                    <span className="text-foreground/80">A Customer Support system</span>
-                  </li>
-                  
-                  <li className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-portfolio-blue/60" />
-                    <span className="text-foreground/80">An E-Commerce web with ML..</span>
-                  </li>
-
-                </ul>
               </div>
             </div>
           </motion.div>
