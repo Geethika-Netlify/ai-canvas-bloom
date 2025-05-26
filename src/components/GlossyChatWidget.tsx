@@ -75,7 +75,7 @@ export const GlossyChatWidget = () => {
       });
       setMessages(prev => [...prev, {
         id: crypto.randomUUID(),
-        content: "Sorry, I'm having trouble responding right now. Please try again later.",
+        content: "Sorry. It seems the free Gemini API is currently rate limited. Kindly Please try again in a minute.",
         role: "assistant",
         timestamp: new Date()
       }]);
