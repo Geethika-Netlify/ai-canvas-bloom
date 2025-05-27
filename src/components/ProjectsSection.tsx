@@ -23,13 +23,20 @@ const projects = [{
   image: "/img/e28aa767-adf0-4275-ac84-583406ea4a7c.png",
   date: "Jan 2025"
 }, {
+  title: "No Site Business Finder - NSBF 🕵️‍♂️",
+  description: "Find businesses in any region that DON'T have a website, using the Google Places API and Gemini AI for robust detection.",
+  link: "https://github.com/geethikaisuru/business-website-classifier",
+  technologies: "Python, google-genai, requests, tkinter, streamlit, Google Places API, Google Gemini",
+  image: "/img/nsbf.jpg",
+  date: "May 2025"
+},{
   title: "Intelligent Knowledge Management System Max-Lab AI",
   description: "Created a system for Advanced Enterprise Knowledge Management. System capabilities include ingestion, understanding, and information retrieval from databases of documents and URLs. Provides accurate insights using Advanced LLM methods.",
   link: "#",
   technologies: "Python, Fast API, OpenAI, Huggingface, Supabase, Pinecone, Airbyte, Nextjs",
   image: "/img/3d6e5a96-248b-4c53-a9e8-9c41405d3a29.png",
   date: "Jan 2024"
-}, {
+},  {
   title: "Voice & Text Research Data Collection Portal",
   description: "Built to collect Anonymous, Multi-modality data (Text or Voice) for a research. Text data will be saved to an excel sheet automatically. Voice data's pitch will be changed automatically & saved to a google drive folder. Pitch is changed to preserve the voice privacy of the students.",
   link: "https://lucid-dreams-research-usj.streamlit.app",
