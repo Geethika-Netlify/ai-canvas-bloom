@@ -67,6 +67,10 @@ export function EducationSection() {
                   </li>
                   <li className="flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-portfolio-blue/60" />
+                    Chief Organizer of Road to Legacy 1.0 (2024)
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-portfolio-blue/60" />
                     Member of oGX B2B of AIESEC USJ (2024)
                   </li>
                 </ul>
