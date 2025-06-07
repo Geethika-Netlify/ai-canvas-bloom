@@ -7,60 +7,60 @@ const certificates = [{
   year: "2023",
   courses: 5,
   url: "https://coursera.org/verify/specialization/M6X5QHSKFW2E",
-  logo: "/img/91b30ba7-314d-47d8-9cd9-fb352c331a69.png"
+  logo: "/img-compressed/91b30ba7-314d-47d8-9cd9-fb352c331a69.png"
 }, {
   title: "Machine Learning Specialization",
   issuer: "DeepLearning.ai",
   year: "2023",
   courses: 3,
   url: "https://coursera.org/verify/specialization/B4CL2GCZ3UWS",
-  logo: "/img/91b30ba7-314d-47d8-9cd9-fb352c331a69.png"
+  logo: "/img-compressed/91b30ba7-314d-47d8-9cd9-fb352c331a69.png"
 }, {
   title: "Machine Learning Engineering for Production (MLOps)",
   issuer: "DeepLearning.ai",
   year: "2024",
   courses: 4,
   url: "https://coursera.org/verify/specialization/6DAZ5D67ZRPK",
-  logo: "/img/91b30ba7-314d-47d8-9cd9-fb352c331a69.png"
+  logo: "/img-compressed/91b30ba7-314d-47d8-9cd9-fb352c331a69.png"
 }, {
   title: "TensorFlow Developer Professional Certificate",
   issuer: "DeepLearning.ai",
   year: "2023",
   courses: 4,
   url: "https://www.coursera.org/account/accomplishments/professional-cert/GH8BHEYDYRA4",
-  logo: "/img/91b30ba7-314d-47d8-9cd9-fb352c331a69.png"
+  logo: "/img-compressed/91b30ba7-314d-47d8-9cd9-fb352c331a69.png"
 }, {
   title: "Google Data Analytics Professional Certificate",
   issuer: "Google",
   year: "2023",
   courses: 8,
   url: "https://www.coursera.org/account/accomplishments/specialization/certificate/XBVLYF42H3F5",
-  logo: "/img/4974c8fe-b57e-49b8-ae2c-8b4df34c5bc4.png"
+  logo: "/img-compressed/4974c8fe-b57e-49b8-ae2c-8b4df34c5bc4.png"
 }, {
   title: "Entrepreneurship Specialization",
   issuer: "Wharton School of University of Pennsylvania",
   year: "2023",
   courses: 5,
   url: "https://www.coursera.org/account/accomplishments/specialization/certificate/XBVLYF42H3F5",
-  logo: "/img/a8f34605-3ab7-4b6e-980a-86a485dbecf8.png"
+  logo: "/img-compressed/a8f34605-3ab7-4b6e-980a-86a485dbecf8.png"
 }, {
   title: "Successful Negotiation: Essential Strategies and Skills",
   issuer: "University of Michigan",
   year: "2022",
   url: "https://www.coursera.org/account/accomplishments/certificate/34RVMRBFHWQB",
-  logo: "/img/3f1d184b-401d-423e-a537-b8e034728e1e.png"
+  logo: "/img-compressed/3f1d184b-401d-423e-a537-b8e034728e1e.png"
 }, {
   title: "Fundamentals of Digital Marketing",
   issuer: "Google",
   year: "2020",
   url: "https://learndigital.withgoogle.com/link/1qsdpcedm9s",
-  logo: "/img/4974c8fe-b57e-49b8-ae2c-8b4df34c5bc4.png"
+  logo: "/img-compressed/4974c8fe-b57e-49b8-ae2c-8b4df34c5bc4.png"
 }, {
   title: "Cisco IT Essentials",
   issuer: "Cisco Networking Academy",
   year: "2016",
   url: "https://www.linkedin.com/in/geethikaisuru/details/certifications/",
-  logo: "/img/7964df05-1e6b-47ad-8de9-b010768f6269.png"
+  logo: "/img-compressed/7964df05-1e6b-47ad-8de9-b010768f6269.png"
 }];
 export function CertificatesSection() {
   return <section id="certificates" className="py-20 bg-gray-50/50 dark:bg-gray-900/50">

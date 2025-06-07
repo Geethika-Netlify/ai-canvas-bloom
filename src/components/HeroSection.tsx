@@ -157,7 +157,7 @@ export function HeroSection() {
             <div className="relative aspect-square overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-b from-portfolio-blue/10 to-transparent mix-blend-overlay"></div>
               
-              <img alt="Geethika Isuru" data-speed-x="5" data-speed-y="-3" src="/img/73dc8931-7f0c-4216-a3bb-3c6eba7ad90f.png" className="w-full h-full object-cover object-center transform" />
+              <img alt="Geethika Isuru" data-speed-x="5" data-speed-y="-3" src="/img-compressed/73dc8931-7f0c-4216-a3bb-3c6eba7ad90f.png" className="w-full h-full object-cover object-center transform" />
             </div>
           </div>
         </motion.div>
